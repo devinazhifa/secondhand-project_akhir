@@ -1,0 +1,71 @@
+* {
+    font-family: 'Poppins';
+}
+
+.title{
+    text-align: center;
+    font-size: 16px;
+}
+
+.form_produk {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+.field_produk {
+    border: 1px solid #D0D0D0;
+    border-radius: 14px;
+    height: 48px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.field_deskripsi {
+    border: 1px solid #D0D0D0;
+    border-radius: 14px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.button {
+    margin-top: 25px;
+}
+
+.btn_preview {
+    width: 48%;
+    border: 1px solid #7126B5;
+    border-radius: 14px;
+    font-size: 14px;
+    height: 48px;
+    margin-right: 20px;
+}
+
+.btn_terbitkan {
+    width: 48%;
+    background-color: #7126B5;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+}
+
+option[value=""][disabled] {
+    display: none
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: auto;
+}
+
+@media (max-width: 576px) { 
+    .btn_preview {
+        width: 48%;
+    }
+    
+    .btn_terbitkan {
+        width: 46%;
+    }
+}
