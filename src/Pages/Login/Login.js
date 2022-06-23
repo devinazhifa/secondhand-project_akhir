@@ -31,7 +31,7 @@ const Login = () => {
                                     <label htmlFor="user_password">Password</label>
                                     <input type="password" name="user_password" id="user_password" className={`${style['signin-field']} form-control`} placeholder="6+ karakter" autoComplete="true" data-testid="input-password"/>
                                 </div>
-                            <button type="submit" className={`${style['btn_primary']} btn mt-3 mb-4`}>Sign In</button>
+                            <button type="submit" className={`${style['btn_primary']} btn mt-3 mb-4`}>Log In</button>
                             <p className={`${style.signin_text} text-center`}>Don't have an account? <Link to="/register" className={`${style['redirect-text']}`} data-testid="button">Register Now</Link></p>
                         </form>
                     </div>

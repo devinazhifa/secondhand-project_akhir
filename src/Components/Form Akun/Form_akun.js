@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './Form_akun.module.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 
 const Form_akun = () => {
   return (
@@ -10,12 +12,12 @@ const Form_akun = () => {
           <div className='col-lg-8'>
             <div className='row justify-content-center'>
               <div className='col-lg-1'>
-                <i className="fa-solid fa-arrow-left"></i>
+              <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className='col-lg-9'>
                 <div className='profile_picture text-center'>
                   <h5 className={`title ${style.title} mb-4`}>Lengkapi Info Akun</h5>
-                  <img src='./profile_picture.png' alt='' className='img-fluid' />
+                  <img src='./img/profile_picture.png' alt='' className='img-fluid' />
                 </div>
                 <form className={style.form_akun}>
                   <label>Nama*</label>

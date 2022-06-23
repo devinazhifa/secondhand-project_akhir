@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import style from './Form_produk.module.css'
 
 const Info_produk = (props) => {
@@ -10,7 +11,7 @@ const Info_produk = (props) => {
           <div className='col-lg-8'>
             <div className='row justify-content-center'>
               <div className='col-lg-1'>
-                <i class="fa-solid fa-arrow-left"></i>
+                <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className='col-lg-9'>
                 <h5 className={`title ${style.title} mb-4`}>Lengkapi Detail Produk</h5>
@@ -19,8 +20,8 @@ const Info_produk = (props) => {
                     <label>Nama Produk</label>
                     <input type='nama' id='nama' placeholder='Nama Produk' className={`${style['field_produk']} form-control`} autoComplete='true' data-testid='input-nama' />
                   </div>
-                    <label>Harga Produk</label>
-                    <input type='harga' id='harga' placeholder='Harga Produk' className={`${style['field_produk']} form-control`} autoComplete='true' data-testid='input-harga' />
+                  <label>Harga Produk</label>
+                  <input type='harga' id='harga' placeholder='Harga Produk' className={`${style['field_produk']} form-control`} autoComplete='true' data-testid='input-harga' />
                   <label>Kategori</label>
                   <select className={`${style['field_produk']} form-select`} label='Pilih kategori'>
                     <option value='' disabled selected>Pilih Kategori</option>
@@ -31,11 +32,11 @@ const Info_produk = (props) => {
                     <option value='4'>Kesehatan</option>
                   </select>
                   <label for='exampleFormControlTextarea1' class='form-label'>Deskripsi</label>
-                    <textarea className={`${style['field_deskripsi']} form-control`} id='exampleFormControlTextarea1' rows='3'  placeholder='Contoh: Jalan Ikan Hiu 33'></textarea>
+                  <textarea className={`${style['field_deskripsi']} form-control`} id='exampleFormControlTextarea1' rows='3' placeholder='Contoh: Jalan Ikan Hiu 33'></textarea>
                   <label>Foto Produk</label>
-                    <div className='profile_picture'>
-                      <img src='./upload_photo.png' alt='' className='img-fluid' />
-                    </div>
+                  <div className='profile_picture'>
+                    <img src='./img/upload_photo.png' alt='' className='img-fluid' />
+                  </div>
                   <div className={style.button}>
                     <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
                     <button type='submit' className={`${style['btn_terbitkan']}`}>Terbitkan</button>

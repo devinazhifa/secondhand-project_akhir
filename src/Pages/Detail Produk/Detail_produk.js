@@ -38,7 +38,7 @@ function Detail_produk() {
                 <p className='judul fw-semibold'>Jam Tangan Casio</p>
                 <p className='kategori'>Aksesoris</p>
                 <p className='harga fw-semibold'>Rp. 250.000</p>
-                <button type='submit' className={`${style['btn_terbitkan']} mb-3`}>Terbitkan</button>
+                <Link to='/daftar-jual'><button type='submit' className={`${style['btn_terbitkan']} mb-3`}>Terbitkan</button></Link>
                 <Link to='/info-produk'><button type='submit' className={`${style['btn_edit']}`}>Edit  </button> </Link>
               </div>
             </div>
