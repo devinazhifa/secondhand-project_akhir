@@ -39,7 +39,7 @@ const Info_produk = (props) => {
                   </div>
                   <div className={style.button}>
                     <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
-                    <button type='submit' className={`${style['btn_terbitkan']}`}>Terbitkan</button>
+                    <Link to='/daftar-jual'><button type='submit' className={`${style['btn_terbitkan']}`}>Terbitkan</button></Link>
                   </div>
                 </form>
               </div>
