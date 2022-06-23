@@ -1,0 +1,107 @@
+* {
+    font-family: 'Poppins';
+}
+
+/* SIGN IN */
+.signup {
+    width: 100%;
+}
+
+.signup_img{
+    width: 720px;
+    height: 100vh;
+    object-fit: cover;
+    transform: translateX(-5%);
+}
+
+@media (max-width: 576px) {
+    .signup_img {
+        display: none;
+    }
+    .signup-container {
+        display: flex;
+        justify-content: center;
+    }
+    .signup_form {
+        padding-top: 45px;
+        margin-top: 16px;
+    }
+    .register_text {
+        position:absolute;
+        bottom: 20px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+    }
+}
+
+.fa-arrow-left {
+    font-size: 16px;
+    color: black;
+}
+
+
+.signup_form {
+    padding: auto;
+    margin: auto;
+    height: 100%;
+    width: 470px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.title-signup {
+    font-weight: bolder;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.signup-field {
+    border: 1px solid #D0D0D0;
+    border-radius: 14px;
+    height: 48px;
+}
+
+.btn_primary {
+    width: 100%;
+    background-color: #7126B5;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 12px;
+    height: 48px;
+}
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline: 0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+.btn_primary:hover{
+    background-color: #7126B5;
+    color: white;
+}
+
+.redirect-text {
+    text-decoration: none;
+    color: #7126B5;
+    font-weight: bolder;
+    text-align: center;
+}
+
+/* END OF SIGN IN */

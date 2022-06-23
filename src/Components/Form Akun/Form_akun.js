@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from './Info_akun.module.css'
-import Navbar_plain from '../Navbar/Navbar_plain'
+import style from './Form_akun.module.css'
 
-const Info_akun = () => {
+const Form_akun = () => {
   return (
     <div>
-      <Navbar_plain />
       <div className='container'>
         <div className='row justify-content-center'>
           <div className='col-lg-8'>
@@ -44,4 +42,4 @@ const Info_akun = () => {
   )
 }
 
-export default Info_akun
+export default Form_akun

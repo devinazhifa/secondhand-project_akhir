@@ -50,7 +50,6 @@ label:focus,
     box-shadow: none !important;
 }
 
-
 .btn_edit {
     width: 100%;
     border: 1px solid #7126B5;
@@ -58,38 +57,6 @@ label:focus,
     font-size: 14px;
     height: 48px;
     margin-right: 20px;
-}
-
-.card_profile {
-    display: grid;
-    grid-template-columns: min-content 1fr;
-}
-
-.card_tawar{
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    background: #EEEEEE;
-    border-radius: 16px;
-    font-size: 12px;
-    line-height: 10px;
-    border: #EEEEEE;
-}
-
-.btn_kirim {
-    background-color: #7126B5;
-    border: none;
-    border-radius: 14px;
-    color: white;
-    font-size: 14px;
-    height: 48px;
-}
-
-.text_penjual{
-    margin-left: 15px;
-}
-
-.text_modal {
-    font-size: 14px;
 }
 
 @media only screen and (max-width: 990px){

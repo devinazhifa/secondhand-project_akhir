@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: min-content 1fr;
 }
-
 .title{
     text-align: center;
     font-size: 16px;
@@ -23,15 +22,6 @@
 
 .btn_terima {
     width: 40%;
-    background-color: #7126B5;
-    border: none;
-    border-radius: 14px;
-    color: white;
-    font-size: 14px;
-    height: 48px;
-}
-
-.btn_kontak {
     background-color: #7126B5;
     border: none;
     border-radius: 14px;

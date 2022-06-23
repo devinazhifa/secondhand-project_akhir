@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from './Info_produk.module.css'
-import Navbar_plain from '../Navbar/Navbar_plain'
+import style from './Form_produk.module.css'
 
 const Info_produk = (props) => {
   return (
     <div>
-     <Navbar_plain/>
       <div className='container'>
         <div className='row justify-content-center'>
           <div className='col-lg-8'>
