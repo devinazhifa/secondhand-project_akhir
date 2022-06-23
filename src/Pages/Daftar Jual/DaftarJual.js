@@ -15,12 +15,12 @@ function DaftarJual() {
             <div className={`${style['profile_wrapper']} card mb-3`}>
               <div className={`${style['card_profile']} card-body`}>
                 <img src="/img/profile.png" alt="profile-img" className="profile-img" /> 
-                <div className="d-flex align-center">
+                <div className="d-flex align-center justify-content-between">
                   <div className='col-lg-10'>
                     <div className={`${style.text_penjual} fw-bold`}>Nama Penjual</div>
                     <div className={`${style.text_penjual} text-muted`}>Kota</div>
                   </div>
-                  <Link to='/info-akun'> <button type='submit' className={`${style['btn_edit']} ms-5 mt-2`}>Edit</button></Link>
+                  <Link to='/info-akun'> <button type='submit' className={`${style['btn_edit']}`}>Edit</button></Link>
                 </div>
               </div>
             </div>
