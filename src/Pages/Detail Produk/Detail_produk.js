@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './Detail_produk.module.css'
 import Card_penjual from '../../Components/Card Penjual/Card_penjual'
-import Navbar_plain from '../../Components/Navbar/Navbar_plain'
+import SecondaryNavbar from '../../Components/Navbar/SecondaryNavbar'
 
 function Detail_produk() {
   return (
     <div>
-      <Navbar_plain />
+      <SecondaryNavbar />
       <button type='submit' className={`${style['btn_terbitkan_static']} mb-3`} data-bs-toggle="modal" data-bs-target="#exampleModal">Terbitkan</button>
       <div className='container mb-4'>
         <div className='row justify-content-center'>
