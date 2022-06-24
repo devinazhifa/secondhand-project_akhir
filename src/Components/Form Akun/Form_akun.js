@@ -33,7 +33,7 @@ const Form_akun = () => {
                   <textarea className={`${style['field_address']} form-control`} id='exampleFormControlTextarea1' rows='3'  placeholder='Contoh: Jalan Ikan Hiu 33'></textarea>
                   <label>No Handphone*</label>
                   <input type='no_hp' id='no_hp' placeholder='Contoh: +628123456789' className={`${style['field_akun']} form-control`} autoComplete='true' data-testid='input-no_hp' />
-                  <button type='submit' className={`${style['btn_primary']}`}>Simpan</button>
+                  <Link to='/homepage'><button type='submit' className={`${style['btn_primary']}`}>Simpan</button></Link>
                 </form>
               </div>
             </div>

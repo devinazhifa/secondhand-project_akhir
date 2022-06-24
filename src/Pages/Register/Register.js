@@ -35,7 +35,7 @@ const Register = () => {
                                     <label htmlFor="user_password">Password</label>
                                     <input type="password" name="user_password" id="user_password" className={`${style['signup-field']} form-control`} placeholder="6+ karakter" autoComplete="true" data-testid="input-password"/>
                                 </div>
-                            <button type="submit" className={`${style['btn_primary']} btn mt-3 mb-4`}>Sign Up</button>
+                            <Link to='/info-akun'><button type="submit" className={`${style['btn_primary']} btn mt-3 mb-4`}>Sign Up</button></Link>
                             <p className={`${style.register_text} text-center`}>Already have an account? <Link to="/login" className={`${style['redirect-text']}`} data-testid="button">Login</Link></p>
                         </form>
                     </div>
