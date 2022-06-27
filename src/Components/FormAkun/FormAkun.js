@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from './Form_akun.module.css'
+import style from './FormAkun.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
-const Form_akun = () => {
+const FormAkun = () => {
   return (
     <div>
       <div className='container'>
@@ -44,4 +44,4 @@ const Form_akun = () => {
   )
 }
 
-export default Form_akun
+export default FormAkun

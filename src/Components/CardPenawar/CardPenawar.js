@@ -1,7 +1,7 @@
 import React from 'react'
-import style from './Card_penawar.module.css'
+import style from './CardPenawar.module.css'
 
-function Card_penawar() {
+function CardPenawar() {
   return (
     <div>
       <div className='card-body'>
@@ -30,4 +30,4 @@ function Card_penawar() {
   )
 }
 
-export default Card_penawar
+export default CardPenawar

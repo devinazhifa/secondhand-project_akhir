@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './DaftarJual.module.css'
 import SecondaryNavbar from '../../Components/Navbar/SecondaryNavbar'
-import CardProduk from '../../Components/Card Produk/CardProduk'
+import CardProduk from '../../Components/CardProduk/CardProduk'
 import { Link } from 'react-router-dom'
 
 function DaftarJual() {
