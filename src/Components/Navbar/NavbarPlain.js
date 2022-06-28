@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './Navbar_plain.module.css'
+import style from './NavbarPlain.module.css'
 
-function Navbar_plain(props) {
+function NavbarPlain(props) {
   return (
     <header className={style.header}>
       <div className="container">
@@ -15,4 +15,4 @@ function Navbar_plain(props) {
   )
 }
 
-export default Navbar_plain
+export default NavbarPlain

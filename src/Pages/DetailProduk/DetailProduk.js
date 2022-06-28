@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from './Detail_produk.module.css'
-import Card_penjual from '../../Components/Card Penjual/Card_penjual'
+import style from './DetailProduk.module.css'
+import CardPenjual from '../../Components/CardPenjual/CardPenjual'
 import SecondaryNavbar from '../../Components/Navbar/SecondaryNavbar'
 
-function Detail_produk() {
+function DetailProduk() {
   return (
     <div>
       <SecondaryNavbar />
@@ -42,7 +42,7 @@ function Detail_produk() {
                 <Link to='/info-produk'><button type='submit' className={`${style['btn_edit']}`}>Edit  </button> </Link>
               </div>
             </div>
-            <Card_penjual />
+            <CardPenjual />
           </div>
         </div>
         <div className='row justify-content-start'>
@@ -71,4 +71,4 @@ function Detail_produk() {
   )
 }
 
-export default Detail_produk
+export default DetailProduk

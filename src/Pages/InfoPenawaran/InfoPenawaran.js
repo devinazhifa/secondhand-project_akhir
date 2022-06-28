@@ -1,13 +1,13 @@
 import React from 'react'
-import Card_penawar from '../../Components/Card Penawar/Card_penawar'
-import Card_penjual from '../../Components/Card Penjual/Card_penjual'
-import ModalTerima from '../../Components/Modal Terima/ModalTerima'
-import Navbar_plain from '../../Components/Navbar/Navbar_plain'
+import CardPenawar from '../../Components/CardPenawar/CardPenawar'
+import CardPenjual from '../../Components/CardPenjual/CardPenjual'
+import ModalTerima from '../../Components/ModalTerima/ModalTerima'
+import NavbarPlain from '../../Components/Navbar/NavbarPlain'
 
-function Info_penawaran(props) {
+function InfoPenawaran(props) {
   return (
     <div>
-      <Navbar_plain />
+      <NavbarPlain />
       <div className='container'>
         <div className='row justify-content-center'>
           <div className='col-lg-8'>
@@ -16,10 +16,10 @@ function Info_penawaran(props) {
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
               <div className='col-lg-9'>
-                <Card_penjual />
+                <CardPenjual />
                 <p className='fw-semibold my-3'>Daftar Produk yang Ditawar</p>
                 <div className='card rounded-4'>
-                  <Card_penawar />
+                  <CardPenawar />
                 </div>
                 <ModalTerima />
               </div>
@@ -31,4 +31,4 @@ function Info_penawaran(props) {
   )
 }
 
-export default Info_penawaran
+export default InfoPenawaran

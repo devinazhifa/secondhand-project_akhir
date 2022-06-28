@@ -3,10 +3,10 @@ import Axios from 'axios'
 import { useDropzone } from 'react-dropzone'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import style from './Form_produk.module.css'
+import style from './FormProduk.module.css'
 import axios from 'axios'
 
-const Info_produk = (props) => {
+const InfoProduk = (props) => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
   const files = acceptedFiles.map(file => (
@@ -99,4 +99,4 @@ const Info_produk = (props) => {
   )
 }
 
-export default Info_produk
+export default InfoProduk

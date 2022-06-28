@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './CardProduk.module.css'
 
-const Card = () => {
+const CardProduct = () => {
   return (
     <div className={`${style['card-container']} mb-4`}>
         <div className={`${style['card-img']}`}>
@@ -16,4 +16,4 @@ const Card = () => {
   )
 }
 
-export default Card
+export default CardProduct

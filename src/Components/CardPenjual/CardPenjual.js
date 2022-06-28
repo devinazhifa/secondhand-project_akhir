@@ -1,7 +1,7 @@
 import React from 'react'
-import style from './Card_penjual.module.css'
+import style from './CardPenjual.module.css'
 
-function Card_penjual() {
+function CardPenjual() {
   return (
     <div>
       <div className='card rounded-4 mt-4'>
@@ -19,4 +19,4 @@ function Card_penjual() {
   )
 }
 
-export default Card_penjual
+export default CardPenjual
