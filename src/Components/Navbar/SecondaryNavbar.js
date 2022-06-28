@@ -44,7 +44,7 @@ const SecondaryNavbar = () => {
                   <i class="fa-regular fa-bell"></i>
                 </Link>
                 <Link
-                  to="/"
+                  to="/info-akun"
                   type="submit"
                   className={`${style["icons-menu"]} btn d-flex align-items-center`}
                 >

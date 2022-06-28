@@ -23,28 +23,42 @@ const InfoProduk = (props) => {
 
   // post to API
   const formSubmitHandler = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
+
+    const images = [];
+    acceptedFiles.forEach((file) => {
+      // formData.append("files.photo", file, file.path);
+      images.push(file);
+      console.log(file);
+    });
+
     const submittedData = {
       name: inputName.current.value,
       price: inputPrice.current.value,
-      categories: inputCategories.current.value,
-      description: inputDescription.current.value
-    }
+      "categories[]": inputCategories.current.value,
+      description: inputDescription.current.value,
+      images: images,
+    };
 
     // object formData (jika terdapat file yg diupload)
     const formData = new FormData();
 
-    // mengisi formData : tergantung dari requirement API > strapi
-    formData.append('data', JSON.stringify(submittedData))
-    // acceptedFiles.forEach(file => {
-    //   formData.append('files.photo', file, file.path)
-    // })
-
-    const res = await axios.post('https://ancient-everglades-98776.herokuapp.com/products', formData)
-    console.log(res.data)
-  }
-
-
+    // mengisi formData 
+    for (let key in submittedData) {
+      formData.append(key, submittedData[key]);
+    }
+    const res = await axios.post(
+      "https://ancient-everglades-98776.herokuapp.com/api/products",
+      formData,
+      {
+        headers: {
+          Authorization:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NTkxODI1NX0.34sbx39M_ds7zgZlfu4kFe9ZBSXM5GO-C8A2SmomnME",
+        },
+      }
+    );
+    console.log(res.data);
+  };
 
   return (
     <div>
@@ -65,18 +79,18 @@ const InfoProduk = (props) => {
                   <label>Harga Produk</label>
                   <input type='text' name='price' id='price' ref={inputPrice} placeholder='Harga Produk' className={`${style['field_produk']} form-control`} autoComplete='true' data-testid='input-harga' />
                   <label>Kategori</label>
-                  <select name='categories' ref={inputCategories} className={`${style['field_produk']} form-select`} label='Pilih kategori'>
+                  <select defaultValue='' name='categories' ref={inputCategories} className={`${style['field_produk']} form-select`} label='Pilih kategori'>
                     <option value='' disabled selected>Pilih Kategori</option>
-                    <option value='0'>Hobi</option>
-                    <option value='1'>Kendaraan</option>
-                    <option value='2'>Baju</option>
-                    <option value='3'>Elektronik</option>
-                    <option value='4'>Kesehatan</option>
+                    <option value='Hobi'>Hobi</option>
+                    <option value='Kendaraan'>Kendaraan</option>
+                    <option value='Baju'>Baju</option>
+                    <option value='Elektronik'>Elektronik</option>
+                    <option value='Kesehatan'>Kesehatan</option>
                   </select>
                   <label htmlFor='exampleFormControlTextarea1' className='form-label'>Deskripsi</label>
                   <textarea name='description' ref={inputDescription} className={`${style['field_deskripsi']} form-control`} id='exampleFormControlTextarea1' rows='3' placeholder='Contoh: Jalan Ikan Hiu 33'></textarea>
                   <label>Foto Produk</label>
-                  <section>
+                  <section name='images' id='images' ref={inputImages}>
                     <div {...getRootProps({ className: 'dropzone' })} className='d-flex mb-4'>
                       <input {...getInputProps()} />
                       <img src='./img/upload_photo.png' alt='' className='img-fluid' />

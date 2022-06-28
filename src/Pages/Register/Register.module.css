@@ -1,8 +1,3 @@
-* {
-    font-family: 'Poppins';
-}
-
-/* SIGN IN */
 .signup {
     width: 100%;
 }
@@ -15,6 +10,29 @@
 }
 
 @media (max-width: 576px) {
+    .signup_img {
+        display: none;
+    }
+    .signup-container {
+        display: flex;
+        justify-content: center;
+    }
+    .signup_form {
+        padding-top: 45px;
+        margin-top: 16px;
+    }
+    .signup_text {
+
+        bottom: 20px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media (max-width: 768px) {
     .signup_img {
         display: none;
     }
@@ -147,6 +165,7 @@ label:focus,
 }
 
 .btn_primary:hover{
+    background-color: #7126B5;
     color: #E2D4F0;
 }
 

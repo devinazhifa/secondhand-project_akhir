@@ -1,10 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './FormAkun.module.css'
+import { useDropzone } from 'react-dropzone'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-
 const FormAkun = () => {
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+
+  const files = acceptedFiles.map(file => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
+
   return (
     <div>
       <div className='container'>
@@ -15,9 +24,15 @@ const FormAkun = () => {
               <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className='col-lg-9'>
-                <div className='profile_picture text-center'>
+                <div className='profile_picture'>
                   <h5 className={`title ${style.title} mb-4`}>Lengkapi Info Akun</h5>
+                  <div {...getRootProps({ className: 'dropzone' })} className='text-center'>
+                      <input {...getInputProps()} />
                   <img src='./img/profile_picture.png' alt='' className='img-fluid' />
+                  </div>
+                  <aside>
+                      <ul>{files}</ul>
+                    </aside>
                 </div>
                 <form className={style.form_akun}>
                   <label>Nama*</label>
