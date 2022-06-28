@@ -1,15 +1,28 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+<<<<<<<< HEAD:src/Components/Form Produk/Form_produk.js
+import React, { useState, useRef, useCallback } from "react";
 import Axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import style from "./FormProduk.module.css";
+import style from "./Form_produk.module.css";
 import axios from "axios";
 import Select from "react-select";
 
-const InfoProduk = (props) => {
+const Info_produk = (props) => {
   const [categories, setCategories] = useState(null);
   const [files, setFiles] = useState([]);
+========
+import React, { useState, useRef } from 'react'
+import Axios from 'axios'
+import { useDropzone } from 'react-dropzone'
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import style from './FormProduk.module.css'
+import axios from 'axios'
+
+const InfoProduk = (props) => {
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+>>>>>>>> master:src/Components/FormProduk/FormProduk.js
 
   const options = [
     { value: "Hobi", label: "Hobi" },
@@ -19,7 +32,8 @@ const InfoProduk = (props) => {
     { value: "Kesehaan", label: "Kesehaan" },
   ];
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    // multiple: true,
     accept: {
       "image/*": [],
     },
@@ -35,6 +49,14 @@ const InfoProduk = (props) => {
     },
   });
 
+  // console.log(files);
+
+  // const files = acceptedFiles.map((file) => (
+  //   <li key={file.path}>
+  //     {file.path} - {file.size} bytes
+  //   </li>
+  // ));
+
   const inputName = useRef();
   const inputPrice = useRef();
   const inputCategories = useRef();
@@ -44,12 +66,22 @@ const InfoProduk = (props) => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
+<<<<<<<< HEAD:src/Components/Form Produk/Form_produk.js
     console.log(categories);
     const formData = new FormData();
+========
+    const images = [];
+    acceptedFiles.forEach((file) => {
+      // formData.append("files.photo", file, file.path);
+      images.push(file);
+      console.log(file);
+    });
+>>>>>>>> master:src/Components/FormProduk/FormProduk.js
 
     const submittedData = {
       name: inputName.current.value,
       price: inputPrice.current.value,
+<<<<<<<< HEAD:src/Components/Form Produk/Form_produk.js
       description: inputDescription.current.value,
     };
 
@@ -68,12 +100,29 @@ const InfoProduk = (props) => {
       formData.append("categories[]", el.value);
     });
 
+========
+      "categories[]": inputCategories.current.value,
+      description: inputDescription.current.value,
+      images: images,
+    };
+
+    // object formData (jika terdapat file yg diupload)
+    const formData = new FormData();
+
+    // mengisi formData 
+    for (let key in submittedData) {
+      formData.append(key, submittedData[key]);
+    }
+>>>>>>>> master:src/Components/FormProduk/FormProduk.js
     const res = await axios.post(
       "https://ancient-everglades-98776.herokuapp.com/api/products",
       formData,
       {
         headers: {
+<<<<<<<< HEAD:src/Components/Form Produk/Form_produk.js
           "content-type": "multipart/form-data",
+========
+>>>>>>>> master:src/Components/FormProduk/FormProduk.js
           Authorization:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NTkxODI1NX0.34sbx39M_ds7zgZlfu4kFe9ZBSXM5GO-C8A2SmomnME",
         },
@@ -129,7 +178,9 @@ const InfoProduk = (props) => {
                     data-testid="input-harga"
                   />
                   <label>Kategori</label>
+<<<<<<<< HEAD:src/Components/Form Produk/Form_produk.js
                   <Select
+                    // defaultValue={[colourOptions[2], colourOptions[3]]}
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
@@ -147,8 +198,23 @@ const InfoProduk = (props) => {
                     classNamePrefix="select"
                     ref={inputCategories}
                     onChange={setCategories}
-                    placeholder="Kategori Produk"
                   />
+                  {/* <select
+                    defaultValue={""}
+                    name="categories"
+                    ref={inputCategories}
+                    className={`${style["field_produk"]} form-select`}
+                    label="Pilih kategori"
+                  >
+                    <option value="" disabled>
+                      Pilih Kategori
+                    </option>
+                    <option value="0">Hobi</option>
+                    <option value="1">Kendaraan</option>
+                    <option value="2">Baju</option>
+                    <option value="3">Elektronik</option>
+                    <option value="4">Kesehatan</option>
+                  </select> */}
                   <label
                     htmlFor="exampleFormControlTextarea1"
                     className="form-label"
@@ -165,56 +231,52 @@ const InfoProduk = (props) => {
                   ></textarea>
                   <label>Foto Produk</label>
                   <section>
-                    <div className="row justify-content-md-start ">
+                    <div
+                      {...getRootProps({ className: "dropzone" })}
+                      multiple={true}
+                      className="d-flex mb-4"
+                    >
+========
+                  <select defaultValue='' name='categories' ref={inputCategories} className={`${style['field_produk']} form-select`} label='Pilih kategori'>
+                    <option value='' disabled selected>Pilih Kategori</option>
+                    <option value='Hobi'>Hobi</option>
+                    <option value='Kendaraan'>Kendaraan</option>
+                    <option value='Baju'>Baju</option>
+                    <option value='Elektronik'>Elektronik</option>
+                    <option value='Kesehatan'>Kesehatan</option>
+                  </select>
+                  <label htmlFor='exampleFormControlTextarea1' className='form-label'>Deskripsi</label>
+                  <textarea name='description' ref={inputDescription} className={`${style['field_deskripsi']} form-control`} id='exampleFormControlTextarea1' rows='3' placeholder='Contoh: Jalan Ikan Hiu 33'></textarea>
+                  <label>Foto Produk</label>
+                  <section name='images' id='images' ref={inputImages}>
+                    <div {...getRootProps({ className: 'dropzone' })} className='d-flex mb-4'>
+>>>>>>>> master:src/Components/FormProduk/FormProduk.js
                       <input {...getInputProps()} />
                       {files.length < 4 && (
-                        <div className="col-4 mt-2 col-md-2">
+                        <img
+                          src="./img/upload_photo.png"
+                          alt=""
+                          className="img-fluid"
+                          style={{
+                            height: "100px",
+                            width: "100px",
+                          }}
+                        />
+                      )}
+                      {files.length > 0 &&
+                        files.map((a) => (
                           <img
-                            {...getRootProps({ className: "dropzone" })}
-                            src="./img/upload_photo.png"
+                            src={a.url}
                             alt=""
                             className=""
                             style={{
+                              pointerEvents: "none",
                               height: "100px",
                               width: "100px",
-                              paddingRight: "0",
-                              pointerEvents:
-                                files.length <= 4 ? "auto" : "none",
+                              marginLeft: "10px",
+                              objectFit: "cover",
                             }}
                           />
-                        </div>
-                      )}
-                      {files.length > 0 &&
-                        files.map((a, index) => (
-                          <div
-                            className="col-4 mt-2 col-md-2"
-                            style={{ paddingRight: "0" }}
-                            key={index}
-                          >
-                            <div className=" position-relative">
-                              <FontAwesomeIcon
-                                icon="fa-times"
-                                className={`${style["icon_cross"]} position-absolute`}
-                                onClick={() => {
-                                  let arr = [...files];
-                                  let index = arr.indexOf(a);
-                                  if (index !== -1) {
-                                    arr.splice(index, 1);
-                                    setFiles(arr);
-                                  }
-                                }}
-                              />
-                            </div>
-                            <img
-                              src={a.url}
-                              alt=""
-                              style={{
-                                height: "100px",
-                                width: "100px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          </div>
                         ))}
                     </div>
                     <aside></aside>
@@ -246,4 +308,8 @@ const InfoProduk = (props) => {
   );
 };
 
-export default InfoProduk;
+<<<<<<<< HEAD:src/Components/Form Produk/Form_produk.js
+export default Info_produk;
+========
+export default InfoProduk
+>>>>>>>> master:src/Components/FormProduk/FormProduk.js

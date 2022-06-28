@@ -66,13 +66,6 @@ option[value=""][disabled] {
     width: auto;
 }
 
-.icon_cross {
-    top: 0;
-    right:0;
-    padding: 5px;
-
-}
-
 @media (max-width: 576px) { 
     .btn_preview {
         width: 48%;
@@ -80,11 +73,5 @@ option[value=""][disabled] {
     
     .btn_terbitkan {
         width: 46%;
-    }
-
-    .icon_cross {
-        top: 0;
-        right:20px;
-        padding: 5px;
     }
 }
