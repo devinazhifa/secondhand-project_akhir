@@ -18,4 +18,21 @@
 
 .icons-menu:hover{
     color: #7126B5;
+<<<<<<< HEAD
+=======
+    border-color: white;
+}
+
+button:focus,
+button:active,
+.icons-menu:active,
+.icons-menu.active
+label:focus,
+.icons-menu:active,
+.icons-menu:active
+{
+    outline: 0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+>>>>>>> 2a56479 (update form product responsive deleteable)
 }

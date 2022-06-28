@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/fontawesome-free-solid'
 import style from './Homepage.module.css'
 import Navbar from '../../Components/Navbar/Navbar'
 import Carousel from '../../Components/Carousel/Carousel'
-import CardProduk from '../../Components/Card Produk/CardProduk'
+import CardProduk from '../../Components/CardProduk/CardProduk'
 import Category from '../../Components/Category/Category'
 import { Link } from 'react-router-dom'
 

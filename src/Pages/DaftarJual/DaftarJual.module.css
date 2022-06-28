@@ -1,0 +1,62 @@
+.profile_wrapper {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+}
+
+.category_wrapper {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+}
+
+.card_profile {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+}
+
+.text_penjual{
+    margin-left: 15px;
+}
+
+.btn_edit {
+    width: 60px;
+    border: 1px solid #7126B5;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 14px;
+    height: 35px;
+    margin-left: auto;
+}
+
+.btn_categories {
+    width: 120px;
+    height: 35px;
+    margin-right: 9px;
+    background-color: #E2D4F0;
+    border: none;
+    border-radius: 12px;
+    color: black;
+    font-size: 10px;
+}
+
+.btn_categories:hover{
+    background-color: #7126B5;
+    color: white;
+}
+
+@media (max-width: 576px) { 
+    .category_wrapper {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) { 
+    .category_wrapper {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) { 
+    .category_button {
+        display: none;
+    }
+}
