@@ -8,7 +8,7 @@
 }
 
 .signup_img{
-    width: 720px;
+    width: 100%;
     height: 100vh;
     object-fit: cover;
     transform: translateX(-5%);
@@ -26,8 +26,7 @@
         padding-top: 45px;
         margin-top: 16px;
     }
-    .register_text {
-        position:absolute;
+    .signup_text {
         bottom: 20px;
         text-align: center;
         margin-left: auto;
@@ -36,6 +35,51 @@
         right: 0;
     }
 }
+
+@media (max-width: 768px) {
+    .signup_img {
+        display: none;
+    }
+    .signup-container {
+        display: flex;
+        justify-content: center;
+    }
+    .signup_form {
+        padding-top: 45px;
+        margin-top: 16px;
+    }
+    .signup_text {
+        bottom: 20px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media (max-width: 992px) { 
+    .signup_img {
+        display: none;
+    }
+    .signup-container {
+        display: flex;
+        justify-content: center;
+    }
+    .signup_form {
+        padding-top: 45px;
+        margin-top: 16px;
+    }
+    .signup_text {
+        bottom: 20px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+    }
+    
+ }
 
 .fa-arrow-left {
     font-size: 16px;
@@ -51,6 +95,16 @@
     font-size: 12px;
     line-height: 18px;
 }
+
+.signup_text {
+    bottom: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
 
 .title-signup {
     font-weight: bolder;
@@ -93,8 +147,7 @@ label:focus,
 }
 
 .btn_primary:hover{
-    background-color: #7126B5;
-    color: white;
+    color: #E2D4F0;
 }
 
 .redirect-text {
@@ -102,6 +155,15 @@ label:focus,
     color: #7126B5;
     font-weight: bolder;
     text-align: center;
+}
+
+.redirect-text:hover {
+    color: #7126B5;
+}
+
+.btn_primary:hover{
+    background-color: #7126B5;
+    color: #E2D4F0;
 }
 
 /* END OF SIGN IN */
