@@ -20,8 +20,8 @@ function CardPenawar() {
               <h6>Rp 250.000</h6>
               <h6>Ditawar Rp 200.000</h6>
             <div className='justify-content-end d-flex mt-4 gap-3'>
-              <button type='submit' className={`${style['btn_tolak']}`}>Tolak</button>
-              <button type='submit' className={`${style['btn_terima']}`} data-bs-toggle="modal" data-bs-target="#exampleModal">Terima</button>
+              <button type='submit' className={`${style['btn_tolak']}`} data-bs-toggle="modal" data-bs-target="#modalStatus">Tolak</button>
+              <button type='submit' className={`${style['btn_terima']}`} data-bs-toggle="modal" data-bs-target="#modalTerima">Terima</button>
             </div>
           </div>
         </div>
