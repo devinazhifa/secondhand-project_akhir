@@ -1,6 +1,7 @@
 import React from 'react'
 import CardPenawar from '../../Components/CardPenawar/CardPenawar'
 import CardPenjual from '../../Components/CardPenjual/CardPenjual'
+import ModalStatus from '../../Components/ModalStatus/ModalStatus'
 import ModalTerima from '../../Components/ModalTerima/ModalTerima'
 import NavbarPlain from '../../Components/Navbar/NavbarPlain'
 
@@ -21,6 +22,7 @@ function InfoPenawaran(props) {
                 <div className='card rounded-4'>
                   <CardPenawar />
                 </div>
+                <ModalStatus />
                 <ModalTerima />
               </div>
             </div>
