@@ -9,7 +9,7 @@ function DetailProduk() {
     <div>
       <SecondaryNavbar />
       <button type='submit' className={`${style['btn_terbitkan_static']} mb-3`} data-bs-toggle="modal" data-bs-target="#exampleModal">Terbitkan</button>
-      <div className='container mb-4'>
+      <div className={`${style['detail-produk']} container mb-4`}>
         <div className='row justify-content-center'>
           <div className='col-lg-6'>
             <div id='carouselExampleControls' className='carousel slide' data-bs-ride='carousel'>

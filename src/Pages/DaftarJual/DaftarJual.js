@@ -8,7 +8,7 @@ function DaftarJual() {
   return (
     <div>
       <SecondaryNavbar />
-      <div className='container'>
+      <div className={`${style['daftar-jual']} container`}>
         <div className='row offset-lg-1 justify-content-center'>
           <div className='col-lg-10'>
             <div className='fw-bold mb-4'>Daftar Jual Saya</div>
