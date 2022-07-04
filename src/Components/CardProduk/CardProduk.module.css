@@ -3,8 +3,10 @@
     align-items: flex-start;
     padding: 8px 8px 16px;
     gap: 8px;
-    width: 195px;
-    height: 210px;
+    min-width: 60%;
+    max-width: 195px;
+    min-height: 70%;
+    max-height: 225px;
     left: 209.14px;
     top: 16px;
     background: #FFFFFF;
@@ -36,5 +38,3 @@
     align-self: stretch;
     flex-grow: 0;
 }
-
-

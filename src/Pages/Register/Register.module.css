@@ -185,4 +185,8 @@ label:focus,
     color: #E2D4F0;
 }
 
+.message-text {
+    color: red;
+}
+
 /* END OF SIGN IN */
