@@ -1,21 +1,41 @@
-import React, {
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
-  Fragment,
-} from "react";
-import Axios from "axios";
+import React, { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import style from "./FormProduk.module.css";
-import axios from "axios";
 import Select from "react-select";
+import requestAPI from "../../requestMethod";
+import { useDispatch, useSelector } from "react-redux";
+import productSlice from "../../store/product";
+import { useEffect } from "react";
 
 const InfoProduk = (props) => {
   const [categories, setCategories] = useState([]);
   const [files, setFiles] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const product = useSelector((state) => state.product.data);
+
+  console.log(product);
+
+  useEffect(() => {
+    if (product) {
+      inputName.current.value = product.name;
+      inputPrice.current.value = product.price;
+      inputDescription.current.value = product.description;
+      setCategories(product.categories);
+      setFiles(() =>
+        product.images.map((img) => {
+          return {
+            file: img,
+            url: window.URL.createObjectURL(img),
+          };
+        })
+      );
+    }
+  }, []);
+
+  console.log(categories);
 
   const options = [
     { value: "Hobi", label: "Hobi" },
@@ -30,7 +50,7 @@ const InfoProduk = (props) => {
       "image/*": [],
     },
     onDrop: (acceptedFiles) => {
-      setFiles([...files, window.URL.createObjectURL(acceptedFiles[0])]);
+      // setFiles([...files, window.URL.createObjectURL(acceptedFiles[0])]);
       setFiles([
         ...files,
         {
@@ -49,8 +69,7 @@ const InfoProduk = (props) => {
   // post to API
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-
-    console.log(categories);
+    const action = event.nativeEvent.submitter.name;
     const formData = new FormData();
 
     const submittedData = {
@@ -74,18 +93,30 @@ const InfoProduk = (props) => {
       formData.append("categories[]", el.value);
     });
 
-    const res = await axios.post(
-      "https://ancient-everglades-98776.herokuapp.com/api/products",
-      formData,
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NTkxODI1NX0.34sbx39M_ds7zgZlfu4kFe9ZBSXM5GO-C8A2SmomnME",
-        },
+    if (action === "publish") {
+      try {
+        await requestAPI().post("/products/", formData, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        });
+
+        navigate("/daftar-jual");
+      } catch (error) {
+        console.log(error.response.data.message);
       }
-    );
-    console.log(res.data);
+    } else {
+      var data = {
+        name: formData.get("name"),
+        price: formData.get("price"),
+        description: formData.get("description"),
+        categories: categories,
+        images: formData.getAll("images"),
+      };
+
+      dispatch(productSlice.actions.addProduct(data));
+      navigate("/preview-produk");
+    }
   };
 
   return (
@@ -149,6 +180,15 @@ const InfoProduk = (props) => {
                           marginBottom: "12px",
                         }),
                       }}
+                      defaultValue={
+                        product
+                          ? options.filter((option) => {
+                              return product.categories
+                                .map((el) => el.value)
+                                .includes(option.value);
+                            })
+                          : ""
+                      }
                       isMulti
                       options={options}
                       className="basic-multi-select"
@@ -249,17 +289,19 @@ const InfoProduk = (props) => {
                   </section>
 
                   <div className={style.button}>
-                    <Link to="/detail-produk">
-                      <button
-                        type="submit"
-                        className={`${style["btn_preview"]}`}
-                      >
-                        Preview
-                      </button>
-                    </Link>
+                    <button
+                      type="submit"
+                      className={`${style["btn_preview"]}`}
+                      formAction={"preview"}
+                      name="preview"
+                    >
+                      Preview
+                    </button>
                     <button
                       type="submit"
                       className={`${style["btn_terbitkan"]}`}
+                      formAction={"publish"}
+                      name="publish"
                     >
                       Terbitkan
                     </button>
