@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import userSlice from "../../store/user";
 import axios from "axios";
 import fontawesome from "@fortawesome/fontawesome";
@@ -12,40 +12,42 @@ import style from "./Login.module.css";
 fontawesome.library.add(faArrowLeft);
 
 const Login = () => {
+  const { register, handleSubmit, formState } = useForm();
+  const [loginStatus, setLoginStatus] = useState({
+    succes: false,
+    message: "",
+  });
 
-    const { register, handleSubmit, formState } = useForm();
-    const [loginStatus, setLoginStatus] = useState({
-      succes: false,
-      message: ''
-    })
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const formSubmitHandler = (data) => {
-      const postData = {
-          name: data.user_name,
-          email: data.user_email,
-          password: data.user_password,
-      }
-      axios.post('https://ancient-everglades-98776.herokuapp.com/api/auth/login', postData)
-      .then( res => {
-        if( typeof res.data.data.token !== 'undefined') {
+  const formSubmitHandler = (data) => {
+    const postData = {
+      name: data.user_name,
+      email: data.user_email,
+      password: data.user_password,
+    };
+    axios
+      .post(
+        "https://ancient-everglades-98776.herokuapp.com/api/auth/login",
+        postData
+      )
+      .then((res) => {
+        if (typeof res.data.data.token !== "undefined") {
           // menyimpan token di local storage
-          localStorage.setItem('seconHandToken', res.data.data.token);
-          console.log(res);
-          dispatch( userSlice.actions.addUser({ userData: res.data.data.user}))
-          navigate('/homepage')
+          // localStorage.setItem("user", JSON.stringify(res.data.data));
+          dispatch(userSlice.actions.addUser(res.data.data));
+          navigate("/homepage");
         }
       })
-      .catch( err => {
-          setLoginStatus({
-            success: false,
-            message: 'Sorry, something is wrong. Try again later.'
-          })
-          // console.log(err)
-      })
-    };
+      .catch((err) => {
+        setLoginStatus({
+          success: false,
+          message: "Sorry, something is wrong. Try again later.",
+        });
+        // console.log(err)
+      });
+  };
 
   return (
     <div className={`${style["signin"]} col`}>
@@ -58,7 +60,10 @@ const Login = () => {
           </div>
           <div className="col-lg-6">
             <div className={`${style["signin-container"]} mb-4`}>
-              <form className={style.signin_form} onSubmit={ handleSubmit(formSubmitHandler) }>
+              <form
+                className={style.signin_form}
+                onSubmit={handleSubmit(formSubmitHandler)}
+              >
                 <Link to="/">
                   <div className="d-lg-none mb-3">
                     <FontAwesomeIcon
@@ -74,7 +79,11 @@ const Login = () => {
                   width="180"
                 />
                 <h3 className={`${style["title-signin"]} mb-3`}>Login</h3>
-                { ( !loginStatus.succes && loginStatus.message ) && <p className={`${style["message-text"]} fst-italic`}>{loginStatus.message}</p>}
+                {!loginStatus.succes && loginStatus.message && (
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {loginStatus.message}
+                  </p>
+                )}
                 <div className="mb-2">
                   <label htmlFor="email">Email</label>
                   <input
@@ -83,10 +92,13 @@ const Login = () => {
                     id="email"
                     className={`${style["signin-field"]} form-control`}
                     placeholder="Contoh: johndee@gmail.com"
-                    {...register('user_email', {required: true})} 
-                    autoComplete="true" 
+                    {...register("user_email", { required: true })}
+                    autoComplete="true"
                   />
-                  <p className={`${style["message-text"]} fst-italic`}>{formState.errors.user_email?.type === 'required' && "Email is required"}</p>
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {formState.errors.user_email?.type === "required" &&
+                      "Email is required"}
+                  </p>
                 </div>
                 <div className="mb-2">
                   <label htmlFor="user_password">Password</label>
@@ -96,10 +108,13 @@ const Login = () => {
                     id="user_password"
                     className={`${style["signin-field"]} form-control`}
                     placeholder="Must contain 6+ characters with at least 1 number and 1 uppercase letter"
-                    {...register('user_password', {required: true})} 
-                    autoComplete="true" 
+                    {...register("user_password", { required: true })}
+                    autoComplete="true"
                   />
-                  <p className={`${style["message-text"]} fst-italic`}>{formState.errors.user_password?.type === 'required' && "Password is required"}</p>
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {formState.errors.user_password?.type === "required" &&
+                      "Password is required"}
+                  </p>
                 </div>
                 <button
                   type="submit"
