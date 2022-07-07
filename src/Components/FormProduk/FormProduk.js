@@ -1,3 +1,4 @@
+
 import React, {
   useState,
   useRef,
@@ -12,10 +13,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import style from "./FormProduk.module.css";
 import axios from "axios";
 import Select from "react-select";
+import { ToastContainer, toast, Zoom , Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const InfoProduk = (props) => {
   const [categories, setCategories] = useState([]);
   const [files, setFiles] = useState([]);
+  const successToast = () =>{
+    toast.success('Produk berhasil di terbitkan!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme:'colored',
+      icon: false,
+      });
+  }
 
   const options = [
     { value: "Hobi", label: "Hobi" },
@@ -249,6 +266,7 @@ const InfoProduk = (props) => {
                   </section>
 
                   <div className={style.button}>
+
                     <Link to="/detail-produk">
                       <button
                         type="submit"
@@ -260,9 +278,14 @@ const InfoProduk = (props) => {
                     <button
                       type="submit"
                       className={`${style["btn_terbitkan"]}`}
+                      onClick={successToast}
                     >
                       Terbitkan
                     </button>
+
+                    {/* <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
+                    <button type='submit' onClick={successToast} className={`${style['btn_terbitkan']}`}>Terbitkan</button> */}
+
                   </div>
                 </form>
               </div>
@@ -273,5 +296,6 @@ const InfoProduk = (props) => {
     </div>
   );
 };
+
 
 export default InfoProduk;

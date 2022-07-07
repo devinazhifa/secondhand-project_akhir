@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/fontawesome-free-solid";
+import NotifPenawaran from "../Notifikasi/NotifPenawaran";
+import NotifProduk from "../Notifikasi/NotifProduk";
 import style from "./SecondaryNavbar.module.css";
 
 fontawesome.library.add(faSignOutAlt);
@@ -40,13 +42,21 @@ const SecondaryNavbar = () => {
                 >
                   <i className="fa-solid fa-bars"></i>
                 </Link>
-                <Link
-                  to="/"
-                  type="submit"
-                  className={`${style["icons-menu"]} btn d-flex align-items-center`}
-                >
-                  <i className="fa-regular fa-bell"></i>
-                </Link>
+                <div className="dropdown">
+                  <button className={`${style["icons-menu"]} btn d-flex align-items-center`} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i className="fa-regular fa-bell">
+                  <span className={`${style["notif-badge"]} position-absolute translate-middle p-0 bg-danger border border-light rounded-circle`}>
+                    <span className="visually-hidden">New alerts</span>
+                  </span>
+                  </i>
+
+                  </button>
+                  <ul className="dropdown-menu rounded-4 p-2" aria-labelledby="dropdownMenuButton">
+                    <li><a className={`${style["notif-card"]} dropdown-item`} href="/notifikasi"><NotifPenawaran/></a></li>
+                    <hr className="m-0"></hr>
+                    <li><a className={`${style["notif-card"]} dropdown-item`} href="#"><NotifProduk/></a></li>
+                  </ul>
+                </div>
                 <Link
                   to="/"
                   type="submit"

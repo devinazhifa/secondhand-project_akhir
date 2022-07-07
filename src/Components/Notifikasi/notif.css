@@ -1,0 +1,22 @@
+.card_profile {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    width: 376px;
+    height: 229px;
+}
+.notif-badge{
+    padding: 3px;
+}
+.img-notif{
+    border-radius: 10px;
+    align-items: center;
+    width: 50px;
+    height: 50px !important;
+}
+.notif-card-desc{
+    padding-left: 10px;
+}
+.text-muted {
+    font-size: 12px !important;
+}
+/* .text-muted small-notifdrop */
