@@ -8,6 +8,9 @@ import requestAPI from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
 import productSlice from "../../store/product";
 import { useEffect } from "react";
+import { ToastContainer, toast, Zoom , Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const InfoProduk = (props) => {
   const [categories, setCategories] = useState([]);
@@ -36,6 +39,19 @@ const InfoProduk = (props) => {
   }, []);
 
   console.log(categories);
+  const successToast = () =>{
+    toast.success('Produk berhasil di terbitkan!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme:'colored',
+      icon: false,
+      });
+  }
 
   const options = [
     { value: "Hobi", label: "Hobi" },
@@ -305,6 +321,10 @@ const InfoProduk = (props) => {
                     >
                       Terbitkan
                     </button>
+
+                    {/* <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
+                    <button type='submit' onClick={successToast} className={`${style['btn_terbitkan']}`}>Terbitkan</button> */}
+
                   </div>
                 </form>
               </div>
@@ -315,5 +335,6 @@ const InfoProduk = (props) => {
     </div>
   );
 };
+
 
 export default InfoProduk;

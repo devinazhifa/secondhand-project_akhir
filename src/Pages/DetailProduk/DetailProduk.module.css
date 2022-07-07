@@ -10,6 +10,10 @@
     }
 }
 
+
+.detail_produk {
+    max-width: 100vw;
+}
 .text_detail {
     font-size: 14px;
     color: #8A8A8A;
@@ -89,5 +93,15 @@ label:focus,
     }
     .btn_terbitkan , .btn_edit{
         display: none;
+    }
+    .card_info{
+        margin-left: 3rem !important;
+        margin-right: 3rem !important;
+    }
+    .carosel{
+        margin-bottom: -10% !important;
+    }
+    .container{
+        margin: 0px !important
     }
 }
