@@ -8,11 +8,20 @@ function CardPenjual() {
     <div>
       <div className="card rounded-4 mt-4">
         <div className="card-body">
-          <div className={`${style["card_profile"]} card-body`}>
-            <img src="./img/profile.png" />
+          <div className={`${style["card_profile"]} p-2 card-body `}>
+            <img
+              src="./img/profile.png"
+              alt="profile"
+              style={{ objectFit: "cover" }}
+            />
             <div className="col-lg-10 ms-3">
               <div className="fw-semibold text-capitalize">{user.name}</div>
-              <div className=" text-capitalize">{user.city}</div>
+              <div
+                className=" text-capitalize text-muted mt-1"
+                style={{ fontSize: "12px" }}
+              >
+                {user.city}
+              </div>
             </div>
           </div>
         </div>
