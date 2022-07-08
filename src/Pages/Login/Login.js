@@ -28,7 +28,10 @@ const Login = () => {
       password: data.user_password,
     };
     axios
-      .post("http://localhost:3000/api/auth/login", postData)
+      .post(
+        "https://ancient-everglades-98776.herokuapp.com/api/auth/login",
+        postData
+      )
       .then((res) => {
         if (typeof res.data.data.token !== "undefined") {
           // menyimpan token di local storage

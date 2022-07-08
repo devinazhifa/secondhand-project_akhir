@@ -16,7 +16,7 @@ fontawesome.library.add(faSignOutAlt);
 const SecondaryNavbar = () => {
   const [notifs, setNotifs] = useState(null);
   const user = useSelector((state) => state.user.data);
-  const socket = io("http://localhost:3000");
+  const socket = io("https://ancient-everglades-98776.herokuapp.com");
 
   socket.on("reconnect", function () {
     console.log("Reconnected to the server");
@@ -25,11 +25,14 @@ const SecondaryNavbar = () => {
 
   useEffect(() => {
     const getNotif = async () => {
-      const res = await axios.get("http://localhost:3000/api/notifications", {
-        headers: {
-          Authorization: user.token,
-        },
-      });
+      const res = await axios.get(
+        "https://ancient-everglades-98776.herokuapp.com/api/notifications",
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        }
+      );
       // console.log(res.data.data.map((a) => a.id));
       setNotifs(res.data.data);
     };
