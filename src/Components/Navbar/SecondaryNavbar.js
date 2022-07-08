@@ -8,37 +8,81 @@ import NotifPenawaran from "../Notifikasi/NotifPenawaran";
 import NotifProduk from "../Notifikasi/NotifProduk";
 import style from "./SecondaryNavbar.module.css";
 import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
+import NotifPenawaranSuccess from "../Notifikasi/NotifPenawaranSuccess";
 
 fontawesome.library.add(faSignOutAlt);
 
 const SecondaryNavbar = () => {
   const [notifs, setNotifs] = useState(null);
+  const user = useSelector((state) => state.user.data);
+  const socket = io("http://localhost:3000");
+
+  socket.on("reconnect", function () {
+    console.log("Reconnected to the server");
+    socket.emit("setUser", user.user.id);
+  });
 
   useEffect(() => {
     const getNotif = async () => {
       const res = await axios.get("http://localhost:3000/api/notifications", {
         headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1Njg0MDUyNn0.YY44QA_YZ2gmpYZjBZEyVHzAhkgqSntP1lP6SyXulEE",
+          Authorization: user.token,
         },
       });
-
+      // console.log(res.data.data.map((a) => a.id));
       setNotifs(res.data.data);
     };
 
     getNotif();
-
-    const socket = io("http://localhost:3000");
-
-    socket.on("connect", () => console.log(socket.id));
+    socket.emit("setUser", user.user.id);
 
     socket.on("notif", (data) => {
-      console.log("ada notif", data);
       getNotif();
     });
   }, []);
 
   console.log(notifs?.map((a) => a.id));
+
+  const renderNotifElement = (notif) => {
+    let component;
+    switch (notif.status) {
+      case "bidding":
+        component = <NotifPenawaran props={notif} />;
+        break;
+
+      case "bidIn":
+        component = <NotifPenawaran props={notif} />;
+        break;
+
+      case "published":
+        component = <NotifProduk props={notif} />;
+        break;
+
+      case "bidAccepted":
+        component = <NotifPenawaranSuccess props={notif} />;
+        break;
+
+      default:
+        component = "";
+        break;
+    }
+
+    const element = (
+      <>
+        <li key={notif.id} className="my-3">
+          <a
+            className={`${style["notif-card"]} dropdown-item`}
+            href="/notifikasi"
+          >
+            {component}
+          </a>
+        </li>
+      </>
+    );
+
+    return element;
+  };
 
   return (
     <>
@@ -72,34 +116,37 @@ const SecondaryNavbar = () => {
                 >
                   <i className="fa-solid fa-bars"></i>
                 </Link>
-                {/* <Link
-                  to="/"
-                  type="submit"
-                  className={`${style["icons-menu"]} btn d-flex align-items-center`}
-                >
-                  <i
-                    className="fa-regular fa-bell"
-                    style={{
-                      color: notifs?.some((a) => a.isRead === false)
-                        ? "red"
-                        : "black",
-                    }}
-                    data-count="12"
-                  ></i>
-                </Link> */}
                 <div className="dropdown">
-                  <button className={`${style["icons-menu"]} btn d-flex align-items-center`} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i className="fa-regular fa-bell">
-                  <span className={`${style["notif-badge"]} position-absolute translate-middle p-0 bg-danger border border-light rounded-circle`}>
-                    <span className="visually-hidden">New alerts</span>
-                  </span>
-                  </i>
-
+                  <button
+                    className={`${style["icons-menu"]} btn d-flex align-items-center`}
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="fa-regular fa-bell">
+                      {notifs?.length > 0 && (
+                        <span
+                          className={`${style["notif-badge"]} position-absolute translate-middle p-0 bg-danger border border-light rounded-circle`}
+                        ></span>
+                      )}
+                    </i>
                   </button>
-                  <ul className="dropdown-menu rounded-4 p-2" aria-labelledby="dropdownMenuButton">
-                    <li><a className={`${style["notif-card"]} dropdown-item`} href="/notifikasi"><NotifPenawaran/></a></li>
-                    <hr className="m-0"></hr>
-                    <li><a className={`${style["notif-card"]} dropdown-item`} href="#"><NotifProduk/></a></li>
+                  <ul
+                    className={`dropdown-menu rounded-4 px-3 py-1  ${style["dropdown-container"]}`}
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    {notifs?.length > 0 &&
+                      notifs.map((notif, index) => {
+                        return (
+                          <div key={index}>
+                            {renderNotifElement(notif)}
+                            {index !== notifs.length - 1 && (
+                              <hr className="m-0"></hr>
+                            )}
+                          </div>
+                        );
+                      })}
                   </ul>
                 </div>
                 <Link
@@ -117,7 +164,7 @@ const SecondaryNavbar = () => {
                   Logout
                 </Link>
               </li>
-              <li className="list-inline-item">
+              {/* <li className="list-inline-item">
                 <Link
                   to="/login"
                   type="submit"
@@ -129,7 +176,7 @@ const SecondaryNavbar = () => {
                   />
                   Sign In
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <button

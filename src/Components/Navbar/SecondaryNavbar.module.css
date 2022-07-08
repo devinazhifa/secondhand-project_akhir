@@ -13,6 +13,8 @@
     width: 100%;
     font-size: 16px;
     height: 39px;
+    border-color: white !important;
+
 }
 
 .notif-badge{
@@ -23,6 +25,7 @@
 .notif-card:hover{
     background-color: unset !important;
     color: black !important;
+    
 }
 
 .icons-menu:hover{
@@ -72,12 +75,23 @@ button:active,
     outline: 0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
+    border-color: white !important;
+    color: #7126B5 !important;
+
 }
 
 
 .fa-sign-in-alt {
     font-size: 18px;
     padding-right: 8px;
+}
+
+.dropdown-container {
+    margin-inline: -300px !important;
+    box-shadow:  0px 0px 15px -5px rgba(0,0,0,0.35)!important;
+    border:none;
+    max-height: 350px;
+    overflow-y: auto;
 }
 
 @media (max-width: 767.9px) { 
@@ -91,6 +105,7 @@ button:active,
     }
     .dropdown-menu.show{
         margin: 100px;
+
     }
 
 

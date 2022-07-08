@@ -13,6 +13,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "moment": "^2.29.4",
     "react": "^18.0.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.1",
@@ -23,9 +24,9 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "react-select": "^5.4.0",
+    "react-toastify": "^9.0.5",
     "redux-persist": "^6.0.0",
     "socket.io-client": "^4.5.1",
-    "react-toastify": "^9.0.5",
     "swiper": "^8.2.4",
     "toastify-js": "^1.11.2",
     "web-vitals": "^2.1.4"
