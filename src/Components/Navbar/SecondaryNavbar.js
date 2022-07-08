@@ -14,76 +14,6 @@ import NotifPenawaranSuccess from "../Notifikasi/NotifPenawaranSuccess";
 fontawesome.library.add(faSignOutAlt);
 
 const SecondaryNavbar = () => {
-  const [notifs, setNotifs] = useState(null);
-  const user = useSelector((state) => state.user.data);
-  const socket = io("http://localhost:3000");
-
-  socket.on("reconnect", function () {
-    console.log("Reconnected to the server");
-    socket.emit("setUser", user.user.id);
-  });
-
-  useEffect(() => {
-    const getNotif = async () => {
-      const res = await axios.get("http://localhost:3000/api/notifications", {
-        headers: {
-          Authorization: user.token,
-        },
-      });
-      // console.log(res.data.data.map((a) => a.id));
-      setNotifs(res.data.data);
-    };
-
-    getNotif();
-    socket.emit("setUser", user.user.id);
-
-    socket.on("notif", (data) => {
-      getNotif();
-    });
-  }, []);
-
-  console.log(notifs?.map((a) => a.id));
-
-  const renderNotifElement = (notif) => {
-    let component;
-    switch (notif.status) {
-      case "bidding":
-        component = <NotifPenawaran props={notif} />;
-        break;
-
-      case "bidIn":
-        component = <NotifPenawaran props={notif} />;
-        break;
-
-      case "published":
-        component = <NotifProduk props={notif} />;
-        break;
-
-      case "bidAccepted":
-        component = <NotifPenawaranSuccess props={notif} />;
-        break;
-
-      default:
-        component = "";
-        break;
-    }
-
-    const element = (
-      <>
-        <li key={notif.id} className="my-3">
-          <a
-            className={`${style["notif-card"]} dropdown-item`}
-            href="/notifikasi"
-          >
-            {component}
-          </a>
-        </li>
-      </>
-    );
-
-    return element;
-  };
-
   return (
     <>
       <nav className={`${style["nav-header"]} navbar fixed-top`}>
@@ -125,28 +55,41 @@ const SecondaryNavbar = () => {
                     aria-expanded="false"
                   >
                     <i className="fa-regular fa-bell">
-                      {notifs?.length > 0 && (
-                        <span
-                          className={`${style["notif-badge"]} position-absolute translate-middle p-0 bg-danger border border-light rounded-circle`}
-                        ></span>
-                      )}
+                      <span
+                        className={`${style["notif-badge"]} position-absolute translate-middle p-0 bg-danger border border-light rounded-circle`}
+                      ></span>
                     </i>
                   </button>
                   <ul
                     className={`dropdown-menu rounded-4 px-3 py-1  ${style["dropdown-container"]}`}
                     aria-labelledby="dropdownMenuButton"
                   >
-                    {notifs?.length > 0 &&
-                      notifs.map((notif, index) => {
-                        return (
-                          <div key={index}>
-                            {renderNotifElement(notif)}
-                            {index !== notifs.length - 1 && (
-                              <hr className="m-0"></hr>
-                            )}
-                          </div>
-                        );
-                      })}
+                    <li className="my-3">
+                      <a
+                        className={`${style["notif-card"]} dropdown-item`}
+                        href="/notifikasi"
+                      >
+                        <NotifPenawaran />
+                      </a>
+                    </li>
+                    <hr className="m-0"></hr>
+                    <li className="my-3">
+                      <a
+                        className={`${style["notif-card"]} dropdown-item`}
+                        href="/notifikasi"
+                      >
+                        <NotifProduk />
+                      </a>
+                    </li>
+                    <hr className="m-0"></hr>
+                    <li className="my-3">
+                      <a
+                        className={`${style["notif-card"]} dropdown-item`}
+                        href="/notifikasi"
+                      >
+                        <NotifPenawaranSuccess />
+                      </a>
+                    </li>
                   </ul>
                 </div>
                 <Link
