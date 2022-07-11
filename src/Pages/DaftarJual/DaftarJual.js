@@ -1,10 +1,33 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 import style from './DaftarJual.module.css'
 import SecondaryNavbar from '../../Components/Navbar/SecondaryNavbar'
 import CardProduk from '../../Components/CardProduk/CardProduk'
 import { Link } from 'react-router-dom'
 
 function DaftarJual() {
+
+  const [products, setProducts] = useState(null)
+
+  useEffect(() => {
+      axios.get('https://ancient-everglades-98776.herokuapp.com/api/products/seller',
+      {
+        headers: {
+          Authorization:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NjkzNzU2NH0.GOBpSRPdMdfJO534Y6n37tES5bxlimEH4obcnsPbVaE",
+        },
+      }
+      )
+      
+      .then( response => {
+        setProducts(response.data.data)
+        console.log(response.data.data)
+
+      })
+      
+  },[])
+
   return (
     <div>
       <SecondaryNavbar />
@@ -76,25 +99,16 @@ function DaftarJual() {
               </div>
               <div className="col-lg-8">
                 <div className="row">
-                  <div className="col-lg-4 col-6">
-                    {/* <img src="/img/add-product.png" alt="add-img" className="add-img" /> */}
-                    <CardProduk />
-                  </div>
-                  <div className="col-lg-4 col-6">
-                    <CardProduk />
-                  </div>
-                  <div className="col-lg-4 col-6">
-                    <CardProduk />
-                  </div>
-                  <div className="col-lg-4 col-6">
-                    <CardProduk />
-                  </div>
-                  <div className="col-lg-4 col-6">
-                    <CardProduk />
-                  </div>
-                  <div className="col-lg-4 col-6">
-                    <CardProduk />
-                  </div>
+                <div className="col-lg-4 col-6">
+                    <Link to='/info-produk'><img src='/img/add-produk.png' /></Link>
+                </div>
+                  {/* <div className="col-lg-4 col-6"> */}
+                    {products?.map( (product, index) => {
+                      return(
+                        <div className="col-lg-4 col-6"><CardProduk key={`product-${index}`} product = {product} /></div>
+                      )
+                    })}
+                  {/* </div> */}
                 </div>
               </div>
             </div>

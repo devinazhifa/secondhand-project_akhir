@@ -1,19 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import style from './CardProduk.module.css'
 
-const CardProduct = () => {
+const CardProduk = (props) => {
   return (
-    <div className={`${style['card-container']} mb-4`}>
+    <>
+    <Link to={`/detail-produk-buyer/${props.product.slug}`}>
+      <div className={`${style['card-container']} mb-4`}>
         <div className={`${style['card-img']}`}>
-            <img src="https://i.ibb.co/W2zzNzN/Rectangle-24.png" alt="product" border="0"/>
+          <img src={props.product.images[0]} alt="product" border="0" />
         </div>
-        <div className='card-desc'>
-            <h6 className='card-title m-0 p-0 mt-2'>Jam Tangan Casio</h6>
-            <p className='card-text m-0 p-0 mt-2 text-muted'>Aksesoris</p>
-            <p  className='card-text m-0 p-0 mt-2'>Rp 250.000</p>
+        <div className={`${style['card-desc']}`}>
+          <h6 className='card-title m-0 p-0 mt-2'>{props.product.name}</h6>
+          <p className='card-text m-0 p-0 mt-2 text-muted'>{props.product.categories}</p>
+          <p className='card-text m-0 p-0 mt-2'>{props.product.price}</p>
         </div>
-    </div>
+      </div>
+    </Link>
+    </>
   )
 }
 
-export default CardProduct
+export default CardProduk

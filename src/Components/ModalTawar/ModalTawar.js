@@ -1,10 +1,10 @@
 import React from 'react'
 import style from './ModalTawar.module.css'
 
-function ModalTawar() {
+function ModalTawar(props) {
   return (
     <div>
-      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="modalTawar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

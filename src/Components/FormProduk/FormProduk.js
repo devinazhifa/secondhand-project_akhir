@@ -98,7 +98,7 @@ const InfoProduk = (props) => {
         headers: {
           "content-type": "multipart/form-data",
           Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NTkxODI1NX0.34sbx39M_ds7zgZlfu4kFe9ZBSXM5GO-C8A2SmomnME",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NjkzNzU2NH0.GOBpSRPdMdfJO534Y6n37tES5bxlimEH4obcnsPbVaE",
         },
       }
     );
