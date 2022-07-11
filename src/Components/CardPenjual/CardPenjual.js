@@ -10,7 +10,7 @@ function CardPenjual() {
             <img src='./img/profile.png'/>
               <div className='col-lg-10 ms-3'>
                 <div className='fw-semibold'>Nama Penjual</div>
-                <div>Kota</div>
+                <div className='text-muted text-small'>Kota</div>
               </div>
           </div>
         </div>

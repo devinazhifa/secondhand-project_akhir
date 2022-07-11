@@ -8,6 +8,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import DaftarJual from "./Pages/DaftarJual/DaftarJual";
 import Homepage from "./Pages/Homepage/Homepage";
+import Logout from "./Pages/Logout/Logout";
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/" />
           {/* ALL */}
           <Route path="homepage" element={<Homepage />} />
+          <Route path="logout" element={<Logout />} />
           {/* PUBLIC ONLY */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

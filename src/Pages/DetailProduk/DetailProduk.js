@@ -7,7 +7,7 @@ import SecondaryNavbar from '../../Components/Navbar/SecondaryNavbar'
 function DetailProduk() {
   return (
     <div>
-      <SecondaryNavbar />
+      <SecondaryNavbar title="Detail Produk"/>
       <button type='submit' className={`${style['btn_terbitkan_static']} mb-3`} data-bs-toggle="modal" data-bs-target="#exampleModal">Terbitkan</button>
       <div className={`${style['detail-produk']} container mb-4`}>
         <div className='row justify-content-center'>
@@ -25,10 +25,10 @@ function DetailProduk() {
                 </div>
               </div>
               <button className='carousel-control-prev' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
-                <i class="fa-solid fa-circle-chevron-left fa-2x"></i>
+                <i className="fa-solid fa-circle-chevron-left fa-2x"></i>
               </button>
               <button className='carousel-control-next' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='next'>
-                <i class="fa-solid fa-circle-chevron-right fa-2x"></i>
+                <i className="fa-solid fa-circle-chevron-right fa-2x"></i>
               </button>
             </div>
           </div>

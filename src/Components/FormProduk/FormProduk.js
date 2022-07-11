@@ -94,7 +94,7 @@ const InfoProduk = (props) => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="row justify-content-center">
-              <div className="col-lg-1">
+              <div className={`${style["back-button"]} col-lg-1`}>
                 <Link to="/homepage">
                   <FontAwesomeIcon
                     icon="fa-arrow-left"
@@ -103,9 +103,6 @@ const InfoProduk = (props) => {
                 </Link>
               </div>
               <div className="col-lg-9">
-                <h5 className={`title ${style.title} mb-4`}>
-                  Lengkapi Detail Produk
-                </h5>
                 <form
                   className={style.form_produk}
                   onSubmit={formSubmitHandler}
@@ -247,7 +244,6 @@ const InfoProduk = (props) => {
                     </div>
                     <aside></aside>
                   </section>
-
                   <div className={style.button}>
                     <Link to="/detail-produk">
                       <button

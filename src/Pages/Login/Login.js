@@ -32,9 +32,9 @@ const Login = () => {
       .then( res => {
         if( typeof res.data.data.token !== 'undefined') {
           // menyimpan token di local storage
-          localStorage.setItem('seconHandToken', res.data.data.token);
-          console.log(res);
-          dispatch( userSlice.actions.addUser({ userData: res.data.data.user}))
+          // localStorage.setItem('secondHandToken', res.data.data.token);
+          // console.log(res);
+          dispatch(userSlice.actions.addUser(res.data.data));
           navigate('/homepage')
         }
       })

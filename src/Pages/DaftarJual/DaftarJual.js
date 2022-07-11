@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom'
 function DaftarJual() {
   return (
     <div>
-      <SecondaryNavbar />
+      <SecondaryNavbar title="Daftar Jual"/>
       <div className={`${style['daftar-jual']} container`}>
         <div className='row offset-lg-1 justify-content-center'>
           <div className='col-lg-10'>
-            <div className='fw-bold mb-4'>Daftar Jual Saya</div>
+            <div className={`${style['title']} fw-bold mb-4`}>Daftar Jual Saya</div>
             <div className={`${style['profile_wrapper']} card mb-3`}>
               <div className={`${style['card_profile']} card-body`}>
                 <img src="/img/profile.png" alt="profile-img" className="profile-img" /> 
@@ -63,19 +63,31 @@ function DaftarJual() {
                           <i className="fa-solid fa-angle-right"></i>
                         </div>
                       </div>
+                      <div className='row'>
+                        <div className='col-1'>
+                          <i className="fa-regular fa-star"></i>
+                        </div>
+                        <div className='col-8'>
+                          <p>Wishlist</p>
+                        </div>
+                        <div className='col-1'>
+                          <i className="fa-solid fa-angle-right"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className={`${style['category_button']}`}>
-                  <div className="btn-wrapper">
-                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-solid fa-box"></i> Semua Produk</button>
+                  <div className="btn-wrapper ">
+                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-solid fa-box"></i> Produk</button>
                     <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-regular fa-heart"></i> Diminati</button>
                     <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-solid fa-dollar-sign"></i> Terjual</button>
+                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-regular fa-star"></i> Wishlist</button>
                   </div>
                 </div>
               </div>
               <div className="col-lg-8">
-                <div className="row">
+                <div className="row mt-1">
                   <div className="col-lg-4 col-6">
                     {/* <img src="/img/add-product.png" alt="add-img" className="add-img" /> */}
                     <CardProduk />

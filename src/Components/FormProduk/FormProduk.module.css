@@ -37,6 +37,7 @@
 
 .button {
     margin-top: 25px;
+    text-align: center;
 }
 
 .btn_preview {
@@ -79,7 +80,7 @@ option[value=""][disabled] {
     }
     
     .btn_terbitkan {
-        width: 46%;
+        width: 48%;
     }
 
     .icon_cross {
@@ -88,3 +89,25 @@ option[value=""][disabled] {
         padding: 5px;
     }
 }
+
+@media (max-width: 767.98px) { 
+    .btn_preview {
+        width: 45%;
+    }
+    
+    .btn_terbitkan {
+        width: 45%;
+    }
+}
+
+@media (max-width: 575.98px) { 
+    .back-button {
+        display: none;
+    }
+ }
+
+ @media (max-width: 991.98px) { 
+    .back-button {
+        display: none;
+    }
+ }
