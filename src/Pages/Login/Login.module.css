@@ -123,7 +123,11 @@
     height: 48px;
 }
 
-.btn_primary:hover{
+.btn_primary:hover,
+.btn_primary:focus,
+.btn_primary:active,
+.btn_primary:visited
+{
     background-color: #7126B5;
     color: #E2D4F0;
 }

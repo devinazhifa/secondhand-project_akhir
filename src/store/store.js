@@ -1,28 +1,3 @@
-// import { combineReducers, configureStore } from "@reduxjs/toolkit";
-// import { persistStore, persistReducer } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
-
-// const persistConfig = {
-//   key: "root",
-//   version: 1,
-//   storage,
-//   //   blacklist: ["search", "cart"],
-// };
-
-// const combinedReducer = combineReducers({
-//   user: userSlice,
-// });
-
-// const persistedReducer = persistReducer(persistConfig, combinedReducer);
-
-// export default () => {
-//     let store = createStore(persistedReducer)
-//     let persistor = persistStore(store)
-//     return { store, persistor }
-//   }
-
-// export default store;
-
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,

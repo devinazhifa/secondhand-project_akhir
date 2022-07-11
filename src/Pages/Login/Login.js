@@ -35,9 +35,10 @@ const Login = () => {
       .then((res) => {
         if (typeof res.data.data.token !== "undefined") {
           // menyimpan token di local storage
-          // localStorage.setItem("user", JSON.stringify(res.data.data));
+          // localStorage.setItem('secondHandToken', res.data.data.token);
+          // console.log(res);
           dispatch(userSlice.actions.addUser(res.data.data));
-          navigate("/homepage");
+          navigate('/homepage')
         }
       })
       .catch((err) => {

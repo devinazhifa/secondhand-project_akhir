@@ -15,6 +15,7 @@ import LamanNotifikasi from "./Pages/LamanNotifikasi/LamanNotifikasi";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/id";
+import Logout from "./Pages/Logout/Logout";
 
 const App = () => {
   moment.locale("id");
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/" />
           {/* ALL */}
           <Route path="homepage" element={<Homepage />} />
+          <Route path="logout" element={<Logout />} />
           {/* PUBLIC ONLY */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

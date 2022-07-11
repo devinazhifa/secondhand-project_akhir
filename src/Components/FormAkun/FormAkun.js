@@ -20,12 +20,11 @@ const FormAkun = () => {
         <div className='row justify-content-center'>
           <div className='col-lg-8'>
             <div className='row justify-content-center'>
-              <div className='col-lg-1'>
+              <div className={`${style["back-button"]} col-lg-1`}>
               <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className='col-lg-9'>
                 <div className='profile_picture'>
-                  <h5 className={`title ${style.title} mb-4`}>Lengkapi Info Akun</h5>
                   <div {...getRootProps({ className: 'dropzone' })} className='text-center'>
                       <input {...getInputProps()} />
                   <img src='./img/profile_picture.png' alt='' className='img-fluid' />
@@ -44,7 +43,7 @@ const FormAkun = () => {
                     <option value='2'>Bekasi</option>
                     <option value='3'>Bogor</option>
                   </select>
-                  <label for='exampleFormControlTextarea1' class='form-label'>Alamat*</label>
+                  <label for='exampleFormControlTextarea1' className='form-label'>Alamat*</label>
                   <textarea className={`${style['field_address']} form-control`} id='exampleFormControlTextarea1' rows='3'  placeholder='Contoh: Jalan Ikan Hiu 33'></textarea>
                   <label>No Handphone*</label>
                   <input type='no_hp' id='no_hp' placeholder='Contoh: +628123456789' className={`${style['field_akun']} form-control`} autoComplete='true' data-testid='input-no_hp' />

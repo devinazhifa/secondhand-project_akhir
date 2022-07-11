@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +8,10 @@ import style from "./Navbar.module.css";
 
 fontawesome.library.add(faSignOutAlt);
 
-const SecondaryNavbar = () => {
+const Navbar = () => {
+
+  const user = useSelector( store => store.user.data )
+
   return (
     <>
       <nav className={`${style["nav-header"]} navbar fixed-top`}>
@@ -31,10 +35,12 @@ const SecondaryNavbar = () => {
             </form>
           </div>
           <div className="col-auto d-none d-lg-block">
+          { user !== null &&
             <ul className="nav-menu list-inline mb-0 me-5">
               <li className="d-flex list-inline-item">
+                {/* PROTECTED */}
                 <Link
-                  to="/"
+                  to="/daftar-jual"
                   type="submit"
                   className={`${style["icons-menu"]} btn d-flex align-items-center`}
                 >
@@ -55,14 +61,19 @@ const SecondaryNavbar = () => {
                   <i className="fa-regular fa-user"></i>
                 </Link>
                 <Link
-                  to="/"
+                  to="/logout"
                   type="submit"
                   className={`${style["logout-btn"]} btn d-flex align-items-center`}
                 >
                   Logout
                 </Link>
               </li>
+            </ul>
+            }
+            { user === null &&
+            <ul className="nav-menu list-inline mb-0 me-5">
               <li className="list-inline-item">
+                {/* PUBLIC ONLY */}
                 <Link
                   to="/login"
                   type="submit"
@@ -76,6 +87,7 @@ const SecondaryNavbar = () => {
                 </Link>
               </li>
             </ul>
+          }
           </div>
           <button
             className="navbar-toggler d-block d-lg-none"
@@ -105,11 +117,12 @@ const SecondaryNavbar = () => {
             </div>
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                { user === null &&
                 <li className="nav-item">
                   <Link
                     to="/login"
                     type="submit"
-                    className={`${style["btn_primary"]} btn d-flex align-items-center`}
+                    className={`${style["signin-offcanvas"]} btn d-flex align-items-center`}
                   >
                     <FontAwesomeIcon
                       icon="fa-sign-out-alt"
@@ -118,6 +131,9 @@ const SecondaryNavbar = () => {
                     Sign In
                   </Link>
                 </li>
+                }
+                { user !== null &&
+                <>
                 <li className="nav-item">
                   <Link
                     to="/"
@@ -129,7 +145,7 @@ const SecondaryNavbar = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/"
+                    to="/daftar-jual"
                     type="submit"
                     className={`${style["icons-menu"]} btn d-flex align-items-center`}
                   >
@@ -145,15 +161,19 @@ const SecondaryNavbar = () => {
                     <i className="fa-regular fa-user pe-3"></i> Akun Saya
                   </Link>
                 </li>
+              </>
+              }
+              { user !== null &&
                 <li className="nav-item">
                 <Link
-                  to="/"
+                  to="/logout"
                   type="submit"
-                  className={`${style["logout-btn"]} btn d-flex align-items-center`}
+                  className={`${style["logout-btn-offcanvas"]} btn d-flex align-items-center`}
                 >
                   Logout
                 </Link>
                 </li>
+            }
               </ul>
             </div>
           </div>
@@ -163,4 +183,4 @@ const SecondaryNavbar = () => {
   );
 };
 
-export default SecondaryNavbar;
+export default Navbar;

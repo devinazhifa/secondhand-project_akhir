@@ -1,20 +1,23 @@
-import React from "react";
-import CardPenawar from "../../Components/CardPenawar/CardPenawar";
-import CardPenjual from "../../Components/CardPenjual/CardPenjual";
-import ModalStatus from "../../Components/ModalStatus/ModalStatus";
-import ModalTerima from "../../Components/ModalTerima/ModalTerima";
-import NavbarPlain from "../../Components/Navbar/NavbarPlain";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import CardPenawar from '../../Components/CardPenawar/CardPenawar'
+import CardPenjual from '../../Components/CardPenjual/CardPenjual'
+import ModalStatus from '../../Components/ModalStatus/ModalStatus'
+import ModalTerima from '../../Components/ModalTerima/ModalTerima'
+import NavbarPlain from '../../Components/Navbar/NavbarPlain'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import style from './InfoPenawaran.module.css'
 
 function InfoPenawaran(props) {
   return (
     <div>
-      <NavbarPlain />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-8">
-            <div className="row justify-content-center">
-              <div className="col-lg-1 mt-4">
-                <i className="fa-solid fa-arrow-left"></i>
+      <NavbarPlain title='Info Penawar'/>
+      <div className='container'>
+        <div className='row justify-content-center'>
+          <div className='col-lg-8'>
+            <div className='row justify-content-center'>
+            <div className={`${style["back-button"]} col-lg-1 mt-4`}>
+              <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className="col-lg-9">
                 <CardPenjual />

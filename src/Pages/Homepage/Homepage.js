@@ -23,13 +23,11 @@ const Homepage = () => {
           <div className="container">
             <div className="row justify-content-center">
               <div className="col">
-                <p className={`${style["title-category"]} px-3`}>
-                  Telusuri Kategori
-                </p>
+                <p className={`${style['title-category']} px-2`}>Telusuri Kategori</p>
                 <Category />
               </div>
-              <div className="container mt-3">
-                <div className="row row-cols-2 row-cols-lg-6 px-3">
+              <div className='container mt-3'>
+                <div className="row row-cols-2 row-cols-lg-6 px-2">
                   <div className="col">
                     <CardProduk />
                   </div>
