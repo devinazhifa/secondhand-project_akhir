@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/id";
 import Logout from "./Pages/Logout/Logout";
+import DetailProdukBuyer from "./Pages/DetailProdukBuyer/DetailProdukBuyer";
 
 const App = () => {
   moment.locale("id");
@@ -35,9 +36,9 @@ const App = () => {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Homepage />} />
           {/* ALL */}
-          <Route path="homepage" element={<Homepage />} />
+          {/* <Route path="homepage" element={<Homepage />} /> */}
           <Route path="logout" element={<Logout />} />
           {/* PUBLIC ONLY */}
           <Route path="login" element={<Login />} />
@@ -56,6 +57,8 @@ const App = () => {
             }
           />
           <Route path="detail-produk" element={<DetailProduk />} />
+          <Route path="detail-produk/:slug" element={<DetailProdukBuyer />} />
+
           <Route path="daftar-jual" element={<DaftarJual />} />
           <Route path="info-penawaran" element={<InfoPenawaran />} />
           <Route path="notifikasi" element={<LamanNotifikasi />} />
