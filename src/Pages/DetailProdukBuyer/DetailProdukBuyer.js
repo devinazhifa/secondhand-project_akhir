@@ -10,36 +10,37 @@ import ModalTawar from "../../Components/ModalTawar/ModalTawar";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../Responsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import requestAPI from '../../requestMethod';
+import requestAPI from "../../requestMethod";
 
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
   const [product, setProduct] = useState(null);
-  const user = useSelector((state) => state.user.data);
+  // const user = useSelector((state) => state.user.data);
   const params = useParams();
 
-  const test = () => {
-    let button = "";
-    if (product) {
-      if (product.seller.id === user.user.id) {
-        button = "edit";
-      } else if (product.bidded === true) {
-        button = "menunggu respon penjual";
-      } else if ((product.bidded = false)) {
-        button = "tertarik ingin nego";
-      }
-    }
+  // const test = () => {
+  //   let button = "";
+  //   if (product) {
+  //     if (product.seller.id === user.user.id) {
+  //       button = "edit";
+  //     } else if (product.bidded === true) {
+  //       button = "menunggu respon penjual";
+  //     } else if ((product.bidded = false)) {
+  //       button = "tertarik ingin nego";
+  //     }
+  //   }
 
-    return button;
-  };
+  //   return button;
+  // };
 
   useEffect(() => {
-    requestAPI().get(`/products/${params.slug}`)
+    requestAPI()
+      .get(`/products/${params.slug}`)
       .then((response) => {
         if (response.data !== null) {
           setProduct({ ...response.data.data });
-          console.log(test);
+          // console.log(test);
 
           console.log(response.data.data);
         } else {
@@ -86,21 +87,23 @@ const DetailProdukBuyer = () => {
                 data-bs-ride="carousel"
               >
                 <div className="carousel-inner">
-                {product.images?.map((image, index) => (
-                  <div className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                    <img
-                      src={image}
-                      className={` img-fluid w-100 ${
-                        isMobile ? "" : "rounded-4"
-                      }`}
-                      style={{
-                        height: isMobile ? "300px" : "436px",
-                        objectFit: "cover",
-                      }}
-                      alt="swiper-img"
-                    />
-                  </div>
-                ))}
+                  {product.images?.map((image, index) => (
+                    <div
+                      className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    >
+                      <img
+                        src={image}
+                        className={` img-fluid w-100 ${
+                          isMobile ? "" : "rounded-4"
+                        }`}
+                        style={{
+                          height: isMobile ? "300px" : "436px",
+                          objectFit: "cover",
+                        }}
+                        alt="swiper-img"
+                      />
+                    </div>
+                  ))}
                 </div>
                 {!isMobile ? (
                   <>
@@ -132,8 +135,8 @@ const DetailProdukBuyer = () => {
                         data-bs-target="#carouselExampleControls"
                         data-bs-slide-to={index}
                         className={`${index === 0 ? "active" : ""}`}
-                      // aria-current={true}
-                      // aria-label="Slide 1"
+                        // aria-current={true}
+                        // aria-label="Slide 1"
                       ></button>
                     ))}
                   </div>
@@ -165,19 +168,17 @@ const DetailProdukBuyer = () => {
                     Saya Tertarik dan Ingin Nego
                   </button>
                   <button type="submit" className={`${style["btn_edit"]}`}>
-                      Tambahkan ke Wishlist
+                    Tambahkan ke Wishlist
                   </button>
-                  <ModalTawar 
-                  images={product.images}
-                  name={product.name}
-                  price={product.price}
-                  id={product.id}
+                  <ModalTawar
+                    images={product.images}
+                    name={product.name}
+                    price={product.price}
+                    id={product.id}
                   />
                 </div>
               </div>
-              <CardPenjual 
-              user = {product?.seller}
-              />
+              <CardPenjual user={product?.seller} />
               {isMobile && (
                 <div className="card mt-4 rounded-4 mb-2">
                   <div className="card-body">
@@ -204,7 +205,6 @@ const DetailProdukBuyer = () => {
       )}
       <button
         type="submit"
-        
         className={`${style["btn_terbitkan_static"]} mb-3`}
         data-bs-toggle="modal"
         data-bs-target="#modalTawar"

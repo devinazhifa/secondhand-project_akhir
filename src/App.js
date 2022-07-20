@@ -42,7 +42,9 @@ const App = () => {
         <Routes>
           {/* ALL */}
           <Route path="/" element={<Homepage />} />
+          <Route path="detail-produk/:slug" element={<DetailProdukBuyer />} />
           <Route path="logout" element={<Logout />} />
+
           {/* PUBLIC ONLY */}
           <Route path="/" element={<UnprotectedRoute />}>
             <Route path="login" element={<Login />} />
@@ -68,7 +70,6 @@ const App = () => {
             {/* <Route path="detail-produk-seller/:slug" element={<DetailProdukSeller />} /> */}
             {/* <Route path="detail-produk-buyer/:slug" element={<DetailProdukBuyer />} /> */}
             {/* <Route path="detail-produk" element={<DetailProduk />} /> */}
-            <Route path="detail-produk/:slug" element={<DetailProdukBuyer />} />
             <Route path="info-penawaran" element={<InfoPenawaran />} />
             <Route path="notifikasi" element={<LamanNotifikasi />} />
             <Route path="search-result" element={<SearchResult />} />
