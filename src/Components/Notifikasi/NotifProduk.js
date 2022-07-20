@@ -15,7 +15,7 @@ const NotifProduk = ({ props }) => {
           className="img-notif "
         ></img>
       </div>
-      <div className="col-lg notif-card-desc text-start mx-2">
+      <div className="col-lg notif-card-desc text-start mx-2 w-100">
         <div className="d-flex justify-content-between align-items-start header">
           <div className="text-muted small-notifdrop">Berhasil Diterbitkan</div>
           <div>

@@ -11,6 +11,7 @@ import NotifPenawaran from "../../Components/Notifikasi/NotifPenawaran";
 import NotifPenawaranSuccess from "../../Components/Notifikasi/NotifPenawaranSuccess";
 import NotifProduk from "../../Components/Notifikasi/NotifProduk";
 import requestAPI from "../../requestMethod";
+import style from './LamanNotifikasi.module.css'
 
 function LamanNotifikasi(props) {
   const [notifs, setNotifs] = useState(null);
@@ -79,15 +80,17 @@ function LamanNotifikasi(props) {
   };
 
   return (
-    <div>
-      <NavbarPlain />
+    <>
+    <NavbarPlain title='Notifikasi'/>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="row justify-content-center">
-              <div className="col-lg-1">
-                <i className="fa-solid fa-arrow-left"></i>
-              </div>
+              <Link to="/">
+                <div className={`${style["back-button"]} col-lg-1`}>
+                  <i className="fa-solid fa-arrow-left"></i>
+                </div>
+              </Link>
               <div className="col-lg-9">
                 {notifs?.length > 0 ? (
                   notifs.map((a) => (
@@ -97,14 +100,14 @@ function LamanNotifikasi(props) {
                     </>
                   ))
                 ) : (
-                  <div className=" text-center">belum ada notifikasi</div>
+                  <div className="text-center">belum ada notifikasi</div>
                 )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

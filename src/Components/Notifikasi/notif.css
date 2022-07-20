@@ -30,7 +30,7 @@
 }
 
 .desc-notifdrop{
-    width: 300px;
+    max-width: 300px;
     font-size: 12px !important;
     /* font-weight: bold; */
 }

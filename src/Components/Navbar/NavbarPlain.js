@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
@@ -8,6 +8,9 @@ import style from "./NavbarPlain.module.css";
 fontawesome.library.add(faArrowLeft);
 
 function NavbarPlain(props) {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <header className={style.header}>
@@ -22,14 +25,14 @@ function NavbarPlain(props) {
                   width="120"
                 />
               </Link>
-              <Link to="/daftar-jual">
-                <div className="d-lg-none">
-                  <FontAwesomeIcon
-                    icon="fa-arrow-left"
-                    className={`${style["fa-arrow-left"]}`}
-                  />
-                </div>
-              </Link>
+              <div className="d-lg-none" onClick={ () => {
+                navigate(-1)
+              }}>
+                <FontAwesomeIcon
+                  icon="fa-arrow-left"
+                  className={`${style["fa-arrow-left"]}`}
+                />
+              </div>  
               <span href="/" className={`${style["navbar-text"]} mx-auto`}>
                 {props.title}
               </span>
