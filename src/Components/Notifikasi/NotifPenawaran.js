@@ -27,7 +27,7 @@ const NotifPenawaran = ({ props }) => {
             </p>
           </div>
         </div>{" "}
-        <div className="desc-notifdrop text-capitalize">
+        <div className="desc-notifdrop text-capitalize text-wrap">
           {props.product.name}
         </div>
         <div className="desc-notifdrop">

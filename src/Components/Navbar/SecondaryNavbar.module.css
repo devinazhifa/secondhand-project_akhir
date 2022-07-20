@@ -134,6 +134,7 @@ a {
     border:none;
     max-height: 350px;
     overflow-y: auto;
+    overflow-x: inherit;
 }
 
 @media (max-width: 767.9px) { 

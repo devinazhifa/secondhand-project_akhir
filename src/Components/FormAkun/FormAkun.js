@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./FormAkun.module.css";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import kotas from "../../data/kota.js";
+import "./disable.css";
+import requestAPI from "../../requestMethod";
 
 const FormAkun = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.data.user);
+  const token = useSelector((state) => state.user.data.token);
+  const name = useRef();
+  const city = useRef();
+  const address = useRef();
+  const phone = useRef();
+  var imageSize = {
+    width: "96px",
+    height: "96px",
+    borderRadius: "10px",
+  };
+
+  // useState(()=>{
+  //   name.current.value = user.name;
+  //   setCity(user.city)
+  //   setAddress(user.address)
+  //   setPhone(user.phone)
+  // },[])
+
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
   const files = acceptedFiles.map((file) => (
@@ -14,6 +39,26 @@ const FormAkun = () => {
     </li>
   ));
 
+  const formSubmitHandler = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    const file = acceptedFiles[0].file;
+    formData.append("name", name.current.value);
+    formData.append("city", city.current.value);
+    formData.append("address", address.current.value);
+    formData.append("phone", phone.current.value);
+    formData.append("profilePicture", acceptedFiles[0], acceptedFiles[0].name);
+
+    for (const pair of formData.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
+
+    await requestAPI().put("/users/", formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+  };
   return (
     <div>
       <div className="container">
@@ -35,22 +80,20 @@ const FormAkun = () => {
                     className="text-center"
                   >
                     <input {...getInputProps()} />
-                    <img
-                      src="./img/profile_picture.png"
-                      alt=""
-                      className="img-fluid"
-                    />
+                    <img src={user.profilePicture} alt="" style={imageSize} />
                   </div>
                   <aside>
                     <ul>{files}</ul>
                   </aside>
                 </div>
-                <form className={style.form_akun}>
+                <form className={style.form_akun} onSubmit={formSubmitHandler}>
                   <label>Nama*</label>
                   <input
-                    type="nama"
+                    type="text"
                     id="nama"
                     placeholder="Nama"
+                    defaultValue={user.name}
+                    ref={name}
                     className={`${style["field_akun"]} form-control`}
                     autoComplete="true"
                     data-testid="input-nama"
@@ -58,14 +101,16 @@ const FormAkun = () => {
                   <label>Kota*</label>
                   <select
                     className={`${style["field_akun"]} form-control form-select`}
-                    label="Pilih kota"
+                    label="Pilih kota"    
+                    defaultValue={user.city}
+                    ref={city}
                   >
-                    <option value="" disabled selected>
-                      Pilih Kota
-                    </option>
-                    <option value="1">Bandung</option>
-                    <option value="2">Bekasi</option>
-                    <option value="3">Bogor</option>
+                    {/* <option value={city} disabled selected>{city}</option> */}
+                    {kotas.map((kota, index) => (
+                      <option key={index} value={kota}>
+                        {kota}
+                      </option>
+                    ))}
                   </select>
                   <label
                     for="exampleFormControlTextarea1"
@@ -78,21 +123,30 @@ const FormAkun = () => {
                     id="exampleFormControlTextarea1"
                     rows="3"
                     placeholder="Contoh: Jalan Ikan Hiu 33"
+                    defaultValue={user.address}
+                    ref={address}
                   ></textarea>
                   <label>No Handphone*</label>
                   <input
-                    type="no_hp"
+                    type="number"
                     id="no_hp"
                     placeholder="Contoh: +628123456789"
                     className={`${style["field_akun"]} form-control`}
                     autoComplete="true"
                     data-testid="input-no_hp"
+                    defaultValue={user.phone}
+                    ref={phone}
                   />
-                  <Link to="/homepage">
-                    <button type="submit" className={`${style["btn_primary"]}`}>
-                      Simpan
-                    </button>
-                  </Link>
+                  <button
+                    type="submit"
+                    className={`${
+                      files.length === 0
+                        ? "btn_primary_disabled"
+                        : "btn_primary"
+                    } `}
+                  >
+                    Simpan
+                  </button>
                 </form>
               </div>
             </div>

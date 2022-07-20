@@ -39,6 +39,7 @@
     border-radius: 12px;
     color: black;
     font-size: 11px;
+
 }
 
 .btn_categories:hover,
@@ -50,6 +51,10 @@
     color: white !important;
 }
 
+.active-tabs  { 
+    color: orange !important;
+    border-bottom: 1px solid orange;
+  }
 
 @media (max-width: 576px) { 
     .category_wrapper {
