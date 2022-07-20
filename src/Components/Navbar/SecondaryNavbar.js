@@ -92,12 +92,14 @@ const SecondaryNavbar = (props) => {
       <nav className={`${style["nav-header"]} navbar fixed-top`}>
         <div className="container-fluid">
           <div className="col-auto ml-3">
-            <img
-              src="/img/logo.png"
-              alt="logo-img"
-              className={`${style["logo-img"]} mx-5`}
-              width="150"
-            />
+            <Link to="/"> 
+              <img
+                src="/img/logo.png"
+                alt="logo-img"
+                className={`${style["logo-img"]} mx-5`}
+                width="150"
+              />
+            </Link>
           </div>
           <div className="col">
             <form className={`${style["search-form"]} mx-5`} role="search">
@@ -116,7 +118,7 @@ const SecondaryNavbar = (props) => {
                 <li className="d-flex list-inline-item">
                   {/* PROTECTED */}
                   <Link
-                    to="/"
+                    to="/daftar-jual"
                     type="submit"
                     className={`${style["icons-menu"]} btn d-flex align-items-center`}
                   >
@@ -156,7 +158,7 @@ const SecondaryNavbar = (props) => {
                     </ul>
                   </div>
                   <Link
-                    to="/"
+                    to="/info-akun"
                     type="submit"
                     className={`${style["icons-menu"]} btn d-flex align-items-center`}
                   >
@@ -179,7 +181,7 @@ const SecondaryNavbar = (props) => {
                   <Link
                     to="/login"
                     type="submit"
-                    className={`${style["btn_primary"]} btn d-flex align-items-center`}
+                    className={`${style["btn_primary"]} btn text-white d-flex align-items-center`}
                   >
                     <FontAwesomeIcon
                       icon="fa-sign-out-alt"
@@ -254,7 +256,7 @@ const SecondaryNavbar = (props) => {
                     </form>
                     <li className="nav-item">
                       <Link
-                        to="/"
+                        to="/notifikasi"
                         type="submit"
                         className={`${style["icons-menu"]} btn d-flex align-items-center`}
                       >
@@ -263,7 +265,7 @@ const SecondaryNavbar = (props) => {
                     </li>
                     <li className="nav-item">
                       <Link
-                        to="/"
+                        to="/daftar-jual"
                         type="submit"
                         className={`${style["icons-menu"]} btn d-flex align-items-center`}
                       >
@@ -272,7 +274,7 @@ const SecondaryNavbar = (props) => {
                     </li>
                     <li className="nav-item">
                       <Link
-                        to="/"
+                        to="/info-akun"
                         type="submit"
                         className={`${style["icons-menu"]} btn d-flex align-items-center`}
                       >

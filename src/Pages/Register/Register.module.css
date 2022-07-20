@@ -170,12 +170,12 @@ label:focus,
 .btn_primary:visited
 {
     background-color: #7126B5;
-    color: #E2D4F0;
+    color: white !important;
 }
 
 .redirect-text {
     text-decoration: none;
-    color: #7126B5;
+    color: #7126B5 !important;
     font-weight: bolder;
     text-align: center;
 }

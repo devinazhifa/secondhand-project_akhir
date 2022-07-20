@@ -112,7 +112,7 @@ function DaftarJual() {
               <div className="col-lg-8">
                 <div className="row">
                 <div className="col-lg-4 col-6">
-                    <Link to='/info-produk'><img src='/img/add-produk.png' /></Link>
+                    <Link to='/form-produk'><img src='/img/add-produk.png' /></Link>
                 </div>
                   {/* <div className="col-lg-4 col-6"> */}
                     {products?.map( (product, index) => {

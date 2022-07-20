@@ -6,7 +6,7 @@ const CardProduk = (props) => {
   return (
     <>
       <Link
-        to={`/detail-produk-buyer/${props.product.slug}`}
+        to={`/detail-produk/${props.product.slug}`}
         style={{ textDecoration: "none" }}
       >
         <div className={`${style["card-container"]} mb-4`}>
@@ -23,10 +23,9 @@ const CardProduk = (props) => {
               className={`${style["card-title"]} m-0 p-0 mt-2`}
               style={{ textDecoration: "none" }}
             >
-            {  props.product.name.length > 30
-            ? props.product.name.substring(0, 27) + '...'
-            : props.product.name
-            }
+              {props.product.name.length > 30
+                ? props.product.name.substring(0, 27) + "..."
+                : props.product.name}
             </h6>
             <p className="card-text m-0 p-0 mt-2 text-muted">
               {props.product.categories.map((a, index) => {
@@ -37,7 +36,7 @@ const CardProduk = (props) => {
                 }
               })}
             </p>
-            <p className="card-text m-0 p-0 mt-2">
+            <p className={`${style["price-text"]} m-0 p-0 mt-2`}>
               Rp. {(+props.product.price).toLocaleString("id-ID")}
             </p>
           </div>

@@ -26,20 +26,32 @@
     text-decoration:none !important;
 }
 
+@media (max-width: 1024px) {
+    .card-container {
+        width: 130px;
+    }
+    .card-title,
+    .price-text {
+        font-size: 13px;
+    }
+}
+
 @media (max-width: 576px) {
     .card-container {
-        width: 170px;
+        width: 160px;
     }
-    
 }
 
 @media (max-width: 320px) {
     .card-container {
-        width: 135px;
-        height: 225px
+        width: 130px;
+        height: 215px
+    }
+    .card-title,
+    .price-text {
+        font-size: 13px;
     }
 }
-
 
 .card-img img{
     width: 100%;

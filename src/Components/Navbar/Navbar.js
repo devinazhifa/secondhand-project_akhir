@@ -17,12 +17,14 @@ const Navbar = () => {
       <nav className={`${style["nav-header"]} navbar fixed-top`}>
         <div className="container-fluid">
           <div className="col-auto ml-3">
-            <img
-              src="/img/logo.png"
-              alt="logo-img"
-              className={`${style["logo-img"]} mx-5`}
-              width="150"
-            />
+            <Link to="/">
+              <img
+                src="/img/logo.png"
+                alt="logo-img"
+                className={`${style["logo-img"]} mx-5`}
+                width="150"
+              />
+            </Link>
           </div>
           <div className="col mx-5">
             <form className="d-flex" role="search">
@@ -47,14 +49,14 @@ const Navbar = () => {
                   <i className="fa-solid fa-bars"></i>
                 </Link>
                 <Link
-                  to="/"
+                  to="/notifikasi"
                   type="submit"
                   className={`${style["icons-menu"]} btn d-flex align-items-center`}
                 >
                   <i className="fa-regular fa-bell"></i>
                 </Link>
                 <Link
-                  to="/"
+                  to="/info-akun"
                   type="submit"
                   className={`${style["icons-menu"]} btn d-flex align-items-center`}
                 >
@@ -77,7 +79,7 @@ const Navbar = () => {
                 <Link
                   to="/login"
                   type="submit"
-                  className={`${style["btn_primary"]} btn d-flex align-items-center`}
+                  className={`${style["btn_primary"]} text-white btn d-flex align-items-center`}
                 >
                   <FontAwesomeIcon
                     icon="fa-sign-out-alt"
@@ -122,7 +124,7 @@ const Navbar = () => {
                   <Link
                     to="/login"
                     type="submit"
-                    className={`${style["signin-offcanvas"]} btn d-flex align-items-center`}
+                    className={`${style["signin-offcanvas"]} btn text-white d-flex align-items-center`}
                   >
                     <FontAwesomeIcon
                       icon="fa-sign-out-alt"
@@ -136,7 +138,7 @@ const Navbar = () => {
                 <>
                 <li className="nav-item">
                   <Link
-                    to="/"
+                    to="/notifikasi"
                     type="submit"
                     className={`${style["icons-menu"]} btn d-flex align-items-center`}
                   >
@@ -154,7 +156,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/"
+                    to="/info-akun"
                     type="submit"
                     className={`${style["icons-menu"]} btn d-flex align-items-center`}
                   >

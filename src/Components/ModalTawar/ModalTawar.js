@@ -2,26 +2,26 @@ import React, { useRef, useState } from "react";
 import { deviceSize } from "../../Responsive";
 import style from "./ModalTawar.module.css";
 import { useMediaQuery } from "react-responsive";
-import requestAPI from '../../requestMethod';
-import { ToastContainer, toast, Zoom , Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import requestAPI from "../../requestMethod";
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ModalTawar = (props) => {
-
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
   const bidPrice = useRef();
-  
+
   const formSubmitHandler = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     const body = {
-      bidPrice : bidPrice.current.value
-    }
+      bidPrice: bidPrice.current.value,
+    };
 
-    await requestAPI().post(`/bids/product/${props.id}`, body )
-    .then((response) => {
-        toast.success('Produk berhasil dinego!', {
+    await requestAPI()
+      .post(`/bids/product/${props.id}`, body)
+      .then((response) => {
+        toast.success("Produk berhasil dinego!", {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -29,28 +29,29 @@ const ModalTawar = (props) => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme:'colored',
+          theme: "colored",
           icon: false,
-          });
+        });
 
         console.log(response.data.message);
-    })
-    .catch((error) => {
-      toast.error('Produk gagal dinego!', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme:'colored',
-        icon: false,
+        window.location.reload();
+      })
+      .catch((error) => {
+        toast.error("Produk gagal dinego!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          icon: false,
         });
-    });
-    
-    console.log(bidPrice)
-  }
+      });
+
+    console.log(bidPrice);
+  };
 
   return (
     <div>
@@ -100,15 +101,15 @@ const ModalTawar = (props) => {
                 )}
               </div>
               <div className="body mx-4 my-4">
-                <p className="fw-semibold">
-                  Masukkan Harga Tawarmu
-                </p>
+                <p className="fw-semibold">Masukkan Harga Tawarmu</p>
                 <p className="text=muted" style={{ color: "#8A8A8A" }}>
-                  Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual.
+                  Harga tawaranmu akan diketahui penjual, jika penjual cocok
+                  kamu akan segera dihubungi penjual.
                 </p>
                 <div className="card rounded-4">
                   <div className={`${style["card_profile"]} card-body`}>
-                    <img src={props.images[0]}
+                    <img
+                      src={props.images[0]}
                       className="rounded-3"
                       style={{
                         height: isMobile ? "48px" : "48px",
@@ -123,14 +124,23 @@ const ModalTawar = (props) => {
                     </div>
                   </div>
                 </div>
-                <p className='t-3'>Harga Tawar</p>
-                <input type='text' id='bid' name="bidPrice" ref={bidPrice} placeholder='20000' className={`${style['field_produk']} form-control`} autoComplete='true' data-testid='input-harga_tawar' />
+                <p className="t-3">Harga Tawar</p>
+                <input
+                  type="text"
+                  id="bid"
+                  name="bidPrice"
+                  ref={bidPrice}
+                  placeholder="20000"
+                  className={`${style["field_produk"]} form-control`}
+                  autoComplete="true"
+                  data-testid="input-harga_tawar"
+                />
               </div>
               <input
                 type="submit"
                 id="submit"
                 className={`${style["btn_kontak"]} mx-4 mb-4 d-flex align-items-center justify-content-center`}
-                value='Kirim'
+                value="Kirim"
               />
             </div>
           </div>
@@ -138,6 +148,6 @@ const ModalTawar = (props) => {
       </form>
     </div>
   );
-}
+};
 
 export default ModalTawar;
