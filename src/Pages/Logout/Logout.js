@@ -13,7 +13,7 @@ const Logout = () => {
     dispatch( userSlice.actions.removeUser() )
 
     return (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     )
 }
 

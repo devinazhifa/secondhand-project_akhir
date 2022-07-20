@@ -21,7 +21,7 @@ const FormAkun = () => {
           <div className='col-lg-8'>
             <div className='row justify-content-center'>
               <div className={`${style["back-button"]} col-lg-1`}>
-              <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
+              <Link to='/daftar-jual'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className='col-lg-9'>
                 <div className='profile_picture'>

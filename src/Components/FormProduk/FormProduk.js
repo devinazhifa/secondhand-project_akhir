@@ -142,7 +142,7 @@ const InfoProduk = (props) => {
           <div className="col-lg-8">
             <div className="row justify-content-center">
               <div className={`${style["back-button"]} col-lg-1`}>
-                <Link to="/homepage">
+                <Link to="/daftar-jual">
                   <FontAwesomeIcon
                     icon="fa-arrow-left"
                     className={`${style["fa-arrow-left"]}`}

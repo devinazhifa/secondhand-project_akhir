@@ -14,13 +14,15 @@ function NavbarPlain(props) {
         <div>
           <nav className="navbar navbar-light bg-white shadow-sm d-block mb-2 ">
             <div className="container d-flex">
-              <img
-                src="/img/logo.png"
-                alt="logo-img"
-                className={`${style["logo-img"]}`}
-                width="120"
-              />
               <Link to="/">
+                <img
+                  src="/img/logo.png"
+                  alt="logo-img"
+                  className={`${style["logo-img"]}`}
+                  width="120"
+                />
+              </Link>
+              <Link to="/daftar-jual">
                 <div className="d-lg-none">
                   <FontAwesomeIcon
                     icon="fa-arrow-left"

@@ -47,7 +47,7 @@
 .btn_categories:visited
 {
     background-color: #7126B5;
-    color: white;
+    color: white !important;
 }
 
 
@@ -57,7 +57,7 @@
     }
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 767.98px) { 
     .category_wrapper {
         display: none;
     }
@@ -81,6 +81,9 @@
     }
     .btn_categories {
         width: 120px;
+    }
+    .category_button {
+        display: none;
     }
  }
 

@@ -20,7 +20,7 @@ const CardProduk = (props) => {
           </div>
           <div className={`${style["card-desc"]}`}>
             <h6
-              className="card-title m-0 p-0 mt-2"
+              className={`${style["card-title"]} m-0 p-0 mt-2`}
               style={{ textDecoration: "none" }}
             >
               {props.product.name}
@@ -34,7 +34,7 @@ const CardProduk = (props) => {
                 }
               })}
             </p>
-            <p className="card-text m-0 p-0 mt-2">
+            <p className={`${style["price-text"]} m-0 p-0 mt-2`}>
               Rp. {(+props.product.price).toLocaleString("id-ID")}
             </p>
           </div>

@@ -17,7 +17,7 @@ function InfoPenawaran(props) {
           <div className='col-lg-8'>
             <div className='row justify-content-center'>
             <div className={`${style["back-button"]} col-lg-1 mt-4`}>
-              <Link to='/homepage'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
+              <Link to='/daftar-jual'><FontAwesomeIcon icon="fa-arrow-left" className={`${style["fa-arrow-left"]}`}/></Link>
               </div>
               <div className="col-lg-9">
                 <CardPenjual />

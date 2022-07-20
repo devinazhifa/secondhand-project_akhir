@@ -76,7 +76,7 @@ function DetailProduk() {
                     Terbitkan
                   </button>
                 </Link>
-                <Link to="/info-produk">
+                <Link to="/form-produk">
                   <button type="submit" className={`${style["btn_edit"]}`}>
                     Edit{" "}
                   </button>{" "}

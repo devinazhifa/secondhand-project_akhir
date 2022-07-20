@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useRef} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,6 +42,17 @@ const Register = () => {
       });
   };
 
+  // Unit testing
+  const registerInputField = useRef()
+
+  // const clickButtonHandler = () => {
+  //   if ( registerInputField.current.value ) {
+  //     const newTodo = registerInputField.current.value
+  //     handleSubmit( prevState => [...prevState, newTodo])
+  //     registerInputField.current.value = null
+  //   }
+  // }
+
   return (
     <div className={`${style["signup"]}`}>
       <div className="container-fluid">
@@ -83,6 +94,8 @@ const Register = () => {
                     placeholder="Contoh: John Dee"
                     {...register("user_name", { required: true })}
                     autoComplete="true"
+                    ref={registerInputField} 
+                    data-testid="register-input-name-field"
                   />
                   <p className={`${style["message-text"]} fst-italic`}>{formState.errors.user_namel?.type === 'required' && "Name is required"}</p>
                 </div>

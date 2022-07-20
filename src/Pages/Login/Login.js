@@ -38,7 +38,7 @@ const Login = () => {
           // localStorage.setItem('secondHandToken', res.data.data.token);
           // console.log(res);
           dispatch(userSlice.actions.addUser(res.data.data));
-          navigate('/homepage')
+          navigate('/')
         }
       })
       .catch((err) => {
