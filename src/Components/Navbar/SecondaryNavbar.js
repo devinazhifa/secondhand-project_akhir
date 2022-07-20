@@ -45,7 +45,7 @@ const SecondaryNavbar = (props) => {
     });
   }, []);
 
-  console.log(notifs?.map((a) => a.id));
+  // console.log(notifs?.map((a) => a.id));
 
   const renderNotifElement = (notif) => {
     let component;

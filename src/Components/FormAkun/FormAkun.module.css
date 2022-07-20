@@ -18,6 +18,18 @@
     height: 48px;
     margin-top: 25px;
 }
+.btn_primary_disabled{
+    width: 100%;
+    background-color: #c184f9;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    margin-top: 25px;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
 
 .form_akun {
     height: 100%;

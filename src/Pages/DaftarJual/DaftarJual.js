@@ -5,13 +5,33 @@ import style from './DaftarJual.module.css'
 import SecondaryNavbar from '../../Components/Navbar/SecondaryNavbar'
 import CardProduk from '../../Components/CardProduk/CardProduk'
 import { Link } from 'react-router-dom'
+import './tabs.css'
 
 function DaftarJual() {
 
   const [products, setProducts] = useState(null)
+  const [toggleState, setToggleState] = useState(1);
+  const [url,setUrl]=useState('https://ancient-everglades-98776.herokuapp.com/api/products/seller');
+  
+  const toggleTab = (indeks) => {
+  setToggleState(indeks); 
+    if(indeks == 1){
+      setUrl('https://ancient-everglades-98776.herokuapp.com/api/products/seller')
+    }
+    else if(indeks == 2){
+      setUrl('https://ancient-everglades-98776.herokuapp.com/api/products/seller/?type=bidded')
+    }
+    else if(indeks == 3){
+      setUrl('https://ancient-everglades-98776.herokuapp.com/api/products/seller?type=sold')
+    }
+    else{
+      setUrl('https://ancient-everglades-98776.herokuapp.com/api/wishlists')
+    }
+
+  };
 
   useEffect(() => {
-      axios.get('https://ancient-everglades-98776.herokuapp.com/api/products/seller',
+      axios.get(url,
       {
         headers: {
           Authorization:
@@ -26,7 +46,7 @@ function DaftarJual() {
 
       })
       
-  },[])
+  },[toggleState])
 
   return (
     <div>
@@ -58,10 +78,12 @@ function DaftarJual() {
                           <i className="fa-solid fa-box mt-1"></i>
                         </div>
                         <div className='col-8'>
-                          <p>Semua Produk</p>
+                          <p type="button" 
+                          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+                          onClick={() => toggleTab(1)}>Semua Produk</p>
                         </div>
                         <div className='col-1'>
-                          <i className="fa-solid fa-angle-right"></i>
+                          <i className={`${toggleState === 1 ? "tabs active-tabs" : "tabs"} fa-solid fa-angle-right`}></i>
                         </div>
                       </div>
                       <div className='row'>
@@ -69,10 +91,12 @@ function DaftarJual() {
                           <i className="fa-regular fa-heart mt-1"></i>
                         </div>
                         <div className='col-8'>
-                          <p>Diminati</p>
+                          <p type="button" 
+                          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+                          onClick={() => toggleTab(2)}>Diminati</p>
                         </div>
                         <div className='col-1'>
-                          <i className="fa-solid fa-angle-right"></i>
+                          <i className={`${toggleState === 2 ? "tabs active-tabs" : "tabs"} fa-solid fa-angle-right`}></i>
                         </div>
                       </div>
                       <div className='row'>
@@ -80,10 +104,12 @@ function DaftarJual() {
                           <i className="fa-solid fa-dollar-sign mt-1"></i>
                         </div>
                         <div className='col-8'>
-                          <p>Terjual</p>
+                          <p type="button" 
+                          className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+                          onClick={() => toggleTab(3)}>Terjual</p>
                         </div>
                         <div className='col-1'>
-                          <i className="fa-solid fa-angle-right"></i>
+                          <i className={`${toggleState === 3 ? "tabs active-tabs" : "tabs"} fa-solid fa-angle-right`}></i>
                         </div>
                       </div>
                       <div className='row'>
@@ -91,10 +117,12 @@ function DaftarJual() {
                           <i className="fa-regular fa-star"></i>
                         </div>
                         <div className='col-8'>
-                          <p>Wishlist</p>
+                          <p type="button" 
+                          className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+                          onClick={() => toggleTab(4)}>Wishlist</p>
                         </div>
                         <div className='col-1'>
-                          <i className="fa-solid fa-angle-right"></i>
+                          <i className={`${toggleState === 4 ? "tabs active-tabs" : "tabs"} fa-solid fa-angle-right`}></i>
                         </div>
                       </div>
                     </div>
@@ -102,25 +130,26 @@ function DaftarJual() {
                 </div>
                 <div className={`${style['category_button']}`}>
                   <div className="btn-wrapper ">
-                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-solid fa-box"></i> Produk</button>
-                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-regular fa-heart"></i> Diminati</button>
-                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-solid fa-dollar-sign"></i> Terjual</button>
-                    <button type="submit" className={`${style['btn_categories']} btn mb-2`}><i className="fa-regular fa-star"></i> Wishlist</button>
+                    <button type="submit" className={`${style['btn_categories']} ${toggleState === 1 ? " tabs active-tabs" : " tabs"} btn mb-2`} onClick={() => toggleTab(1)}><i className="fa-solid fa-box"></i> Produk</button>
+                    <button type="submit" className={`${style['btn_categories']} ${toggleState === 2 ? " tabs active-tabs" : " tabs"} btn mb-2`} onClick={() => toggleTab(2)}><i className="fa-regular fa-heart"></i> Diminati</button>
+                    <button type="submit" className={`${style['btn_categories']} ${toggleState === 3 ? " tabs active-tabs" : " tabs"} btn mb-2`} onClick={() => toggleTab(3)}><i className="fa-solid fa-dollar-sign"></i> Terjual</button>
+                    <button type="submit" className={`${style['btn_categories']} ${toggleState === 4 ? " tabs active-tabs" : " tabs"} btn mb-2`} onClick={() => toggleTab(4)}><i className="fa-regular fa-star"></i> Wishlist</button>
                   </div>
                 </div>
               </div>
               <div className="col-lg-8">
                 <div className="row">
-                <div className="col-lg-4 col-6">
+                <div className={`${toggleState === 1 ? "" : "d-none"} col-lg-4 col-6`}>
                     <Link to='/info-produk'><img src='/img/add-produk.png' /></Link>
                 </div>
                   {/* <div className="col-lg-4 col-6"> */}
-                    {products?.map( (product, index) => {
+                    { products.length === 0 ? (<h5> Test </h5> ) : ( products?.map( (product, index) => {
                       return(
                         <div className="col-lg-4 col-6"><CardProduk key={`product-${index}`} product = {product} /></div>
                       )
-                    })}
+                    }) ) }
                   {/* </div> */}
+                  {/* <div>{toggleState}</div> */}
                 </div>
               </div>
             </div>
