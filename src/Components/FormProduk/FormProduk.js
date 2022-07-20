@@ -8,9 +8,9 @@ import requestAPI from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
 import productSlice from "../../store/product";
 import { useEffect } from "react";
-import { ToastContainer, toast, Zoom , Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const InfoProduk = (props) => {
   const [categories, setCategories] = useState([]);
@@ -18,6 +18,7 @@ const InfoProduk = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector((state) => state.product.data);
+  const token = useSelector((state) => state.user.data.token);
 
   console.log(product);
 
@@ -39,8 +40,8 @@ const InfoProduk = (props) => {
   }, []);
 
   console.log(categories);
-  const successToast = () =>{
-    toast.success('Produk berhasil di terbitkan!', {
+  const successToast = () => {
+    toast.success("Produk berhasil di terbitkan!", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: true,
@@ -48,10 +49,10 @@ const InfoProduk = (props) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme:'colored',
+      theme: "colored",
       icon: false,
-      });
-  }
+    });
+  };
 
   const options = [
     { value: "Hobi", label: "Hobi" },
@@ -111,12 +112,21 @@ const InfoProduk = (props) => {
 
     if (action === "publish") {
       try {
-        await requestAPI().post("/products/", formData, {
+        await requestAPI().post("/products", formData, {
           headers: {
             "content-type": "multipart/form-data",
           },
         });
 
+        // await axios({
+        //   url: "https://ancient-everglades-98776.herokuapp.com/api/products/",
+        //   method: "post",
+        //   data: formData,
+        //   headers: {
+        //     "content-type": "multipart/form-data",
+        //     Authorization: token,
+        //   },
+        // });
         navigate("/daftar-jual");
       } catch (error) {
         console.log(error.response.data.message);
@@ -320,7 +330,6 @@ const InfoProduk = (props) => {
 
                     {/* <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
                     <button type='submit' onClick={successToast} className={`${style['btn_terbitkan']}`}>Terbitkan</button> */}
-
                   </div>
                 </form>
               </div>
@@ -331,6 +340,5 @@ const InfoProduk = (props) => {
     </div>
   );
 };
-
 
 export default InfoProduk;

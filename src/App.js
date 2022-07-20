@@ -60,7 +60,7 @@ const App = () => {
           <Route path="detail-produk/:slug" element={<DetailProdukBuyer />} />
 
           <Route path="daftar-jual" element={<DaftarJual />} />
-          <Route path="info-penawaran" element={<InfoPenawaran />} />
+          <Route path="info-penawaran/:userId" element={<InfoPenawaran />} />
           <Route path="notifikasi" element={<LamanNotifikasi />} />
         </Routes>
       </BrowserRouter>
