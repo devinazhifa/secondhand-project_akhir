@@ -3,7 +3,6 @@ import { deviceSize } from "../../Responsive";
 import style from "./ModalTawar.module.css";
 import { useMediaQuery } from "react-responsive";
 import requestAPI from '../../requestMethod';
-import { useParams } from "react-router-dom";
 import { ToastContainer, toast, Zoom , Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
