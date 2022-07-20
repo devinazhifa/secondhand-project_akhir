@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import kotas from "../../data/kota.js";
 import "./disable.css";
 import requestAPI from "../../requestMethod";
+import userSlice from "../../store/user";
 
 const FormAkun = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const FormAkun = () => {
     width: "96px",
     height: "96px",
     borderRadius: "10px",
+    objectFit: "cover",
   };
 
   // useState(()=>{
@@ -31,40 +33,58 @@ const FormAkun = () => {
   //   setPhone(user.phone)
   // },[])
 
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFile({
+        file: acceptedFiles[0],
+        url: window.URL.createObjectURL(acceptedFiles[0]),
+      });
+    },
+  });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
+  const [file, setFile] = useState(null);
+
+  // console.log(!phone.current.value);
+  // const files = acceptedFiles.map((file) => (
+  //   <li key={file.path}>
+  //     {file.path} - {file.size} bytes
+  //   </li>
+  // ));
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    const file = acceptedFiles[0].file;
+
+    // const file = acceptedFiles[0].file;
+
     formData.append("name", name.current.value);
     formData.append("city", city.current.value);
-    formData.append("address", address.current.value);
+    formData.append("address", address.current.value.toString());
     formData.append("phone", phone.current.value);
-    formData.append("profilePicture", acceptedFiles[0], acceptedFiles[0].name);
-
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}, ${pair[1]}`);
+    if (file) {
+      formData.append("profilePicture", file.file, file.file.name);
     }
 
-    await requestAPI().put("/users/", formData, {
+    const res = await requestAPI().put("/users/", formData, {
       headers: {
         "content-type": "multipart/form-data",
       },
     });
+
+    dispatch(userSlice.actions.updateUser(res.data.data));
   };
   return (
     <div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8">
-            <div className="row justify-content-center">
+            <form
+              className="row justify-content-center"
+              onSubmit={formSubmitHandler}
+            >
               <div className={`${style["back-button"]} col-lg-1`}>
                 <div onClick={() => navigate("/")}>
                   <FontAwesomeIcon
@@ -77,20 +97,44 @@ const FormAkun = () => {
                 <div className="profile_picture">
                   <div
                     {...getRootProps({ className: "dropzone" })}
-                    className="text-center"
+                    className="text-center position-relative"
                   >
                     <input {...getInputProps()} />
-                    <img src={user.profilePicture} alt="" style={imageSize} />
+                    <img
+                      // style={{
+                      //   height: "96px",
+                      //   width: "96px",
+                      //   objectFit: "cover",
+                      // }}
+                      src={
+                        file
+                          ? file.url
+                          : user?.profilePicture
+                          ? user.profilePicture
+                          : "./img/profile_picture.png"
+                      }
+                      alt=""
+                      style={imageSize}
+                    />
+                    <input
+                      tabIndex={-1}
+                      className=" position-absolute top-50 start-50"
+                      style={{ opacity: 0, height: "2px" }}
+                      name=""
+                      defaultValue={file}
+                      required={!user?.verified}
+                    />
                   </div>
-                  <aside>
+                  {/* <aside>
                     <ul>{files}</ul>
-                  </aside>
+                  </aside> */}
                 </div>
-                <form className={style.form_akun} onSubmit={formSubmitHandler}>
+                <div className={style.form_akun}>
                   <label>Nama*</label>
                   <input
                     type="text"
                     id="nama"
+                    required={true}
                     placeholder="Nama"
                     defaultValue={user.name}
                     ref={name}
@@ -101,11 +145,14 @@ const FormAkun = () => {
                   <label>Kota*</label>
                   <select
                     className={`${style["field_akun"]} form-control form-select`}
-                    label="Pilih kota"    
+                    label="Pilih kota"
+                    required={true}
                     defaultValue={user.city}
                     ref={city}
                   >
-                    {/* <option value={city} disabled selected>{city}</option> */}
+                    <option value={""} disabled selected={!user.city}>
+                      --pilih kota--
+                    </option>
                     {kotas.map((kota, index) => (
                       <option key={index} value={kota}>
                         {kota}
@@ -119,6 +166,7 @@ const FormAkun = () => {
                     Alamat*
                   </label>
                   <textarea
+                    required={true}
                     className={`${style["field_address"]} form-control`}
                     id="exampleFormControlTextarea1"
                     rows="3"
@@ -127,29 +175,37 @@ const FormAkun = () => {
                     ref={address}
                   ></textarea>
                   <label>No Handphone*</label>
-                  <input
-                    type="number"
-                    id="no_hp"
-                    placeholder="Contoh: +628123456789"
-                    className={`${style["field_akun"]} form-control`}
-                    autoComplete="true"
-                    data-testid="input-no_hp"
-                    defaultValue={user.phone}
-                    ref={phone}
-                  />
+                  <div className="input-group pt-2">
+                    <span
+                      class="input-group-text"
+                      style={{ height: "48px" }}
+                      id="basic-addon1"
+                    >
+                      +62
+                    </span>
+                    <input
+                      type="number"
+                      id="no_hp"
+                      required={true}
+                      placeholder="Contoh: 8123456789"
+                      className={`${style["field_akun"]} form-control`}
+                      autoComplete="true"
+                      data-testid="input-no_hp"
+                      defaultValue={user.phone}
+                      ref={phone}
+                    />
+                  </div>
+
                   <button
                     type="submit"
-                    className={`${
-                      files.length === 0
-                        ? "btn_primary_disabled"
-                        : "btn_primary"
-                    } `}
+                    className={`${"btn_primary"} `}
+                    //  "btn_primary_disabled"
                   >
                     Simpan
                   </button>
-                </form>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
