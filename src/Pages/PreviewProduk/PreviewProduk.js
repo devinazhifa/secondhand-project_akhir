@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function PreviewProduk() {
   const product = useSelector((state) => state.product.data);
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
+  const user = useSelector((state) => state.user.data.user);
   const navigate = useNavigate();
 
   console.log(product);
@@ -171,7 +172,7 @@ function PreviewProduk() {
                 </Link>
               </div>
             </div>
-            <CardPenjual />
+            <CardPenjual user={user} />
             {isMobile && (
               <div className="card mt-4 rounded-4 mb-2">
                 <div className="card-body">

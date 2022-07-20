@@ -17,6 +17,7 @@ const InfoProduk = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector((state) => state.product.data);
+  const token = useSelector((state) => state.user.data.token);
 
   console.log(product);
 

@@ -20,9 +20,11 @@ const NotifPenawaranSuccess = ({ props }) => {
           <div>
             <p className="text-muted small-notifdrop text-end ms-2 mb-0">
               {moment(dateObj).format("Do MMM, h:mm")}
-              <span class="position-absolute ms-2 translate-middle bg-danger border border-light rounded-circle notif-badge">
-                <span class="visually-hidden">New alerts</span>
-              </span>
+              {!props.isRead && (
+                <span class="position-absolute ms-2 translate-middle bg-danger border border-light rounded-circle notif-badge">
+                  <span class="visually-hidden">New alerts</span>
+                </span>
+              )}
             </p>
           </div>
         </div>

@@ -3,14 +3,15 @@ import { deviceSize } from "../../Responsive";
 import style from "./ModalTerima.module.css";
 import { useMediaQuery } from "react-responsive";
 
-function ModalTerima() {
+function ModalTerima({ bid, buyer }) {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
+  console.log(buyer.phone);
   return (
     <div>
       <div
         className="modal fade"
-        id="modalTerima"
+        id={`modalTerima-${bid.id}`}
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -67,34 +68,47 @@ function ModalTerima() {
                 >
                   <p className="fw-semibold text-center">Product Match</p>
                   <div className={`${style["card_profile"]} card-body`}>
-                    <img src="./img/profile.png" />
+                    <img
+                      src={buyer.profilePicture}
+                      alt="profile"
+                      className="rounded-3"
+                      style={{ height: "60px", width: "60px" }}
+                    />
                     <div className="col-lg-10 ms-3">
                       <div className="fw-semibold">Nama Pembeli</div>
                       <div className={`${style.description}`}>Kota</div>
                     </div>
                   </div>
                   <div className={`${style["card_profile"]} card-body`}>
-                    <img src="./img/produk_tawar.png" />
+                    <img
+                      src={bid.product.images[0]}
+                      alt="product"
+                      className="rounded-3"
+                      style={{ height: "60px", width: "60px" }}
+                    />
                     <div className="col-lg-10 ms-3">
-                      <div>Jam Tangan Casio</div>
+                      <div>{bid.product.name}</div>
                       <div className="text-decoration-line-through">
-                        Rp 250.000
+                        Rp {(+bid.product.price).toLocaleString("id-ID")}
                       </div>
-                      <div>Ditawar Rp 200.000</div>
+                      <div>
+                        Ditawar Rp {(+bid.bidPrice).toLocaleString("id-ID")}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <button
-              type="button"
+            <a
+              target="_blank"
+              href="https://wa.me/6289504767222"
               className={`${style["btn_kontak"]} mx-4 mb-4 d-flex align-items-center justify-content-center`}
             >
               Hubungi via Whatsapp
               <span className="ms-2 fs-5">
                 <i class="fab fa-whatsapp"></i>{" "}
               </span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

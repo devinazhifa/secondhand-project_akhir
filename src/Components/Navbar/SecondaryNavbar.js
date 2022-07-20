@@ -10,6 +10,7 @@ import style from "./SecondaryNavbar.module.css";
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import NotifPenawaranSuccess from "../Notifikasi/NotifPenawaranSuccess";
+import requestAPI from "../../requestMethod";
 
 fontawesome.library.add(faSignOutAlt);
 
@@ -23,20 +24,24 @@ const SecondaryNavbar = (props) => {
     socket.emit("setUser", user.user.id);
   });
 
-  useEffect(() => {
-    const getNotif = async () => {
-      const res = await axios.get(
-        "https://ancient-everglades-98776.herokuapp.com/api/notifications",
-        {
-          headers: {
-            Authorization: user.token,
-          },
-        }
-      );
-      // console.log(res.data.data.map((a) => a.id));
-      setNotifs(res.data.data);
-    };
+  const getNotif = async () => {
+    const res = await axios.get(
+      "https://ancient-everglades-98776.herokuapp.com/api/notifications",
+      {
+        headers: {
+          Authorization: user.token,
+        },
+      }
+    );
+    // console.log(res.data.data.map((a) => a.id));
+    setNotifs(res.data.data);
+  };
 
+  const updateNotif = async (id) => {
+    await requestAPI().put("/notifications", { id: [id] });
+  };
+
+  useEffect(() => {
     getNotif();
     socket.emit("setUser", user.user.id);
 
@@ -49,21 +54,28 @@ const SecondaryNavbar = (props) => {
 
   const renderNotifElement = (notif) => {
     let component;
+    let href;
     switch (notif.status) {
       case "bidding":
         component = <NotifPenawaran props={notif} />;
+        href = `/detail-produk/${notif.product.slug}`;
         break;
 
       case "bidIn":
+        console.log(notif);
         component = <NotifPenawaran props={notif} />;
+        href = `/info-penawaran/${notif.bid.buyer.id}`;
         break;
 
       case "published":
         component = <NotifProduk props={notif} />;
+        href = `/detail-produk/${notif.product.slug}`;
         break;
 
       case "bidAccepted":
         component = <NotifPenawaranSuccess props={notif} />;
+        href = `/detail-produk/${notif.product.slug}`;
+
         break;
 
       default:
@@ -74,12 +86,13 @@ const SecondaryNavbar = (props) => {
     const element = (
       <>
         <li key={notif.id} className="my-3">
-          <a
+          <Link
             className={`${style["notif-card"]} dropdown-item`}
-            href="/notifikasi"
+            onClick={() => updateNotif(notif.id)}
+            to={href}
           >
             {component}
-          </a>
+          </Link>
         </li>
       </>
     );
@@ -142,19 +155,36 @@ const SecondaryNavbar = (props) => {
                     </button>
                     <ul
                       className={`dropdown-menu rounded-4 px-3 py-1  ${style["dropdown-container"]}`}
+                      style={{
+                        marginInline: notifs?.length > 0 ? "-300px" : "-150px",
+                      }}
                       aria-labelledby="dropdownMenuButton"
                     >
-                      {notifs?.length > 0 &&
-                        notifs.map((notif, index) => {
-                          return (
-                            <div key={index}>
-                              {renderNotifElement(notif)}
-                              {index !== notifs.length - 1 && (
-                                <hr className="m-0"></hr>
-                              )}
-                            </div>
-                          );
-                        })}
+                      {/* {false ? ( */}
+                      {notifs?.length > 0 ? (
+                        <>
+                          {notifs?.map((notif, index) => {
+                            return (
+                              <div key={index}>
+                                {renderNotifElement(notif)}
+                                {index !== notifs.length - 1 && (
+                                  <hr className="m-0"></hr>
+                                )}
+                              </div>
+                            );
+                          })}
+                          <hr className="m-0"></hr>
+                          <p className=" my-2 text-center">
+                            <Link to={"/notifikasi"}>
+                              lihat semua notifikasi
+                            </Link>
+                          </p>
+                        </>
+                      ) : (
+                        <p className=" my-2 px-3 text-center" sty>
+                          <Link to={"/notifikasi"}>lihat semua notifikasi</Link>
+                        </p>
+                      )}
                     </ul>
                   </div>
                   <Link

@@ -1,8 +1,12 @@
-import React from 'react'
-import style from './Category.module.css'
-import fontawesome from '@fortawesome/fontawesome'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from '@fortawesome/fontawesome-free-solid'
+import React from "react";
+import style from "./Category.module.css";
+import fontawesome from "@fortawesome/fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/fontawesome-free-solid";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import qs from "query-string";
+import { useEffect } from "react";
 
 fontawesome.library.add(faSearch);
 
@@ -30,5 +34,4 @@ export const Category = (props) => {
   )
 }
 
-export default Category
-        
+export default Category;

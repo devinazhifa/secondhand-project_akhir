@@ -70,7 +70,7 @@ const App = () => {
             {/* <Route path="detail-produk-seller/:slug" element={<DetailProdukSeller />} /> */}
             {/* <Route path="detail-produk-buyer/:slug" element={<DetailProdukBuyer />} /> */}
             {/* <Route path="detail-produk" element={<DetailProduk />} /> */}
-            <Route path="info-penawaran" element={<InfoPenawaran />} />
+            <Route path="info-penawaran/:userId" element={<InfoPenawaran />} />
             <Route path="notifikasi" element={<LamanNotifikasi />} />
             <Route path="search-result" element={<SearchResult />} />
           </Route>
