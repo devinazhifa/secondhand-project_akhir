@@ -75,8 +75,8 @@ function ModalTerima({ bid, buyer }) {
                       style={{ height: "60px", width: "60px" }}
                     />
                     <div className="col-lg-10 ms-3">
-                      <div className="fw-semibold">Nama Pembeli</div>
-                      <div className={`${style.description}`}>Kota</div>
+                      <div className="fw-semibold">{buyer.name}</div>
+                      <div className={`${style.description}`}>{buyer.city}</div>
                     </div>
                   </div>
                   <div className={`${style["card_profile"]} card-body`}>
@@ -101,7 +101,7 @@ function ModalTerima({ bid, buyer }) {
             </div>
             <a
               target="_blank"
-              href="https://wa.me/6289504767222"
+              href={`https://wa.me/62${buyer.phone}`}
               className={`${style["btn_kontak"]} mx-4 mb-4 d-flex align-items-center justify-content-center`}
             >
               Hubungi via Whatsapp

@@ -87,7 +87,7 @@ function CardPenawar({ bid, buyer, getBids }) {
             </button>
             <a
               target="_blank"
-              href={`https://wa.me/${buyer.phone}`}
+              href={`https://wa.me/62${buyer.phone}`}
               className={`${style["btn_terima"]} d-flex align-items-center justify-content-center`}
             >
               Hubungi via Whatsapp

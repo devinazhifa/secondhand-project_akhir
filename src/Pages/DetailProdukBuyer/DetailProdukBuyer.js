@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import style from "./DetailProdukBuyer.module.css";
@@ -11,6 +11,8 @@ import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../Responsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import requestAPI from "../../requestMethod";
+import "./disable.css";
+
 
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
@@ -18,6 +20,8 @@ const DetailProdukBuyer = () => {
   const [product, setProduct] = useState(null);
   // const user = useSelector((state) => state.user.data);
   const params = useParams();
+  const navigate = useNavigate();
+  const user = useSelector( store => store.user.data )
 
   // const test = () => {
   //   let button = "";
@@ -160,10 +164,21 @@ const DetailProdukBuyer = () => {
                   </p>
                   <button
                     type="submit"
-                    className={`${style["btn_terbitkan"]} mb-3`}
-                    data-bs-toggle="modal"
+                    className={`${
+                      product?.bidded
+                        ? "btn_primary_disabled"
+                        : "btn_primary"
+                    } mb-3`}
                     data-bs-target="#modalTawar"
-                    disabled={product?.bidded}
+                    data-bs-toggle={user && user?.verified ? "modal" : ""}
+                    onClick={() => {
+                      if (!user) {
+                        navigate("/login");
+                      } else if (!user?.verified) {
+                        navigate("/info-akun");
+                      }
+                    }}
+                    // disabled={product?.bidded ? true : false}
                   >
                     Saya Tertarik dan Ingin Nego
                   </button>
@@ -205,10 +220,20 @@ const DetailProdukBuyer = () => {
       )}
       <button
         type="submit"
-        className={`${style["btn_terbitkan_static"]} mb-3`}
-        data-bs-toggle="modal"
+        className={`${
+          product?.bidded
+            ? "btn_primary_static_disabled"
+            : "btn_primary_static"
+        } `}
+        data-bs-toggle={user && user?.verified ? "modal" : ""}
         data-bs-target="#modalTawar"
-        disabled={product?.bidded}
+        onClick={() => {
+          if (!user) {
+            navigate("/login");
+          } else if (!user?.verified) {
+            navigate("/info-akun");
+          }
+        }}
       >
         Saya Tertarik dan Ingin Nego
       </button>

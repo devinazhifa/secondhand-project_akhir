@@ -116,7 +116,7 @@ label:focus,
         margin-right: auto;
         top: 90vh !important;
     }
-    .btn_terbitkan , .btn_edit{
+    .btn_primary , .btn_edit{
         display: none;
     }
 }
