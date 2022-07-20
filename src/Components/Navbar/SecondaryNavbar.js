@@ -62,7 +62,7 @@ const SecondaryNavbar = (props) => {
         break;
 
       case "bidIn":
-        console.log(notif);
+        // console.log(notif);
         component = <NotifPenawaran props={notif} />;
         href = `/info-penawaran/${notif.bid.buyer.id}`;
         break;

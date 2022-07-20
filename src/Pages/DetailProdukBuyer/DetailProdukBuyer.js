@@ -11,6 +11,8 @@ import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../Responsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import requestAPI from "../../requestMethod";
+import "./disable.css";
+
 
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
@@ -160,10 +162,14 @@ const DetailProdukBuyer = () => {
                   </p>
                   <button
                     type="submit"
-                    className={`${style["btn_terbitkan"]} mb-3`}
+                    className={`${
+                      product?.bidded
+                        ? "btn_primary_disabled"
+                        : "btn_primary"
+                    } mb-3`}
                     data-bs-toggle="modal"
                     data-bs-target="#modalTawar"
-                    disabled={product?.bidded}
+                    // disabled={product?.bidded ? true : false}
                   >
                     Saya Tertarik dan Ingin Nego
                   </button>
@@ -205,10 +211,14 @@ const DetailProdukBuyer = () => {
       )}
       <button
         type="submit"
-        className={`${style["btn_terbitkan_static"]} mb-3`}
+        className={`${
+          product?.bidded
+            ? "btn_primary_disabled"
+            : "btn_primary"
+        } `}
         data-bs-toggle="modal"
         data-bs-target="#modalTawar"
-        disabled={product?.bidded}
+        // disabled={product?.bidded}
       >
         Saya Tertarik dan Ingin Nego
       </button>
