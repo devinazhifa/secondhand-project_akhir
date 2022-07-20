@@ -42,12 +42,14 @@ const SecondaryNavbar = (props) => {
   };
 
   useEffect(() => {
-    getNotif();
-    socket.emit("setUser", user.user.id);
-
-    socket.on("notif", (data) => {
+    if (user) {
       getNotif();
-    });
+      socket.emit("setUser", user.user.id);
+
+      socket.on("notif", (data) => {
+        getNotif();
+      });
+    }
   }, []);
 
   // console.log(notifs?.map((a) => a.id));
@@ -105,7 +107,7 @@ const SecondaryNavbar = (props) => {
       <nav className={`${style["nav-header"]} navbar fixed-top`}>
         <div className="container-fluid">
           <div className="col-auto ml-3">
-            <Link to="/"> 
+            <Link to="/">
               <img
                 src="/img/logo.png"
                 alt="logo-img"

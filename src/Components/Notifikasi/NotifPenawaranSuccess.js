@@ -28,7 +28,10 @@ const NotifPenawaranSuccess = ({ props }) => {
             </p>
           </div>
         </div>
-        <div className="desc-notifdrop text-capitalize text-wrap">
+        <div
+          className="desc-notifdrop text-capitalize text-wrap"
+          style={{ fontWeight: "bold" }}
+        >
           {props.product.name}
         </div>
         <div className="desc-notifdrop text-decoration-line-through">
