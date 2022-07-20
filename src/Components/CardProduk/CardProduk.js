@@ -6,7 +6,7 @@ const CardProduk = (props) => {
   return (
     <>
       <Link
-        to={`/detail-produk/${props.product.slug}`}
+        to={`/detail-produk-buyer/${props.product.slug}`}
         style={{ textDecoration: "none" }}
       >
         <div className={`${style["card-container"]} mb-4`}>
@@ -20,10 +20,13 @@ const CardProduk = (props) => {
           </div>
           <div className={`${style["card-desc"]}`}>
             <h6
-              className="card-title m-0 p-0 mt-2"
+              className={`${style["card-title"]} m-0 p-0 mt-2`}
               style={{ textDecoration: "none" }}
             >
-              {props.product.name}
+            {  props.product.name.length > 30
+            ? props.product.name.substring(0, 27) + '...'
+            : props.product.name
+            }
             </h6>
             <p className="card-text m-0 p-0 mt-2 text-muted">
               {props.product.categories.map((a, index) => {

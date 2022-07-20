@@ -1,19 +1,36 @@
-@media (min-width: 768px) { 
+@media (max-width: 576px) {
+    .navbar-prev {
+        visibility: hidden;
+        display: none;
+    }
+
+    .product-info {
+        position: relative;
+        top: -100px;
+    }
+}
+
+
+@media (min-width: 576px) { 
     .detail-produk {
         margin-top: 40px;
     }
+
+
 }
 
 @media (min-width: 1024px) { 
     .detail-produk {
         margin-top: 90px;
     }
+
 }
 
-
-.detail_produk {
-    max-width: 100vw;
+.image-swiper {
+    object-fit:cover;
+    height: 436px;
 }
+
 .text_detail {
     font-size: 14px;
     color: #8A8A8A;
@@ -23,6 +40,7 @@
 .btn_terbitkan {
     width: 100%;
     background-color: #7126B5;
+    color: white !important;
     border: none;
     border-radius: 14px;
     color: white;
@@ -41,7 +59,6 @@
     z-index: 300;
     bottom: 0px !important;
     display: none;
-
 }
 
 select:active,
@@ -93,15 +110,5 @@ label:focus,
     }
     .btn_terbitkan , .btn_edit{
         display: none;
-    }
-    .card_info{
-        margin-left: 3rem !important;
-        margin-right: 3rem !important;
-    }
-    .carosel{
-        margin-bottom: -10% !important;
-    }
-    .container{
-        margin: 0px !important
     }
 }

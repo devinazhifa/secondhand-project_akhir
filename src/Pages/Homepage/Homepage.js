@@ -20,7 +20,7 @@ const Homepage = () => {
     axios
       .get("https://ancient-everglades-98776.herokuapp.com/api/products")
       .then((response) => {
-        setProducts(response.data.data);
+        setProducts(response.data.data.products);
       });
   }, []);
 

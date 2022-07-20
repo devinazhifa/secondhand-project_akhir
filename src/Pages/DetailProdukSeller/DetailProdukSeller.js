@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import style from "./DetailProdukBuyer.module.css";
+import style from "./DetailProdukSeller.module.css";
 import CardPenjual from "../../Components/CardPenjual/CardPenjual";
 import SecondaryNavbar from "../../Components/Navbar/SecondaryNavbar";
 import ModalTawar from "../../Components/ModalTawar/ModalTawar";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../Responsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import requestAPI from '../../requestMethod';
+
 
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
@@ -35,7 +35,10 @@ const DetailProdukBuyer = () => {
   };
 
   useEffect(() => {
-    requestAPI().get(`/products/${params.slug}`)
+    axios
+      .get(
+        `https://ancient-everglades-98776.herokuapp.com/api/products/${params.slug}`
+      )
       .then((response) => {
         if (response.data !== null) {
           setProduct({ ...response.data.data });
@@ -51,7 +54,7 @@ const DetailProdukBuyer = () => {
       });
   }, []);
 
-  // console.log(test());
+  console.log(test());
 
   return (
     <div>
@@ -62,20 +65,34 @@ const DetailProdukBuyer = () => {
         <div className=" sticky-top  ">
           <Link to="/">
             <FontAwesomeIcon
-              icon="fa-chevron-left"
+              icon="fa-arrow-left"
               className={` position-absolute`}
               style={{
                 fontSize: "20",
                 top: 10,
                 left: 10,
-                color: "#7126B5",
+                color: "blake",
+                backgroundColor: "white",
                 padding: "5px",
+                borderColor: "black",
+                borderStyle: "solid",
+                borderWidth: "2px",
+                borderRadius: "50%",
                 textDecoration: "none",
               }}
             />
           </Link>
         </div>
       )}
+
+      <button
+        type="submit"
+        className={`${style["btn_terbitkan_static"]} mb-3`}
+        data-bs-toggle="modal"
+        data-bs-target="#modalTawar"
+      >
+        Saya Tertarik dan Ingin Nego
+      </button>
       {product && (
         <div className={`${style["detail-produk"]} container mb-4`}>
           <div className="row justify-content-center pt-md-4">
@@ -86,21 +103,20 @@ const DetailProdukBuyer = () => {
                 data-bs-ride="carousel"
               >
                 <div className="carousel-inner">
-                {product.images?.map((image, index) => (
-                  <div className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                    <img
-                      src={image}
-                      className={` img-fluid w-100 ${
-                        isMobile ? "" : "rounded-4"
-                      }`}
-                      style={{
-                        height: isMobile ? "300px" : "436px",
-                        objectFit: "cover",
-                      }}
-                      alt="swiper-img"
-                    />
-                  </div>
-                ))}
+                  {product.images?.map((image, index) => (
+                    <div className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                      <img
+                        src={image}
+                        className={` img-fluid w-100 ${isMobile ? "" : "rounded-4"
+                          }`}
+                        style={{
+                          height: isMobile ? "300px" : "436px",
+                          objectFit: "cover",
+                        }}
+                        alt="swiper-img"
+                      />
+                    </div>
+                  ))}
                 </div>
                 {!isMobile ? (
                   <>
@@ -110,7 +126,7 @@ const DetailProdukBuyer = () => {
                       data-bs-target="#carouselExampleControls"
                       data-bs-slide="prev"
                     >
-                      <i className="fa-solid fa-circle-chevron-left fa-2x"></i>
+                      <i class="fa-solid fa-circle-chevron-left fa-2x"></i>
                     </button>
                     <button
                       className="carousel-control-next"
@@ -118,20 +134,20 @@ const DetailProdukBuyer = () => {
                       data-bs-target="#carouselExampleControls"
                       data-bs-slide="next"
                     >
-                      <i className="fa-solid fa-circle-chevron-right fa-2x"></i>
+                      <i class="fa-solid fa-circle-chevron-right fa-2x"></i>
                     </button>
                   </>
                 ) : (
                   <div
-                    className="carousel-indicators"
+                    class="carousel-indicators"
                     style={{ position: "relative", top: "-75px" }}
                   >
-                    {product.images?.map((image, index) => (
+                    {product.images.map((img, idx) => (
                       <button
                         type="button"
                         data-bs-target="#carouselExampleControls"
-                        data-bs-slide-to={index}
-                        className={`${index === 0 ? "active" : ""}`}
+                        data-bs-slide-to={idx}
+                        class={`${idx === 0 ? "active" : ""}`}
                       // aria-current={true}
                       // aria-label="Slide 1"
                       ></button>
@@ -155,29 +171,14 @@ const DetailProdukBuyer = () => {
                   <p className="harga fw-semibold mb-0 mb-md-4">
                     Rp. {(+product.price).toLocaleString("id-ID")}
                   </p>
-                  <button
-                    type="submit"
-                    className={`${style["btn_terbitkan"]} mb-3`}
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalTawar"
-                    disabled={product?.bidded}
-                  >
-                    Saya Tertarik dan Ingin Nego
-                  </button>
-                  <button type="submit" className={`${style["btn_edit"]}`}>
-                      Tambahkan ke Wishlist
-                  </button>
-                  <ModalTawar 
-                  images={product.images}
-                  name={product.name}
-                  price={product.price}
-                  id={product.id}
-                  />
+                  <Link to="/form-produk">
+                    <button type="submit" className={`${style["btn_edit"]}`}>
+                      Edit{" "}
+                    </button>{" "}
+                  </Link>
                 </div>
               </div>
-              <CardPenjual 
-              user = {product?.seller}
-              />
+              <CardPenjual />
               {isMobile && (
                 <div className="card mt-4 rounded-4 mb-2">
                   <div className="card-body">
@@ -202,16 +203,6 @@ const DetailProdukBuyer = () => {
           )}
         </div>
       )}
-      <button
-        type="submit"
-        
-        className={`${style["btn_terbitkan_static"]} mb-3`}
-        data-bs-toggle="modal"
-        data-bs-target="#modalTawar"
-        disabled={product?.bidded}
-      >
-        Saya Tertarik dan Ingin Nego
-      </button>
     </div>
   );
 };

@@ -7,7 +7,6 @@
     min-width: 60%;
     max-width: 195px;
     min-height: 70%;
-    max-height: 225px;
     left: 209.14px;
     top: 16px;
     background: #FFFFFF;
@@ -17,6 +16,10 @@
 
 .card-product {
     text-decoration: none !important;
+}
+
+.card-title {
+    min-height: 3rem;
 }
 
 .card-desc a {

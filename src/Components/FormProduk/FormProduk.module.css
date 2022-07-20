@@ -49,6 +49,10 @@
     margin-right: 20px;
 }
 
+.btn_preview:focus {
+    border: 1px solid #7126B5 !important;
+}
+
 .btn_terbitkan {
     width: 45%;
     background-color: #7126B5;
@@ -57,6 +61,11 @@
     color: white;
     font-size: 14px;
     height: 48px;
+}
+
+.btn_terbitkan:focus {
+    background-color: #7126B5;
+    color: white !important;
 }
 
 option[value=""][disabled] {

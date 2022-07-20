@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import style from "./CardPenjual.module.css";
 
-function CardPenjual() {
-  const user = useSelector((state) => state.user.data.user);
+function CardPenjual({user}) {
+
   return (
     <div>
       <div className="card rounded-4 mt-4">

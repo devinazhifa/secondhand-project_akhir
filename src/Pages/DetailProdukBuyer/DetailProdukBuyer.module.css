@@ -1,3 +1,35 @@
+@media (max-width: 576px) {
+    .navbar-prev {
+        visibility: hidden;
+        display: none;
+    }
+
+    .product-info {
+        position: relative;
+        top: -100px;
+    }
+}
+
+
+@media (min-width: 576px) { 
+    .detail-produk {
+        margin-top: 40px;
+    }
+
+
+}
+
+@media (min-width: 1024px) { 
+    .detail-produk {
+        margin-top: 90px;
+    }
+
+}
+
+.image-swiper {
+    object-fit:cover;
+    height: 436px;
+}
 
 .text_detail {
     font-size: 14px;
@@ -8,6 +40,7 @@
 .btn_terbitkan {
     width: 100%;
     background-color: #7126B5;
+    color: white !important;
     border: none;
     border-radius: 14px;
     color: white;
@@ -26,7 +59,14 @@
     z-index: 300;
     bottom: 0px !important;
     display: none;
-
+}
+.btn_terbitkan:focus {
+    background-color: #7126B5;
+    color: white !important;
+}
+.btn_terbitkan_static:focus {
+    background-color: #7126B5;
+    color: white !important;
 }
 
 select:active,

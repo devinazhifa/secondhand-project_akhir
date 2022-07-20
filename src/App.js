@@ -6,7 +6,7 @@ import InfoAkun from "./Pages/InfoAkun/InfoAkun";
 import FormProduk from "./Pages/FormProduk/FormProduk";
 import PreviewProduk from "./Pages/PreviewProduk/PreviewProduk";
 import InfoPenawaran from "./Pages/InfoPenawaran/InfoPenawaran";
-import DetailProduk from "./Pages/DetailProduk/DetailProduk";
+import DetailProdukSeller from "./Pages/DetailProdukSeller/DetailProdukSeller";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import DaftarJual from "./Pages/DaftarJual/DaftarJual";
@@ -56,8 +56,8 @@ const App = () => {
               )
             }
           />
-          <Route path="detail-produk" element={<DetailProduk />} />
-          <Route path="detail-produk/:slug" element={<DetailProdukBuyer />} />
+          <Route path="detail-produk-seller/:slug" element={<DetailProdukSeller />} />
+          <Route path="detail-produk-buyer/:slug" element={<DetailProdukBuyer />} />
 
           <Route path="daftar-jual" element={<DaftarJual />} />
           <Route path="info-penawaran" element={<InfoPenawaran />} />

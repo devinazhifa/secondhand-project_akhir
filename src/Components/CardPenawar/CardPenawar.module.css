@@ -22,11 +22,11 @@
     transition-duration: .25s;
 }
 
-.btn_tolak:hover, .btn_terima:hover {
+/* .btn_tolak:hover, .btn_terima:hover {
     color: white;
     opacity: 0.5;
     background-color:#7126B5;
-}
+} */
 
 .btn_tolak:focus {
     border: 1px solid #7126B5 !important;
@@ -40,9 +40,12 @@
     color: white !important;
     font-size: 14px;
     height: 48px;
-    transition-duration: .25s;
-
 }
+.btn_terima:focus {
+    background-color: #7126B5;
+    color: white !important;
+}
+
 
 /* .btn_terima:hover {
     color: white;
@@ -50,6 +53,6 @@
     background-color:#7126B5;
 } */
 
-.btn_terima:focus {
+/* .btn_terima:focus {
     color: white !important;
-}
+} */

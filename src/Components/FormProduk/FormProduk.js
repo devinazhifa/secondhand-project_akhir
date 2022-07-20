@@ -115,11 +115,35 @@ const InfoProduk = (props) => {
           headers: {
             "content-type": "multipart/form-data",
           },
-        });
-
+        })
+        .then((response) => {
+          toast.success('Produk berhasil diterbitkan!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme:'colored',
+            icon: false,
+            });
+  
+          console.log(response.data.message);
+      });
         navigate("/daftar-jual");
       } catch (error) {
-        console.log(error.response.data.message);
+        toast.error('Produk gagal diterbitkan!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme:'colored',
+          icon: false,
+          });
       }
     } else {
       var data = {
@@ -142,7 +166,7 @@ const InfoProduk = (props) => {
           <div className="col-lg-8">
             <div className="row justify-content-center">
               <div className={`${style["back-button"]} col-lg-1`}>
-                <Link to="/homepage">
+                <Link to="/">
                   <FontAwesomeIcon
                     icon="fa-arrow-left"
                     className={`${style["fa-arrow-left"]}`}
@@ -309,14 +333,14 @@ const InfoProduk = (props) => {
                     >
                       Preview
                     </button>
-                    <button
+                    <input
                       type="submit"
                       className={`${style["btn_terbitkan"]}`}
                       formAction={"publish"}
                       name="publish"
-                    >
-                      Terbitkan
-                    </button>
+                      value='Terbitkan'
+                    />
+                      
 
                     {/* <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
                     <button type='submit' onClick={successToast} className={`${style['btn_terbitkan']}`}>Terbitkan</button> */}
