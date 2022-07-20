@@ -14,10 +14,10 @@ function InfoPenawaran(props) {
   const [id, setId] = useState(null);
   const params = useParams();
 
-  const getBids = async () => {
-    const res = await requestAPI().get(`/bids/user/${params.userId}`);
-    setBid(res.data.data);
-  };
+    const getBids = async () => {
+      const res = await requestAPI().get(`/bids/user/${params.userId}`);
+      setBid(res.data.data);
+    };
 
   useEffect(() => {
     getBids();

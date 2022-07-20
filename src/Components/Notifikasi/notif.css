@@ -32,6 +32,6 @@
 .desc-notifdrop{
     width: 300px;
     font-size: 12px !important;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 /* .text-muted small-notifdrop */
