@@ -11,18 +11,20 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import productSlice from "./product";
+import searchSlice from "./search";
 import userSlice from "./user";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["product"],
+  blacklist: ["product", "search"],
 };
 
 const combinedReducer = combineReducers({
   user: userSlice.reducer,
   product: productSlice.reducer,
+  search: searchSlice.reducer,
 });
 
 const rootReducer = (state, action) => {

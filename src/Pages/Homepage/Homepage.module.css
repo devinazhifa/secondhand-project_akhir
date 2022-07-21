@@ -89,7 +89,7 @@ a:visited {
 .pagination {
     display: flex;
     justify-content: end;
-    margin-right: 70px;
+    /* margin-right: 70px; */
     margin-bottom: 42px;
 }
 
@@ -119,10 +119,29 @@ a:visited {
     color: white !important;
 }
 
+.btn_active {
+    background-color: #7126B5 !important;
+    color: white !important;
+}
+
 .fa-search {
     font-size: 16px;
     padding-right: 2px;
 }
+
+.sort-select{
+    background-color: #7126B5;
+    color: white;
+    padding: 8px;
+    
+}
+
+.sort-option{
+    background-color: white;
+    color: black;
+    /* padding: 8px; */
+}
+
 
 @media (min-width: 320px) { 
     .btn_categories {
