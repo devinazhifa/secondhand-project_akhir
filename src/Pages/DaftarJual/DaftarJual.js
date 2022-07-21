@@ -247,7 +247,7 @@ function DaftarJual() {
                   </div>
                   {/* <div className="col-lg-4 col-6"> */}
                   {loading ? (<h5> loading </h5>) : (products?.length === 0 ? (
-                    <h5 className="text-center fw-bold"> Belum ada produk ! </h5>
+                    <h5 className="text-center fw-bold mt-5"> Belum ada produk ! </h5>
                   ) : (
                     products?.map((product, index) => {
                       return (

@@ -18,15 +18,31 @@ const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
   const [product, setProduct] = useState(null);
-  const [wishlists,setWishlist] = useState();
+  const [wished,setWished] = useState(null);
+  const [loading,setLoading]=useState(true)
 
-  const wishlistsHandler = () =>{
-    
+  const wishlistsHandler = async() =>{
+    if (!user) {
+      navigate("/login");
+    } else if (!user?.verified) {
+      navigate("/info-akun");
+    }
+
+    setLoading(true)
+    if (wished === false){
+    await requestAPI().post(`/wishlists/product/${product.id}`)
+    setWished(true)
+    }
+    else if (wished===true){
+    await requestAPI().delete(`/wishlists/product/${product.id}`)
+    setWished(false)
+    }
+    setLoading(false)
   }
   // const user = useSelector((state) => state.user.data);
   const params = useParams();
   const navigate = useNavigate();
-  const user = useSelector( store => store.user.data )
+  const user = useSelector( store => store.user.data?.user )
 
   // const test = () => {
   //   let button = "";
@@ -49,9 +65,11 @@ const DetailProdukBuyer = () => {
       .then((response) => {
         if (response.data !== null) {
           setProduct({ ...response.data.data });
+          setWished(response.data.data.wished)
+          setLoading(false)
           // console.log(test);
 
-          console.log(response.data.data);
+          // console.log(response.data.data);
         } else {
           return Promise.reject({ errorMessage: "Product not available" });
         }
@@ -164,10 +182,20 @@ const DetailProdukBuyer = () => {
                   >
                     {product.categories.map((el) => el.value).join(", ")}
                   </p>
-                  <p className="harga fw-semibold mb-0 mb-md-4">
+                  <p className="harga fw-semibold mb-0 mb-md-2">
                     Rp. {(+product.price).toLocaleString("id-ID")}
                   </p>
-                  <button
+                  { user?.verified && product?.seller.id === user?.id ? 
+                  (<>
+                  <Link to="/form-produk">
+                    <button type="submit" className={`${style["btn_edit"]} mt-1`}>
+                      Edit{" "}
+                    </button>{" "}
+                  </Link>
+                  </>
+                  ) : (
+                  <>
+                    <button
                     type="submit"
                     className={`${
                       product?.bidded
@@ -185,11 +213,26 @@ const DetailProdukBuyer = () => {
                     }}
                     // disabled={product?.bidded ? true : false}
                   >
-                    Saya Tertarik dan Ingin Nego
+                    {product?.bidded
+                    ? "Menunggu Respon Penjual"
+                    : "Saya Tertarik dan Ingin Nego"
+                    }
                   </button>
-                  <button type="submit" className={`${style["btn_edit"]}`}>
-                    Tambahkan ke Wishlist
+                  <button type="submit" onClick={wishlistsHandler} 
+                  className={`${
+                    loading
+                      ? "btn_edit_disabled"
+                      : "btn_edit"
+                  } mb-3 mt-3`}>
+                    { wished
+                    ? "Hapus dari Wishlist"
+                    : "Tambahkan ke Wishlist"
+                    }
                   </button>
+                  </>
+                  )
+                  }
+
                   <ModalTawar
                     images={product.images}
                     name={product.name}
@@ -223,7 +266,17 @@ const DetailProdukBuyer = () => {
           )}
         </div>
       )}
-      <button
+      {user?.verified && product?.seller.id === user?.id ? (
+      <>
+        <Link to="/form-produk">
+          <button type="submit" className={`${style["btn_edit_static"]}`}>
+            Edit{" "}
+          </button>{" "}
+        </Link>
+
+      </>) : 
+      (<>
+        <button
         type="submit"
         className={`${
           product?.bidded
@@ -240,8 +293,13 @@ const DetailProdukBuyer = () => {
           }
         }}
       >
-        Saya Tertarik dan Ingin Nego
+          {product?.bidded
+           ? "Menunggu Respon Penjual"
+           : "Saya Tertarik dan Ingin Nego"
+          }
       </button>
+      </>) }
+
     </div>
   );
 };

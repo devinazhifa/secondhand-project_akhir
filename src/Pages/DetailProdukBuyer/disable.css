@@ -41,6 +41,14 @@
     bottom: 0px !important;
     display: none;
 }
+.btn_edit {
+    width: 100%;
+    border: 1px solid #7126B5;
+    border-radius: 14px;
+    font-size: 14px;
+    height: 48px;
+    margin-right: 20px;
+}
 
 .btn_primary_static:focus {
     background-color: #7126B5;
@@ -62,6 +70,20 @@
     cursor: not-allowed !important;
     pointer-events: none;
 }
+.btn_edit_disabled {
+    width: 100%;
+    background-color: #E2D4F0;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    position: sticky;
+    z-index: 300;
+    bottom: 0px !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
 
 @media only screen and (max-width: 990px){
     .btn_primary_static {
@@ -70,6 +92,20 @@
         border: none;
         border-radius: 14px;
         color: white;
+        font-size: 14px;
+        height: 48px;
+        position: sticky;
+        z-index: 300;
+        bottom: 0px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        top: 90vh !important;
+    }
+    .btn_edit_static {
+        width: 72vw;
+        border: 1px solid #7126B5;
+        border-radius: 14px;
         font-size: 14px;
         height: 48px;
         position: sticky;
