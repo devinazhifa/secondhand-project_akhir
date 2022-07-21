@@ -9,85 +9,108 @@ import style from "./Homepage.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Carousel from "../../Components/Carousel/Carousel";
 // import Category from "../../Components/Category/Category";
+import qs from "query-string";
 import CardProduk from "../../Components/CardProduk/CardProduk";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 fontawesome.library.add(faPlus);
 
 const Homepage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [query, setQuery] = useState(qs.parse(location.search));
   const [products, setProducts] = useState(null);
-  const [categoryFilter, setCategoryFilter] = useState(null);
-  const [sorting, setSorting] = useState(null);
-  const [pagination, setPagination] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(null);
+  // const search = qs.parse(location.search);
+  const search = useSelector((state) => state.search.data);
 
   const handlePagination = (e) => {
-    setPagination(e.currentTarget.id);
+    setQuery({ ...query, page: e.currentTarget.id });
   };
 
-  const renderPagination = () => {
-    return (
-      <>
-        <div className={`${style["pagination"]}`}>
-          <nav aria-label="Page navigation example">
-            <ul className="pagination">
-              {[...Array(totalPage)].map((x, i) => (
-                <li
-                  className={`${
-                    i + 1 === pagination ? "active" : ""
-                  } page-item`}
-                  onClick={handlePagination}
-                  id={i + 1}
-                >
-                  <div className={`${style["page"]} page-link`}>{i + 1}</div>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </>
-    );
-  };
+  // if (search) {
+  //   setQuery({ ...query, search: search });
+  // }
+
+  console.log(search);
 
   useEffect(() => {
     const fetchPosts = async () => {
+      let lastQ = query;
+      console.log(search);
+      if (search) {
+        // console.log("ada");
+        lastQ.search = search;
+      } else if (qs.parse(location.search).search) {
+        console.log("asasa");
+        lastQ.search = qs.parse(location.search).search;
+      } else {
+        let { search, ...rest } = query;
+        lastQ = rest;
+      }
+
+      navigate({ pathname: location.pathname, search: qs.stringify(lastQ) });
+
       setLoading(true);
-      let url = `/products/?page=${pagination}&`;
-      if (categoryFilter !== null) {
-        url = url + "categories=" + categoryFilter + "&";
-      }
-      if (sorting !== null) {
-        url = url + "sort=" + sorting + "&";
-      }
+      let url = `/products/?${qs.stringify(lastQ)}`;
 
       const response = await requestAPI().get(url);
       setProducts(response.data.data.products);
       setTotalPage(Math.ceil(response.data.data.count / 24));
+
+      // page
+      const pageItems = document.getElementsByClassName("page-item");
+      for (const element of pageItems) {
+        element.classList.remove("active");
+      }
+      if (query.page) {
+        document.getElementById(query.page)?.classList.add("active");
+      } else {
+        document.getElementById(1)?.classList.add("active");
+      }
+
+      // categories
+      const ctgBtns = document.getElementsByClassName("btn_ctg");
+      for (const element of ctgBtns) {
+        element.classList.remove("Homepage_btn_active__aJ59W");
+      }
+      if (query.categories) {
+        document
+          .getElementById(query.categories)
+          ?.classList.add("Homepage_btn_active__aJ59W");
+      } else {
+        document
+          .getElementById("semua")
+          ?.classList.add("Homepage_btn_active__aJ59W");
+      }
+
       setLoading(false);
     };
+
     fetchPosts();
-    console.log(categoryFilter);
-  }, [categoryFilter, sorting, pagination]);
+  }, [query, search]);
 
   const filter = useRef(null);
 
   const filterCategory = (event) => {
-    // axios.get(`https://ancient-everglades-98776.herokuapp.com/api/products/?categories=${event.currentTarget.id}`)
-    // .then((response) => {
-    //   setProducts(response.data.data);
-    // });
-    setCategoryFilter(event.currentTarget.id);
+    const cat = event.currentTarget.id;
+    let newQry;
+    if (cat === "semua") {
+      const { categories, ...rest } = query;
+      newQry = rest;
+    } else {
+      newQry = { ...query, categories: cat };
+    }
+
+    setQuery(() => {
+      const { page, ...rest } = newQry;
+      return rest;
+    });
   };
 
-  // const sorting = useRef(null)
-
-  const sortProducts = (event) => {
-    // axios.get(`https://ancient-everglades-98776.herokuapp.com/api/products/?sort=${event.currentTarget.id}`)
-    // .then((response) => {
-    //   setProducts(response.data.data);
-    // });
-    setSorting(event.currentTarget.id);
+  const handleSort = (event) => {
+    setQuery({ ...query, sort: event.currentTarget.value });
   };
 
   return (
@@ -109,8 +132,8 @@ const Homepage = () => {
                     <button
                       ref={filter}
                       onClick={filterCategory}
-                      id=""
-                      className={`${style["btn_categories"]} btn mt-1 mb-2`}
+                      id="semua"
+                      className={`${style["btn_categories"]}  btn_ctg btn mt-1 mb-2`}
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
@@ -122,7 +145,7 @@ const Homepage = () => {
                       ref={filter}
                       onClick={filterCategory}
                       id="Hobi"
-                      className={`${style["btn_categories"]} btn mt-1 mb-2`}
+                      className={`${style["btn_categories"]}   btn_ctg btn mt-1 mb-2`}
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
@@ -134,7 +157,7 @@ const Homepage = () => {
                       ref={filter}
                       onClick={filterCategory}
                       id="Kendaraan"
-                      className={`${style["btn_categories"]} btn mt-1 mb-2`}
+                      className={`${style["btn_categories"]} btn_ctg btn mt-1 mb-2`}
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
@@ -146,7 +169,7 @@ const Homepage = () => {
                       ref={filter}
                       onClick={filterCategory}
                       id="Baju"
-                      className={`${style["btn_categories"]} btn mt-1 mb-2`}
+                      className={`${style["btn_categories"]} btn_ctg btn mt-1 mb-2`}
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
@@ -158,7 +181,7 @@ const Homepage = () => {
                       ref={filter}
                       onClick={filterCategory}
                       id="Elektronik"
-                      className={`${style["btn_categories"]} btn mt-1 mb-2`}
+                      className={`${style["btn_categories"]} btn_ctg btn mt-1 mb-2`}
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
@@ -170,7 +193,7 @@ const Homepage = () => {
                       ref={filter}
                       onClick={filterCategory}
                       id="Kesehatan"
-                      className={`${style["btn_categories"]} btn mt-1 mb-2`}
+                      className={`${style["btn_categories"]} btn_ctg btn mt-1 mb-2`}
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
@@ -180,58 +203,45 @@ const Homepage = () => {
                     </button>
                   </div>
                   <div className="sort-wrapper me-2">
-                    <div className="dropdown">
-                      <button
-                        className={`${style["btn_dropdown"]} btn btn-secondary dropdown-toggle`}
-                        type="button"
-                        id="dropdownMenu2"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                    <select
+                      name=""
+                      id=""
+                      onChange={handleSort}
+                      defaultValue={query.sort ? query.sort : ""}
+                      className={`${style["sort-select"]} form-select px-4`}
+                    >
+                      <option
+                        className={`${style["sort-option"]}`}
+                        value=""
+                        disabled
                       >
-                        Sort by
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenu2"
+                        sort
+                      </option>
+                      <option
+                        className={`${style["sort-option"]}`}
+                        value="latest"
                       >
-                        <li>
-                          <button
-                            className={`${style["btn_item"]} dropdown-item`}
-                            onClick={sortProducts}
-                            id="latest"
-                          >
-                            Latest
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            className={`${style["btn_item"]} dropdown-item`}
-                            onClick={sortProducts}
-                            id="oldest"
-                          >
-                            Oldest
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            className={`${style["btn_item"]} dropdown-item`}
-                            onClick={sortProducts}
-                            id="cheapest"
-                          >
-                            Cheapest
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            className={`${style["btn_item"]} dropdown-item`}
-                            onClick={sortProducts}
-                            id="expensive"
-                          >
-                            Expensive
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
+                        Latest
+                      </option>
+                      <option
+                        className={`${style["sort-option"]}`}
+                        value="oldest"
+                      >
+                        Oldest
+                      </option>
+                      <option
+                        className={`${style["sort-option"]}`}
+                        value="cheapest"
+                      >
+                        Cheapest
+                      </option>
+                      <option
+                        className={`${style["sort-option"]}`}
+                        value="expensive"
+                      >
+                        Expensive
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -254,44 +264,26 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
+            <div className={`${style["pagination"]} `}>
+              <nav aria-label="Page navigation example">
+                <ul className="pagination">
+                  {query &&
+                    [...Array(totalPage)].map((x, i) => (
+                      <li
+                        className={`page-item`}
+                        onClick={handlePagination}
+                        id={i + 1}
+                      >
+                        <div className={`${style["page"]} page-link`}>
+                          {i + 1}
+                        </div>
+                      </li>
+                    ))}
+                </ul>
+              </nav>
+            </div>
           </div>
-          {totalPage !== null && renderPagination()}
-          {/* <div className={`${style["pagination"]}`}>
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <Link
-                    to=""
-                    className={`${style["page"]} page-link`}
-                    href="#"
-                    aria-label="Previous"
-                  >
-                    <span aria-hidden="true">&laquo;</span>
-                  </Link>
-                </li>
-                <li className="page-item">
-                  <Link to="" className={`${style["page"]} page-link`} href="#">
-                    1
-                  </Link>
-                </li>
-                <li className="page-item">
-                  <Link to="" className={`${style["page"]} page-link`} href="#">
-                    2
-                  </Link>
-                </li>
-                <li className="page-item">
-                  <Link to="" className={`${style["page"]} page-link`} href="#">
-                    3
-                  </Link>
-                </li>
-                <li className="page-item">
-                  <Link to="" className={`${style["page"]} page-link`} href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div> */}
+          {/* {totalPage !== null && renderPagination()} */}
         </section>
         <section id="add-button">
           <div className="row">

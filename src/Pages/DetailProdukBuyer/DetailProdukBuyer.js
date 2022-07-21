@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import requestAPI from "../../requestMethod";
 import "./disable.css";
 
-
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
@@ -21,7 +20,7 @@ const DetailProdukBuyer = () => {
   // const user = useSelector((state) => state.user.data);
   const params = useParams();
   const navigate = useNavigate();
-  const user = useSelector( store => store.user.data )
+  const user = useSelector((store) => store.user.data?.user);
 
   // const test = () => {
   //   let button = "";
@@ -165,16 +164,14 @@ const DetailProdukBuyer = () => {
                   <button
                     type="submit"
                     className={`${
-                      product?.bidded
-                        ? "btn_primary_disabled"
-                        : "btn_primary"
+                      product?.bidded ? "btn_primary_disabled" : "btn_primary"
                     } mb-3`}
                     data-bs-target="#modalTawar"
                     data-bs-toggle={user && user?.verified ? "modal" : ""}
                     onClick={() => {
                       if (!user) {
                         navigate("/login");
-                      } else if (!user?.verified) {
+                      } else if (!user.verified) {
                         navigate("/info-akun");
                       }
                     }}
@@ -221,9 +218,7 @@ const DetailProdukBuyer = () => {
       <button
         type="submit"
         className={`${
-          product?.bidded
-            ? "btn_primary_static_disabled"
-            : "btn_primary_static"
+          product?.bidded ? "btn_primary_static_disabled" : "btn_primary_static"
         } `}
         data-bs-toggle={user && user?.verified ? "modal" : ""}
         data-bs-target="#modalTawar"

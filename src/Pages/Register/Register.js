@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,12 +10,11 @@ import style from "./Register.module.css";
 fontawesome.library.add(faArrowLeft);
 
 const Register = () => {
-
   const { register, handleSubmit, formState } = useForm();
   const [regStatus, setRegStatus] = useState({
     succes: false,
-    message: ''
-  })
+    message: "",
+  });
 
   const navigate = useNavigate();
 
@@ -32,13 +31,26 @@ const Register = () => {
       )
       .then((res) => {
         console.log(res.data);
-        navigate('/login')
+        navigate("/login");
       })
       .catch((err) => {
+        // console.log(err.response.data.message);
+        let message = "";
+        err.response.data.message.forEach((element) => {
+          message += element + "\n";
+          console.log(message);
+        });
+
         setRegStatus({
           success: false,
-          message: 'Sorry, something is wrong. Try again later.'
-        })
+          message: (
+            <ul>
+              <li>Coffee</li>
+              <li>Tea</li>
+              <li>Milk</li>
+            </ul>
+          ),
+        });
       });
   };
 
@@ -72,7 +84,11 @@ const Register = () => {
                   width="180"
                 />
                 <h3 className={`${style["title-signup"]} mb-3`}>Sign Up</h3>
-                { ( !regStatus.succes && regStatus.message ) && <p className={`${style["message-text"]} fst-italic`}>{regStatus.message}</p>}
+                {!regStatus.succes && regStatus.message && (
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {regStatus.message}
+                  </p>
+                )}
                 <div className="mb-2">
                   <label htmlFor="name">Name</label>
                   <input
@@ -84,7 +100,10 @@ const Register = () => {
                     {...register("user_name", { required: true })}
                     autoComplete="true"
                   />
-                  <p className={`${style["message-text"]} fst-italic`}>{formState.errors.user_namel?.type === 'required' && "Name is required"}</p>
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {formState.errors.user_namel?.type === "required" &&
+                      "Name is required"}
+                  </p>
                 </div>
                 <div className="mb-2">
                   <label htmlFor="email">Email</label>
@@ -97,7 +116,10 @@ const Register = () => {
                     {...register("user_email", { required: true })}
                     autoComplete="true"
                   />
-                  <p className={`${style["message-text"]} fst-italic`}>{formState.errors.user_email?.type === 'required' && "Email is required"}</p>
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {formState.errors.user_email?.type === "required" &&
+                      "Email is required"}
+                  </p>
                 </div>
                 <div className="mb-2">
                   <label htmlFor="password">Password</label>
@@ -110,7 +132,10 @@ const Register = () => {
                     {...register("user_password", { required: true })}
                     autoComplete="true"
                   />
-                  <p className={`${style["message-text"]} fst-italic`}>{formState.errors.user_password?.type === 'required' && "Password is required"}</p>
+                  <p className={`${style["message-text"]} fst-italic`}>
+                    {formState.errors.user_password?.type === "required" &&
+                      "Password is required"}
+                  </p>
                 </div>
                 <button
                   type="submit"
