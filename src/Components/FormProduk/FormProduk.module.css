@@ -37,6 +37,7 @@
 
 .button {
     margin-top: 25px;
+    text-align: center;
 }
 
 .btn_preview {
@@ -46,6 +47,10 @@
     font-size: 14px;
     height: 48px;
     margin-right: 20px;
+}
+
+.btn_preview:focus {
+    border: 1px solid #7126B5 !important;
 }
 
 .btn_terbitkan {
@@ -58,6 +63,11 @@
     height: 48px;
 }
 
+.btn_terbitkan:focus {
+    background-color: #7126B5;
+    color: white !important;
+}
+
 option[value=""][disabled] {
     display: none
 }
@@ -66,12 +76,47 @@ option[value=""][disabled] {
     width: auto;
 }
 
+.icon_cross {
+    top: 0;
+    right:0;
+    padding: 5px;
+
+}
+
 @media (max-width: 576px) { 
     .btn_preview {
         width: 48%;
     }
     
     .btn_terbitkan {
-        width: 46%;
+        width: 48%;
+    }
+
+    .icon_cross {
+        top: 0;
+        right:20px;
+        padding: 5px;
     }
 }
+
+@media (max-width: 767.98px) { 
+    .btn_preview {
+        width: 45%;
+    }
+    
+    .btn_terbitkan {
+        width: 45%;
+    }
+}
+
+@media (max-width: 575.98px) { 
+    .back-button {
+        display: none;
+    }
+ }
+
+ @media (max-width: 991.98px) { 
+    .back-button {
+        display: none;
+    }
+ }

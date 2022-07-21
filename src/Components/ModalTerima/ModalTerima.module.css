@@ -19,5 +19,17 @@
     color: white;
     font-size: 14px;
     height: 48px;
+    transition-duration: .25s;
+
+}
+
+.btn_kontak:hover {
+    color: white;
+    opacity: 0.5;
+    background-color:#7126B5;
+}
+
+.btn_kontak:focus {
+    color: white !important;
 }
 

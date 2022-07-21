@@ -5,7 +5,7 @@ import NavbarPlain from '../../Components/Navbar/NavbarPlain'
 function InfoAkun() {
   return (
     <div>
-        <NavbarPlain />
+        <NavbarPlain title='Lengkapi Info Akun'/>
         <FormAkun />
     </div>
   )
