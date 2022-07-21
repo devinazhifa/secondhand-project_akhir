@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import requestAPI from "../../requestMethod";
 import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
@@ -25,9 +26,9 @@ const Register = () => {
       email: data.user_email,
       password: data.user_password,
     };
-    axios
+    requestAPI()
       .post(
-        "https://ancient-everglades-98776.herokuapp.com/api/auth/register",
+        ("/auth/register"),
         postData
       )
       .then((res) => {
@@ -35,10 +36,13 @@ const Register = () => {
         navigate('/login')
       })
       .catch((err) => {
+        //console.log(err.response.data.message);
+        err.response.data.message.forEach(() => {
         setRegStatus({
           success: false,
-          message: 'Sorry, something is wrong. Try again later.'
+          message: err.response.data.message.join(' & ')
         })
+      })
       });
   };
 
