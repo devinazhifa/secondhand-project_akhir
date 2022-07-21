@@ -8,7 +8,6 @@ export { BASE_URL };
 const requestAPI = () => {
   const token = store.getState().user.data?.token;
   const authorization = token ? { Authorization: token } : {};
-  console.log(token);
 
   return axios.create({
     baseURL: BASE_URL,

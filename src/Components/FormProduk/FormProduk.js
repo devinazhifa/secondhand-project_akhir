@@ -166,13 +166,11 @@ const InfoProduk = (props) => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="row justify-content-center">
-              <div className={`${style["back-button"]} col-lg-1`}>
-                <Link to="/daftar-jual">
+              <div className={`${style["back-button"]} col-lg-1`} onClick={() => navigate(-1)}>
                   <FontAwesomeIcon
                     icon="fa-arrow-left"
                     className={`${style["fa-arrow-left"]}`}
                   />
-                </Link>
               </div>
               <div className="col-lg-9">
                 <form

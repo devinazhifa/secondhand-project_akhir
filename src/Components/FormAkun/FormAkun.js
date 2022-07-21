@@ -198,7 +198,7 @@ const FormAkun = () => {
 
                   <button
                     type="submit"
-                    className={`${"btn_primary"} `}
+                    className={`${style["btn_primary"]} `}
                     //  "btn_primary_disabled"
                   >
                     Simpan

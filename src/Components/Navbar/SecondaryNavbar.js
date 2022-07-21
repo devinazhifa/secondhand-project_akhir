@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/fontawesome-free-solid";
@@ -8,9 +8,10 @@ import NotifPenawaran from "../Notifikasi/NotifPenawaran";
 import NotifProduk from "../Notifikasi/NotifProduk";
 import style from "./SecondaryNavbar.module.css";
 import { io } from "socket.io-client";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NotifPenawaranSuccess from "../Notifikasi/NotifPenawaranSuccess";
 import requestAPI from "../../requestMethod";
+import searchSlice from "../../store/search";
 
 fontawesome.library.add(faSignOutAlt);
 
@@ -18,6 +19,10 @@ const SecondaryNavbar = (props) => {
   const [notifs, setNotifs] = useState(null);
   const user = useSelector((state) => state.user.data);
   const socket = io("https://ancient-everglades-98776.herokuapp.com");
+  const search = useRef();
+  const searchMobile = useRef();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   socket.on("reconnect", function () {
     console.log("Reconnected to the server");
@@ -102,6 +107,35 @@ const SecondaryNavbar = (props) => {
     return element;
   };
 
+  const searchHandler = (e) => {
+    e.preventDefault();
+
+    if (search.current.value.trim().length === 0) {
+      dispatch(searchSlice.actions.removeSeacrh());
+    } else {
+      dispatch(searchSlice.actions.addSearch(search.current.value.trim()));
+    }
+
+    navigate("/");
+  };
+
+  const searchHandlerMobile = (e) => {
+    e.preventDefault();
+
+    const btn = document.getElementById("toggle-btn-close");
+    btn.click();
+    // console.log(btn);
+    if (searchMobile.current.value.trim().length === 0) {
+      dispatch(searchSlice.actions.removeSeacrh());
+    } else {
+      dispatch(
+        searchSlice.actions.addSearch(searchMobile.current.value.trim())
+      );
+    }
+
+    navigate("/");
+  };
+
   return (
     <>
       <nav className={`${style["nav-header"]} navbar fixed-top`}>
@@ -117,10 +151,15 @@ const SecondaryNavbar = (props) => {
             </Link>
           </div>
           <div className="col">
-            <form className={`${style["search-form"]} mx-5`} role="search">
+            <form
+              className={`${style["search-form"]} mx-5`}
+              onSubmit={searchHandler}
+              role="search"
+            >
               <input
                 className={`${style["search-bar"]} form-control me-5`}
                 type="search"
+                ref={search}
                 placeholder="Search "
                 aria-label="Search"
               />
@@ -162,7 +201,6 @@ const SecondaryNavbar = (props) => {
                       }}
                       aria-labelledby="dropdownMenuButton"
                     >
-                      {/* {false ? ( */}
                       {notifs?.length > 0 ? (
                         <>
                           {notifs?.map((notif, index) => {
@@ -183,7 +221,7 @@ const SecondaryNavbar = (props) => {
                           </p>
                         </>
                       ) : (
-                        <p className=" my-2 px-3 text-center" sty>
+                        <p className=" my-2 px-3 text-center">
                           <Link to={"/notifikasi"}>lihat semua notifikasi</Link>
                         </p>
                       )}
@@ -228,6 +266,7 @@ const SecondaryNavbar = (props) => {
           <button
             className="navbar-toggler d-block d-lg-none"
             type="button"
+            data-bs-scroll="true"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar"
@@ -246,6 +285,7 @@ const SecondaryNavbar = (props) => {
               </h5>
               <button
                 type="button"
+                id="toggle-btn-close"
                 className="btn-close"
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
@@ -273,8 +313,10 @@ const SecondaryNavbar = (props) => {
                     <form
                       className={`${style["search-offcanvas"]}`}
                       role="search"
+                      onSubmit={searchHandlerMobile}
                     >
                       <input
+                        ref={searchMobile}
                         className={`${style["search-bar"]} form-control me-2`}
                         placeholder="Search"
                         aria-label="Search"
