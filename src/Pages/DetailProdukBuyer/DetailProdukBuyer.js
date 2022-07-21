@@ -21,7 +21,7 @@ const DetailProdukBuyer = () => {
   // const user = useSelector((state) => state.user.data);
   const params = useParams();
   const navigate = useNavigate();
-  const user = useSelector( store => store.user.data )
+  const user = useSelector( store => store.user.data?.user )
 
   // const test = () => {
   //   let button = "";

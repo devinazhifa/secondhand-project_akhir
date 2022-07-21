@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import userSlice from "../../store/user";
 import axios from "axios";
+import requestAPI from "../../requestMethod";
 import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
@@ -27,9 +28,9 @@ const Login = () => {
       email: data.user_email,
       password: data.user_password,
     };
-    axios
+    requestAPI()
       .post(
-        "https://ancient-everglades-98776.herokuapp.com/api/auth/login",
+       ("/auth/login"),
         postData
       )
       .then((res) => {
