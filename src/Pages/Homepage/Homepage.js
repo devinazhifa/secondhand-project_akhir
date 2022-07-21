@@ -12,6 +12,7 @@ import Carousel from "../../Components/Carousel/Carousel";
 import qs from "query-string";
 import CardProduk from "../../Components/CardProduk/CardProduk";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import "./button.css";
 
 fontawesome.library.add(faPlus);
 
@@ -40,15 +41,18 @@ const Homepage = () => {
       let lastQ = query;
       console.log(search);
       if (search) {
-        // console.log("ada");
         lastQ.search = search;
+        // let { page, ...rest } = lastQ;
+        // lastQ = rest;
       } else if (qs.parse(location.search).search) {
-        console.log("asasa");
         lastQ.search = qs.parse(location.search).search;
       } else {
         let { search, ...rest } = query;
         lastQ = rest;
       }
+
+      // if (search && ) {
+      // }
 
       navigate({ pathname: location.pathname, search: qs.stringify(lastQ) });
 
@@ -73,16 +77,12 @@ const Homepage = () => {
       // categories
       const ctgBtns = document.getElementsByClassName("btn_ctg");
       for (const element of ctgBtns) {
-        element.classList.remove("Homepage_btn_active__aJ59W");
+        element.classList.remove("btn_active");
       }
       if (query.categories) {
-        document
-          .getElementById(query.categories)
-          ?.classList.add("Homepage_btn_active__aJ59W");
+        document.getElementById(query.categories)?.classList.add("btn_active");
       } else {
-        document
-          .getElementById("semua")
-          ?.classList.add("Homepage_btn_active__aJ59W");
+        document.getElementById("semua")?.classList.add("btn_active");
       }
 
       setLoading(false);
@@ -161,7 +161,7 @@ const Homepage = () => {
                     >
                       <FontAwesomeIcon
                         icon="fa-search"
-                        className={`${style["fa-search"]}`}
+                        className={`${style["fa-search"]} `}
                       />{" "}
                       Kendaraan
                     </button>
