@@ -32,20 +32,29 @@
 }
 
 .btn_categories {
-    width: 120px;
     height: 35px;
     margin-right: 9px;
     background-color: #E2D4F0;
     border: none;
     border-radius: 12px;
     color: black;
-    font-size: 10px;
+    font-size: 11px;
+
 }
 
-.btn_categories:hover{
+.btn_categories:hover,
+.btn_categories:focus,
+.btn_categories:active,
+.btn_categories:visited
+{
     background-color: #7126B5;
-    color: white;
+    color: white !important;
 }
+
+.active-tabs  { 
+    color: orange !important;
+    border-bottom: 1px solid orange;
+  }
 
 @media (max-width: 576px) { 
     .category_wrapper {
@@ -53,9 +62,15 @@
     }
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 767.98px) { 
     .category_wrapper {
         display: none;
+    }
+    .title {
+        display: none;
+    }
+    .daftar-jual {
+        margin-top: 70px;
     }
 }
 
@@ -64,3 +79,18 @@
         display: none;
     }
 }
+
+@media (min-width: 768px) { 
+    .daftar-jual {
+        margin-top: 100px;
+    }
+    .btn_categories {
+        width: 120px;
+    }
+    .category_button {
+        display: none;
+    }
+ }
+
+
+

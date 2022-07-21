@@ -2,29 +2,50 @@ import React, { useState } from "react";
 import { deviceSize } from "../../Responsive";
 import style from "./ModalStatus.module.css";
 import { useMediaQuery } from "react-responsive";
+import requestAPI from "../../requestMethod";
 
-function ModalStatus() {
+function ModalStatus({ bid }) {
   const [radio, setRadio] = useState(null);
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
+  const [fetch, setFetch] = useState(false);
 
-  console.log(radio);
   const handleRadio = (e) => {
     setRadio(e.target.value);
+  };
+
+  const formHandler = async (e) => {
+    e.preventDefault();
+    setFetch(true);
+    try {
+      if (radio === "sold") {
+        await requestAPI().put(`/products/${bid.product.id}`, {
+          status: radio,
+        });
+      } else if (radio === "declined") {
+        await requestAPI().put(`/bids/${bid.id}`, { status: radio });
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
       <div
         className="modal fade"
-        id="modalStatus"
+        id={`modalStatus-${bid.id}`}
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
+        // style={{ fontSize: }}
       >
         <div
           className={`modal-dialog modal-dialog-centered h-100 m-0 mx-md-auto overflow-hidden `}
         >
-          <div
+          <form
+            onSubmit={formHandler}
             className="modal-content rounded-4 pb-1 position-absolute"
             style={{
               maxWidth: "425px",
@@ -66,11 +87,14 @@ function ModalStatus() {
                   className="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
-                  id="terima"
-                  value={"terjual"}
+                  id={`terima-${bid.id}`}
+                  value={"sold"}
                   onClick={handleRadio}
                 />
-                <label className="form-check-label ms-3" for="terima">
+                <label
+                  className="form-check-label ms-3"
+                  for={`terima-${bid.id}`}
+                >
                   <h6>Berhasil Terjual</h6>
                   <p className={`${style.description}`}>
                     Kamu telah sepakat menjual produk kepada pembeli
@@ -82,11 +106,14 @@ function ModalStatus() {
                   className="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
-                  value={"tolak"}
-                  id="tolak"
+                  value={"declined"}
+                  id={`tolak-${bid.id}`}
                   onClick={handleRadio}
                 />
-                <label className="form-check-label ms-3" for="tolak">
+                <label
+                  className="form-check-label ms-3"
+                  for={`tolak-${bid.id}`}
+                >
                   <h6>Batalkan Transaksi</h6>
                   <p className={`${style.description}`}>
                     Kamu membatalkan transaksi produk ini dengan pembeli
@@ -95,13 +122,13 @@ function ModalStatus() {
               </div>
             </div>
             <button
-              type="button"
+              type="submit"
               className={`${style["btn_kirim"]} mx-4 mb-4`}
-              disabled={!radio ? true : false}
+              disabled={!radio || fetch ? true : false}
             >
               Kirim
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

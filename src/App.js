@@ -6,7 +6,7 @@ import InfoAkun from "./Pages/InfoAkun/InfoAkun";
 import FormProduk from "./Pages/FormProduk/FormProduk";
 import PreviewProduk from "./Pages/PreviewProduk/PreviewProduk";
 import InfoPenawaran from "./Pages/InfoPenawaran/InfoPenawaran";
-import DetailProduk from "./Pages/DetailProduk/DetailProduk";
+import DetailProdukSeller from "./Pages/DetailProdukSeller/DetailProdukSeller";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import DaftarJual from "./Pages/DaftarJual/DaftarJual";
@@ -15,6 +15,12 @@ import LamanNotifikasi from "./Pages/LamanNotifikasi/LamanNotifikasi";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/id";
+import Logout from "./Pages/Logout/Logout";
+import DetailProdukBuyer from "./Pages/DetailProdukBuyer/DetailProdukBuyer";
+import ProtectedRoute from "./Components/HOC/ProtectedRoute";
+import UnprotectedRoute from "./Components/HOC/UnprotectedRoute";
+import SearchResult from "./Components/SearchResult/SearchResult";
+import VerifiedRoute from "./Components/HOC/VerifiedRoute";
 
 const App = () => {
   moment.locale("id");
@@ -34,29 +40,40 @@ const App = () => {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" />
           {/* ALL */}
-          <Route path="homepage" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="detail-produk/:slug" element={<DetailProdukBuyer />} />
+          <Route path="logout" element={<Logout />} />
+
           {/* PUBLIC ONLY */}
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route path="/" element={<UnprotectedRoute />}>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
           {/* PROTECTED */}
-          <Route path="info-akun" element={<InfoAkun />} />
-          <Route path="form-produk" element={<FormProduk />} />
-          <Route
-            path="preview-produk"
-            element={
-              product ? (
-                <PreviewProduk />
-              ) : (
-                <Navigate to="/form-produk" replace={true} />
-              )
-            }
-          />
-          <Route path="detail-produk" element={<DetailProduk />} />
-          <Route path="daftar-jual" element={<DaftarJual />} />
-          <Route path="info-penawaran" element={<InfoPenawaran />} />
-          <Route path="notifikasi" element={<LamanNotifikasi />} />
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route path="/" element={<VerifiedRoute />}>
+              <Route path="form-produk" element={<FormProduk />} />
+              <Route path="daftar-jual" element={<DaftarJual />} />
+              <Route
+                path="preview-produk"
+                element={
+                  product ? (
+                    <PreviewProduk />
+                  ) : (
+                    <Navigate to="/form-produk" replace={true} />
+                  )
+                }
+              />
+            </Route>
+            <Route path="info-akun" element={<InfoAkun />} />
+            {/* <Route path="detail-produk-seller/:slug" element={<DetailProdukSeller />} /> */}
+            {/* <Route path="detail-produk-buyer/:slug" element={<DetailProdukBuyer />} /> */}
+            {/* <Route path="detail-produk" element={<DetailProduk />} /> */}
+            <Route path="info-penawaran/:userId" element={<InfoPenawaran />} />
+            <Route path="notifikasi" element={<LamanNotifikasi />} />
+            <Route path="search-result" element={<SearchResult />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

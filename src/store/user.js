@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = {
-//   data: localStorage.getItem("user")?.user,
-//   token: localStorage.getItem("user")?.token,
-// };
-
-// console.log(localStorage.getItem("user"));
-
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -16,6 +9,9 @@ const userSlice = createSlice({
     addUser: (state, action) => {
       // action.payload: userData
       state.data = { ...action.payload };
+    },
+    updateUser: (state, action) => {
+      state.data.user = action.payload;
     },
     removeUser: (state) => {
       state.data = null;

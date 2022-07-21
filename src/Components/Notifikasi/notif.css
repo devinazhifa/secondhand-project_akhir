@@ -22,6 +22,7 @@
 }
 .notif-card-desc{
     padding-left: 10px;
+    word-wrap: break-word !important;
 }
 .text-muted {
     font-size: 10px !important;
@@ -29,7 +30,8 @@
 }
 
 .desc-notifdrop{
+    max-width: 300px;
     font-size: 12px !important;
-    font-webkit: bold;
+    /* font-weight: bold; */
 }
 /* .text-muted small-notifdrop */

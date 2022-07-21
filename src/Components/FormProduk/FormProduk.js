@@ -8,9 +8,8 @@ import requestAPI from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
 import productSlice from "../../store/product";
 import { useEffect } from "react";
-import { ToastContainer, toast, Zoom , Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InfoProduk = (props) => {
   const [categories, setCategories] = useState([]);
@@ -18,6 +17,7 @@ const InfoProduk = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector((state) => state.product.data);
+  const token = useSelector((state) => state.user.data.token);
 
   console.log(product);
 
@@ -39,8 +39,8 @@ const InfoProduk = (props) => {
   }, []);
 
   console.log(categories);
-  const successToast = () =>{
-    toast.success('Produk berhasil di terbitkan!', {
+  const successToast = () => {
+    toast.success("Produk berhasil di terbitkan!", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: true,
@@ -48,10 +48,10 @@ const InfoProduk = (props) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme:'colored',
+      theme: "colored",
       icon: false,
-      });
-  }
+    });
+  };
 
   const options = [
     { value: "Hobi", label: "Hobi" },
@@ -111,15 +111,40 @@ const InfoProduk = (props) => {
 
     if (action === "publish") {
       try {
-        await requestAPI().post("/products/", formData, {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        });
+        await requestAPI()
+          .post("/products/", formData, {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            toast.success("Produk berhasil diterbitkan!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              icon: false,
+            });
 
+            console.log(response.data.message);
+          });
         navigate("/daftar-jual");
       } catch (error) {
-        console.log(error.response.data.message);
+        toast.error("Produk gagal diterbitkan!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          icon: false,
+        });
       }
     } else {
       var data = {
@@ -141,8 +166,8 @@ const InfoProduk = (props) => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="row justify-content-center">
-              <div className="col-lg-1">
-                <Link to="/homepage">
+              <div className={`${style["back-button"]} col-lg-1`}>
+                <Link to="/daftar-jual">
                   <FontAwesomeIcon
                     icon="fa-arrow-left"
                     className={`${style["fa-arrow-left"]}`}
@@ -150,9 +175,6 @@ const InfoProduk = (props) => {
                 </Link>
               </div>
               <div className="col-lg-9">
-                <h5 className={`title ${style.title} mb-4`}>
-                  Lengkapi Detail Produk
-                </h5>
                 <form
                   className={style.form_produk}
                   onSubmit={formSubmitHandler}
@@ -303,7 +325,6 @@ const InfoProduk = (props) => {
                     </div>
                     <aside></aside>
                   </section>
-
                   <div className={style.button}>
                     <button
                       type="submit"
@@ -313,18 +334,16 @@ const InfoProduk = (props) => {
                     >
                       Preview
                     </button>
-                    <button
+                    <input
                       type="submit"
                       className={`${style["btn_terbitkan"]}`}
                       formAction={"publish"}
                       name="publish"
-                    >
-                      Terbitkan
-                    </button>
+                      value="Terbitkan"
+                    />
 
                     {/* <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
                     <button type='submit' onClick={successToast} className={`${style['btn_terbitkan']}`}>Terbitkan</button> */}
-
                   </div>
                 </form>
               </div>
@@ -335,6 +354,5 @@ const InfoProduk = (props) => {
     </div>
   );
 };
-
 
 export default InfoProduk;

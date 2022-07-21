@@ -5,7 +5,7 @@ import FormProduk from "../../Components/FormProduk/FormProduk";
 function InfoProduk() {
   return (
     <div>
-      <NavbarPlain />
+      <NavbarPlain title="Lengkapi Detail Produk" />
       <FormProduk />
     </div>
   );

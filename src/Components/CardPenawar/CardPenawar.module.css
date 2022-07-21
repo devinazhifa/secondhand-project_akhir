@@ -13,43 +13,80 @@
 }
 
 .btn_tolak {
-    width: 40%;
+    width: 25%;
     border-radius: 14px;
-    font-size: 14px;
+    font-size: 10px;
     border: 1px solid #7126B5;
-    height: 48px;
+    height: 36px;
     background-color: white;
     transition-duration: .25s;
 }
 
-.btn_tolak:hover, .btn_terima:hover {
-    color: white;
+/*.btn_tolak:hover, .btn_terima:hover {
+    color: white !important;
     opacity: 0.5;
     background-color:#7126B5;
-}
+} */
 
 .btn_tolak:focus {
     border: 1px solid #7126B5 !important;
 }
 
 .btn_terima {
-    width: 40%;
+    width: 25%;
     background-color: #7126B5;
     border: none;
     border-radius: 14px;
     color: white !important;
-    font-size: 14px;
-    height: 48px;
+    font-size: 10px;
+    height: 36px;
     transition-duration: .25s;
 
 }
+.btn_terima:focus {
+    background-color: #7126B5;
+    color: white !important;
+}
 
+
+@media (max-width: 576px) { 
+    .btn_terima {
+        /* font-size: 10px; */
+        width: 50%
+    }
+    .btn_tolak {
+        /* font-size: 10px; */
+        width: 50%
+    }
+}
 /* .btn_terima:hover {
     color: white;
     opacity: 0.5;
     background-color:#7126B5;
 } */
 
-.btn_terima:focus {
+/* .btn_terima:focus {
+    color: white !important;
+} */
+
+
+.btn_kontak {
+    background-color: #7126B5;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    transition-duration: .25s;
+
+}
+
+.btn_kontak:hover {
+    color: white;
+    opacity: 0.5;
+    background-color:#7126B5;
+}
+
+.btn_kontak:focus {
     color: white !important;
 }
