@@ -18,6 +18,11 @@ const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
   const [product, setProduct] = useState(null);
+  const [wishlists,setWishlist] = useState();
+
+  const wishlistsHandler = () =>{
+    
+  }
   // const user = useSelector((state) => state.user.data);
   const params = useParams();
   const navigate = useNavigate();

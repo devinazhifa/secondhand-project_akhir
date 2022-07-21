@@ -5,46 +5,55 @@ import style from "./DaftarJual.module.css";
 import SecondaryNavbar from "../../Components/Navbar/SecondaryNavbar";
 import CardProduk from "../../Components/CardProduk/CardProduk";
 import { Link } from "react-router-dom";
+import requestAPI from "../../requestMethod";
 import "./tabs.css";
 
 function DaftarJual() {
+
+  const user = useSelector((state) => state.user.data.user);
+
+  var imageSize = {
+    width: "46px",
+    height: "46px",
+    borderRadius: "10px",
+  };
+
   const [products, setProducts] = useState(null);
   const [toggleState, setToggleState] = useState(1);
+  const [loading,setLoading]=useState(true)
   const [url, setUrl] = useState(
-    "https://ancient-everglades-98776.herokuapp.com/api/products/seller"
+    `/products/seller`
   );
 
   const toggleTab = (indeks) => {
     setToggleState(indeks);
     if (indeks == 1) {
       setUrl(
-        "https://ancient-everglades-98776.herokuapp.com/api/products/seller"
+        `/products/seller`
       );
     } else if (indeks == 2) {
       setUrl(
-        "https://ancient-everglades-98776.herokuapp.com/api/products/seller/?type=bidded"
+        `/products/seller/?type=bidded`
       );
     } else if (indeks == 3) {
       setUrl(
-        "https://ancient-everglades-98776.herokuapp.com/api/products/seller?type=sold"
+        `/products/seller?type=sold`
       );
     } else {
-      setUrl("https://ancient-everglades-98776.herokuapp.com/api/wishlists");
+      setUrl(`/wishlists`);
     }
   };
 
   useEffect(() => {
-    axios
-      .get(url, {
-        headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY1NjkzNzU2NH0.GOBpSRPdMdfJO534Y6n37tES5bxlimEH4obcnsPbVaE",
-        },
+    setLoading(true)
+    requestAPI().get(url, {
       })
 
       .then((response) => {
         setProducts(response.data.data);
         console.log(response.data.data);
+        setLoading(false)
+
       });
   }, [toggleState]);
 
@@ -60,17 +69,18 @@ function DaftarJual() {
             <div className={`${style["profile_wrapper"]} card mb-3`}>
               <div className={`${style["card_profile"]} card-body`}>
                 <img
-                  src="/img/profile.png"
+                  src={user.profilePicture ? user.profilePicture : "./upload_photo.png"}
+                  style={imageSize}
                   alt="profile-img"
                   className="profile-img"
                 />
                 <div className="d-flex align-center justify-content-between">
                   <div className="col-lg-10">
                     <div className={`${style.text_penjual} fw-bold`}>
-                      Nama Penjual
+                      {user.name}
                     </div>
                     <div className={`${style.text_penjual} text-muted`}>
-                      Kota
+                      {user.city}
                     </div>
                   </div>
                   <Link to="/info-akun">
@@ -236,8 +246,8 @@ function DaftarJual() {
                     </Link>
                   </div>
                   {/* <div className="col-lg-4 col-6"> */}
-                  {products?.length === 0 ? (
-                    <h5> Test </h5>
+                  {loading ? (<h5> loading </h5>) : (products?.length === 0 ? (
+                    <h5 className="text-center fw-bold"> Belum ada produk ! </h5>
                   ) : (
                     products?.map((product, index) => {
                       return (
@@ -249,7 +259,7 @@ function DaftarJual() {
                         </div>
                       );
                     })
-                  )}
+                  ))}
                   {/* </div> */}
                   {/* <div>{toggleState}</div> */}
                 </div>
