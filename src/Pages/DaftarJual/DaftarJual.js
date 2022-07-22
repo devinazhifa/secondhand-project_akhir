@@ -9,7 +9,6 @@ import requestAPI from "../../requestMethod";
 import "./tabs.css";
 
 function DaftarJual() {
-
   const user = useSelector((state) => state.user.data.user);
 
   var imageSize = {
@@ -20,40 +19,31 @@ function DaftarJual() {
 
   const [products, setProducts] = useState(null);
   const [toggleState, setToggleState] = useState(1);
-  const [loading,setLoading]=useState(true)
-  const [url, setUrl] = useState(
-    `/products/seller`
-  );
+  const [loading, setLoading] = useState(true);
+  const [url, setUrl] = useState(`/products/seller`);
 
   const toggleTab = (indeks) => {
     setToggleState(indeks);
     if (indeks == 1) {
-      setUrl(
-        `/products/seller`
-      );
+      setUrl(`/products/seller`);
     } else if (indeks == 2) {
-      setUrl(
-        `/products/seller/?type=bidded`
-      );
+      setUrl(`/products/seller/?type=bidded`);
     } else if (indeks == 3) {
-      setUrl(
-        `/products/seller?type=sold`
-      );
+      setUrl(`/products/seller?type=sold`);
     } else {
       setUrl(`/wishlists`);
     }
   };
 
   useEffect(() => {
-    setLoading(true)
-    requestAPI().get(url, {
-      })
+    setLoading(true);
+    requestAPI()
+      .get(url, {})
 
       .then((response) => {
         setProducts(response.data.data);
         console.log(response.data.data);
-        setLoading(false)
-
+        setLoading(false);
       });
   }, [toggleState]);
 
@@ -69,7 +59,11 @@ function DaftarJual() {
             <div className={`${style["profile_wrapper"]} card mb-3`}>
               <div className={`${style["card_profile"]} card-body`}>
                 <img
-                  src={user.profilePicture ? user.profilePicture : "./upload_photo.png"}
+                  src={
+                    user.profilePicture
+                      ? user.profilePicture
+                      : "./upload_photo.png"
+                  }
                   style={imageSize}
                   alt="profile-img"
                   className="profile-img"
@@ -241,13 +235,18 @@ function DaftarJual() {
                       toggleState === 1 ? "" : "d-none"
                     } col-lg-4 col-6`}
                   >
-                    <Link to="/info-produk">
+                    <Link to="/form-produk">
                       <img src="/img/add-produk.png" />
                     </Link>
                   </div>
                   {/* <div className="col-lg-4 col-6"> */}
-                  {loading ? (<h5> loading </h5>) : (products?.length === 0 ? (
-                    <h5 className="text-center fw-bold mt-5"> Belum ada produk ! </h5>
+                  {loading ? (
+                    <h5> loading </h5>
+                  ) : products?.length === 0 ? (
+                    <h5 className="text-center fw-bold mt-5">
+                      {" "}
+                      Belum ada produk !{" "}
+                    </h5>
                   ) : (
                     products?.map((product, index) => {
                       return (
@@ -259,7 +258,7 @@ function DaftarJual() {
                         </div>
                       );
                     })
-                  ))}
+                  )}
                   {/* </div> */}
                   {/* <div>{toggleState}</div> */}
                 </div>

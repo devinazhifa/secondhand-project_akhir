@@ -13,36 +13,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import requestAPI from "../../requestMethod";
 import "./disable.css";
 
-
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
   const [product, setProduct] = useState(null);
-  const [wished,setWished] = useState(null);
-  const [loading,setLoading]=useState(true)
+  const [wished, setWished] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const wishlistsHandler = async() =>{
+  const wishlistsHandler = async () => {
     if (!user) {
       navigate("/login");
     } else if (!user?.verified) {
       navigate("/info-akun");
     }
 
-    setLoading(true)
-    if (wished === false){
-    await requestAPI().post(`/wishlists/product/${product.id}`)
-    setWished(true)
+    setLoading(true);
+    if (wished === false) {
+      await requestAPI().post(`/wishlists/product/${product.id}`);
+      setWished(true);
+    } else if (wished === true) {
+      await requestAPI().delete(`/wishlists/product/${product.id}`);
+      setWished(false);
     }
-    else if (wished===true){
-    await requestAPI().delete(`/wishlists/product/${product.id}`)
-    setWished(false)
-    }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
   // const user = useSelector((state) => state.user.data);
   const params = useParams();
   const navigate = useNavigate();
-  const user = useSelector( store => store.user.data?.user )
+  const user = useSelector((store) => store.user.data?.user);
 
   // const test = () => {
   //   let button = "";
@@ -65,8 +63,8 @@ const DetailProdukBuyer = () => {
       .then((response) => {
         if (response.data !== null) {
           setProduct({ ...response.data.data });
-          setWished(response.data.data.wished)
-          setLoading(false)
+          setWished(response.data.data.wished);
+          setLoading(false);
           // console.log(test);
 
           // console.log(response.data.data);
@@ -180,58 +178,59 @@ const DetailProdukBuyer = () => {
                     className="kategori text-capitalize mb-1 mb-md-3"
                     style={{ fontSize: "12px" }}
                   >
-                    {product.categories.map((el) => el.value).join(", ")}
+                    {product.categories.map((el) => el).join(", ")}
                   </p>
                   <p className="harga fw-semibold mb-0 mb-md-2">
                     Rp. {(+product.price).toLocaleString("id-ID")}
                   </p>
-                  { user?.verified && product?.seller.id === user?.id ? 
-                  (<>
-                  <Link to={`/form-produk/${params.slug}`}>
-                    <button type="submit" className={`${style["btn_edit"]} mt-1`}>
-                      Edit{" "}
-                    </button>{" "}
-                  </Link>
-                  </>
+                  {user?.verified && product?.seller.id === user?.id ? (
+                    <>
+                      <Link to={`/form-produk/${params.slug}`}>
+                        <button
+                          type="submit"
+                          className={`${style["btn_edit"]} mt-1`}
+                        >
+                          Edit{" "}
+                        </button>{" "}
+                      </Link>
+                    </>
                   ) : (
-                  <>
-                    <button
-                    type="submit"
-                    className={`${
-                      product?.bidded
-                        ? "btn_primary_disabled"
-                        : "btn_primary"
-                    } mb-3`}
-                    data-bs-target="#modalTawar"
-                    data-bs-toggle={user && user?.verified ? "modal" : ""}
-                    onClick={() => {
-                      if (!user) {
-                        navigate("/login");
-                      } else if (!user?.verified) {
-                        navigate("/info-akun");
-                      }
-                    }}
-                    // disabled={product?.bidded ? true : false}
-                  >
-                    {product?.bidded
-                    ? "Menunggu Respon Penjual"
-                    : "Saya Tertarik dan Ingin Nego"
-                    }
-                  </button>
-                  <button type="submit" onClick={wishlistsHandler} 
-                  className={`${
-                    loading
-                      ? "btn_edit_disabled"
-                      : "btn_edit"
-                  } mb-3 mt-3`}>
-                    { wished
-                    ? "Hapus dari Wishlist"
-                    : "Tambahkan ke Wishlist"
-                    }
-                  </button>
-                  </>
-                  )
-                  }
+                    <>
+                      <button
+                        type="submit"
+                        className={`${
+                          product?.bidded
+                            ? "btn_primary_disabled"
+                            : "btn_primary"
+                        }`}
+                        data-bs-target="#modalTawar"
+                        data-bs-toggle={user && user?.verified ? "modal" : ""}
+                        onClick={() => {
+                          if (!user) {
+                            navigate("/login");
+                          } else if (!user?.verified) {
+                            navigate("/info-akun");
+                          }
+                        }}
+                        // disabled={product?.bidded ? true : false}
+                      >
+                        {product?.bidded
+                          ? "Menunggu Respon Penjual"
+                          : "Saya Tertarik dan Ingin Nego"}
+                      </button>
+                      <button
+                        type="submit"
+                        onClick={wishlistsHandler}
+                        className={`${
+                          loading ? "btn_edit_disabled" : "btn_edit"
+                        } mb-3 mt-3`}
+                      >
+                        {wished
+                          ? "Hapus dari Wishlist"
+                          : "Tambahkan ke Wishlist"}
+                      </button>
+                    </>
+                  )}
 
                   <ModalTawar
                     images={product.images}
@@ -267,39 +266,38 @@ const DetailProdukBuyer = () => {
         </div>
       )}
       {user?.verified && product?.seller.id === user?.id ? (
-      <>
-        <Link to="/form-produk">
-          <button type="submit" className={`${style["btn_edit_static"]}`}>
-            Edit{" "}
-          </button>{" "}
-        </Link>
-
-      </>) : 
-      (<>
-        <button
-        type="submit"
-        className={`${
-          product?.bidded
-            ? "btn_primary_static_disabled"
-            : "btn_primary_static"
-        } `}
-        data-bs-toggle={user && user?.verified ? "modal" : ""}
-        data-bs-target="#modalTawar"
-        onClick={() => {
-          if (!user) {
-            navigate("/login");
-          } else if (!user?.verified) {
-            navigate("/info-akun");
-          }
-        }}
-      >
-          {product?.bidded
-           ? "Menunggu Respon Penjual"
-           : "Saya Tertarik dan Ingin Nego"
-          }
-      </button>
-      </>) }
-
+        <>
+          <Link to="/form-produk">
+            <button type="submit" className={`${style["btn_edit_static"]}`}>
+              Edit{" "}
+            </button>{" "}
+          </Link>
+        </>
+      ) : (
+        <>
+          <button
+            type="submit"
+            className={`${
+              product?.bidded
+                ? "btn_primary_static_disabled"
+                : "btn_primary_static"
+            } `}
+            data-bs-toggle={user && user?.verified ? "modal" : ""}
+            data-bs-target="#modalTawar"
+            onClick={() => {
+              if (!user) {
+                navigate("/login");
+              } else if (!user?.verified) {
+                navigate("/info-akun");
+              }
+            }}
+          >
+            {product?.bidded
+              ? "Menunggu Respon Penjual"
+              : "Saya Tertarik dan Ingin Nego"}
+          </button>
+        </>
+      )}
     </div>
   );
 };

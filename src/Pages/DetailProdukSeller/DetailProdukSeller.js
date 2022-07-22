@@ -10,7 +10,7 @@ import ModalTawar from "../../Components/ModalTawar/ModalTawar";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../Responsive";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import requestAPI from "../../requestMethod";
 
 const DetailProdukBuyer = () => {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
@@ -35,10 +35,8 @@ const DetailProdukBuyer = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `https://ancient-everglades-98776.herokuapp.com/api/products/${params.slug}`
-      )
+    requestAPI()
+      .get(`/products/${params.slug}`)
       .then((response) => {
         if (response.data !== null) {
           setProduct({ ...response.data.data });
@@ -104,11 +102,14 @@ const DetailProdukBuyer = () => {
               >
                 <div className="carousel-inner">
                   {product.images?.map((image, index) => (
-                    <div className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                    <div
+                      className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    >
                       <img
                         src={image}
-                        className={` img-fluid w-100 ${isMobile ? "" : "rounded-4"
-                          }`}
+                        className={` img-fluid w-100 ${
+                          isMobile ? "" : "rounded-4"
+                        }`}
                         style={{
                           height: isMobile ? "300px" : "436px",
                           objectFit: "cover",
@@ -148,8 +149,8 @@ const DetailProdukBuyer = () => {
                         data-bs-target="#carouselExampleControls"
                         data-bs-slide-to={idx}
                         class={`${idx === 0 ? "active" : ""}`}
-                      // aria-current={true}
-                      // aria-label="Slide 1"
+                        // aria-current={true}
+                        // aria-label="Slide 1"
                       ></button>
                     ))}
                   </div>
