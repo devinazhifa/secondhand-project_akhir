@@ -1,4 +1,12 @@
-.btn_active {
-    background-color: #7126B5 !important;
-    color: white !important;
+.page-link {
+    color: black;
+}
+
+.active>.page-link,
+.page-link:active {
+    text-decoration: none;
+    box-shadow: white;
+    background-color: #7126B5;
+    color: white;
+    border-color: none;
 }

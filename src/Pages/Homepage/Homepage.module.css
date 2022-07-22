@@ -72,6 +72,15 @@
     background-color: #7126B5 !important;
 }
 
+.page:active,
+.page:focus,
+.page:visited,
+.page:hover {
+    text-decoration: none !important;
+    color: white !important;
+    background-color: #7126B5 !important;
+}
+
 .fa-plus {
     font-size: 12px;
     padding-right: 8px;

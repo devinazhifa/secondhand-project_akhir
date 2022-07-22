@@ -270,7 +270,7 @@ const Homepage = () => {
                   {query &&
                     [...Array(totalPage)].map((x, i) => (
                       <li
-                        className={`page-item`}
+                        className={`${style["number"]} page-item`}
                         onClick={handlePagination}
                         id={i + 1}
                       >
