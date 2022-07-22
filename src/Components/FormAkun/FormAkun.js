@@ -9,12 +9,13 @@ import kotas from "../../data/kota.js";
 import "./disable.css";
 import requestAPI from "../../requestMethod";
 import userSlice from "../../store/user";
+import { toast } from "react-toastify";
 
 const FormAkun = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.data.user);
-  const token = useSelector((state) => state.user.data.token);
+  const [loading, setLoading] = useState(false);
   const name = useRef();
   const city = useRef();
   const address = useRef();
@@ -55,26 +56,54 @@ const FormAkun = () => {
   // ));
 
   const formSubmitHandler = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
+    try {
+      event.preventDefault();
+      setLoading(true);
+      const formData = new FormData();
 
-    // const file = acceptedFiles[0].file;
+      // const file = acceptedFiles[0].file;
 
-    formData.append("name", name.current.value);
-    formData.append("city", city.current.value);
-    formData.append("address", address.current.value.toString());
-    formData.append("phone", phone.current.value);
-    if (file) {
-      formData.append("profilePicture", file.file, file.file.name);
+      formData.append("name", name.current.value);
+      formData.append("city", city.current.value);
+      formData.append("address", address.current.value.toString());
+      formData.append("phone", phone.current.value);
+      if (file) {
+        formData.append("profilePicture", file.file, file.file.name);
+      }
+
+      const res = await requestAPI().put("/users/", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      dispatch(userSlice.actions.updateUser(res.data.data));
+      toast.success("Akun berhasil diperbarui", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        icon: false,
+      });
+      setLoading(false);
+    } catch (error) {
+      toast.error("Akun gagal diperbarui", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        icon: false,
+      });
+      setLoading(false);
     }
-
-    const res = await requestAPI().put("/users/", formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-
-    dispatch(userSlice.actions.updateUser(res.data.data));
   };
   return (
     <div>
@@ -198,8 +227,9 @@ const FormAkun = () => {
 
                   <button
                     type="submit"
-                    className={`${style["btn_primary"]} `}
-                    //  "btn_primary_disabled"
+                    className={`${
+                      style[loading ? "btn_primary_disabled" : "btn_primary"]
+                    }  "`}
                   >
                     Simpan
                   </button>

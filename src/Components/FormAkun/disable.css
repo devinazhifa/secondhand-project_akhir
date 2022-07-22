@@ -3,7 +3,7 @@
     background-color: #7126B5;
     border: none;
     border-radius: 14px;
-    color: white;
+    color: white !important;
     font-size: 14px;
     height: 48px;
     margin-top: 25px;

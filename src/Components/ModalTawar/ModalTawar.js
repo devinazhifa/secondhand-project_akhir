@@ -126,11 +126,13 @@ const ModalTawar = (props) => {
                 </div>
                 <p className="t-3">Harga Tawar</p>
                 <input
-                  type="text"
+                  type="number"
                   id="bid"
                   name="bidPrice"
                   ref={bidPrice}
                   placeholder="20000"
+                  max={+props.price}
+                  min={1}
                   className={`${style["field_produk"]} form-control`}
                   autoComplete="true"
                   data-testid="input-harga_tawar"

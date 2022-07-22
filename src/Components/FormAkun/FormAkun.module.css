@@ -8,12 +8,18 @@
     text-decoration: none;
 }
 
+.btn_primary:focus{
+    color: white !important;
+    background-color: #7126B5;
+
+}
+
 .btn_primary {
     width: 100%;
     background-color: #7126B5;
     border: none;
     border-radius: 14px;
-    color: white;
+    color: white !important;
     font-size: 14px;
     height: 48px;
     margin-top: 25px;
