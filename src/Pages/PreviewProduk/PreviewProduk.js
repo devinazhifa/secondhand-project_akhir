@@ -169,7 +169,7 @@ function PreviewProduk() {
                   className="kategori text-capitalize mb-1 mb-md-3"
                   style={{ fontSize: "12px" }}
                 >
-                  {product.categories.map((el) => el.value).join(", ")}
+                  {product.categories.map((el) => el.value).join(",")}
                 </p>
                 <p className="harga fw-semibold mb-0 mb-md-4">
                   Rp. {(+product.price).toLocaleString("id-ID")}
@@ -181,7 +181,11 @@ function PreviewProduk() {
                 >
                   Terbitkan
                 </button>
-                <Link to={`/form-produk/${product.slug ? product.slug : ""}`}>
+                {/*  */}
+                <Link
+                  to={`/form-produk/${product.slug ? product.slug : ""}`}
+                  state="editing-product"
+                >
                   <button type="submit" className={`${style["btn_edit"]}`}>
                     Edit{" "}
                   </button>{" "}

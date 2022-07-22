@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import style from "./FormProduk.module.css";
 import Select from "react-select";
@@ -10,11 +10,12 @@ import productSlice from "../../store/product";
 import { useEffect } from "react";
 import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import plus from "../../upload_photo.png";
 const InfoProduk = (props) => {
   const [categories, setCategories] = useState([]);
   const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const [product, setProduct] = useState(
     useSelector((state) => state.product.data)
@@ -37,8 +38,12 @@ const InfoProduk = (props) => {
   };
 
   useEffect(() => {
-    if (product && params.slug && params.slug !== product.slug) {
-      console.log("need hapus");
+    console.log(location);
+    if (
+      (product && params.slug && params.slug !== product.slug) ||
+      (!product && location.state != "editing-product")
+    ) {
+      // console.log("need hapus");
       setProduct(null);
       dispatch(productSlice.actions.removeProduct(product));
     }
@@ -197,6 +202,7 @@ const InfoProduk = (props) => {
             },
           })
           .then((response) => {
+            dispatch(productSlice.actions.addProduct(response.data.data));
             toast.success("Produk berhasil diperbarui!", {
               position: "top-center",
               autoClose: 2000,
@@ -210,9 +216,9 @@ const InfoProduk = (props) => {
             });
           });
 
-        dispatch(productSlice.actions.addProduct(res.data.data));
         navigate("/daftar-jual");
       } catch (error) {
+        console.log(error);
         toast.error("Produk gagal diperbarui!", {
           position: "top-center",
           autoClose: 2000,
@@ -351,7 +357,7 @@ const InfoProduk = (props) => {
                         <div className="col-4 mt-2 col-md-2 position-relative">
                           <img
                             {...getRootProps({ className: "dropzone" })}
-                            src="./img/upload_photo.png"
+                            src={plus}
                             alt=""
                             className=""
                             style={{
