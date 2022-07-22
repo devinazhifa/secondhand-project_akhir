@@ -75,7 +75,7 @@ const DetailProdukBuyer = () => {
       .catch((error) => {
         setProduct({ ...error });
       });
-  }, []);
+  }, [params.slug]);
 
   // console.log(test());
 
