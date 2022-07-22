@@ -13,6 +13,7 @@ import NotifPenawaranSuccess from "../Notifikasi/NotifPenawaranSuccess";
 import { io } from "socket.io-client";
 import axios from "axios";
 import requestAPI from "../../requestMethod";
+import notificationSlice from "../../store/notification";
 
 fontawesome.library.add(faSignOutAlt);
 
@@ -23,8 +24,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchRef = useRef();
-  const socket = io("https://ancient-everglades-98776.herokuapp.com");
-  const [notifs, setNotifs] = useState(null);
+  const socket = io("https://ancient-everglades-98776.herokuapp.com", {
+    forceNew: false,
+    secure: true,
+    transports: ["websocket"],
+  });
+  const [notifs, setNotifs] = useState(
+    useSelector((state) => state.notification.data)
+  );
 
   socket.on("reconnect", function () {
     console.log("Reconnected to the server");
@@ -32,30 +39,25 @@ const Navbar = () => {
   });
 
   const getNotif = async () => {
-    const res = await axios.get(
-      "https://ancient-everglades-98776.herokuapp.com/api/notifications",
-      {
-        headers: {
-          Authorization: user.token,
-        },
-      }
-    );
+    const res = await requestAPI().get("/notifications");
     // console.log(res.data.data.map((a) => a.id));
     setNotifs(res.data.data);
+    dispatch(notificationSlice.actions.updateNotification(res.data.data));
   };
 
   const updateNotif = async (id) => {
     await requestAPI().put("/notifications", { id: [id] });
   };
 
+  socket.on("notif", (data) => {
+    getNotif();
+  });
+
   useEffect(() => {
-    if (user) {
+    if (user && !notifs) {
+      console.log("akjskasjaksjak");
       getNotif();
       socket.emit("setUser", user.user.id);
-
-      socket.on("notif", (data) => {
-        getNotif();
-      });
     }
   }, []);
 

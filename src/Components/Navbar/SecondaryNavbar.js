@@ -12,13 +12,21 @@ import { useDispatch, useSelector } from "react-redux";
 import NotifPenawaranSuccess from "../Notifikasi/NotifPenawaranSuccess";
 import requestAPI from "../../requestMethod";
 import searchSlice from "../../store/search";
+import notificationSlice from "../../store/notification";
 
 fontawesome.library.add(faSignOutAlt);
 
 const SecondaryNavbar = (props) => {
-  const [notifs, setNotifs] = useState(null);
+  const [notifs, setNotifs] = useState(
+    useSelector((state) => state.notification.data)
+  );
+  // const notifs = useSelector((state) => state.notification.data);
   const user = useSelector((state) => state.user.data);
-  const socket = io("https://ancient-everglades-98776.herokuapp.com");
+  const socket = io("https://ancient-everglades-98776.herokuapp.com", {
+    forceNew: false,
+    secure: true,
+    transports: ["websocket"],
+  });
   const search = useRef();
   const searchMobile = useRef();
   const dispatch = useDispatch();
@@ -30,30 +38,26 @@ const SecondaryNavbar = (props) => {
   });
 
   const getNotif = async () => {
-    const res = await axios.get(
-      "https://ancient-everglades-98776.herokuapp.com/api/notifications",
-      {
-        headers: {
-          Authorization: user.token,
-        },
-      }
-    );
+    // console.log("ok");
+    const res = await requestAPI().get("/notifications");
     // console.log(res.data.data.map((a) => a.id));
     setNotifs(res.data.data);
+    dispatch(notificationSlice.actions.updateNotification(res.data.data));
   };
 
   const updateNotif = async (id) => {
     await requestAPI().put("/notifications", { id: [id] });
   };
 
+  socket.on("notif", (data) => {
+    getNotif();
+  });
+
   useEffect(() => {
-    if (user) {
+    if (user && !notifs) {
+      console.log("akjskasjaksjak");
       getNotif();
       socket.emit("setUser", user.user.id);
-
-      socket.on("notif", (data) => {
-        getNotif();
-      });
     }
   }, []);
 
