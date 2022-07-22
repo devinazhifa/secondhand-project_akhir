@@ -2,6 +2,12 @@
     color: black;
 }
 
+.btn_active {
+    background-color: #7126B5 !important;
+    color: white !important;
+}
+
+
 .active>.page-link,
 .page-link:active {
     text-decoration: none;

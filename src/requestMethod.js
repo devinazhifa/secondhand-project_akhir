@@ -1,7 +1,14 @@
 import axios from "axios";
 import { store } from "./store/store";
 
-let BASE_URL = "https://ancient-everglades-98776.herokuapp.com/api";
+let BASE_URL = "";
+
+console.log(process.env.REACT_APP_NODE_ENV);
+if (process.env.REACT_APP_NODE_ENV === "release") {
+  BASE_URL = "https://backend-secondhand-3.herokuapp.com/api";
+} else {
+  BASE_URL = "https://ancient-everglades-98776.herokuapp.com/api";
+}
 
 export { BASE_URL };
 
