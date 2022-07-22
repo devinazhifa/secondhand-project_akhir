@@ -31,8 +31,16 @@ function PreviewProduk() {
     }
 
     // set image
+    // product.images.forEach((file) => {
+    //   formData.append("images", file, file.name);
+    // });
+
     product.images.forEach((file) => {
-      formData.append("images", file, file.name);
+      if (file.type === "imageNew") {
+        formData.append("images", file.file, file.file.name);
+      } else {
+        formData.append("imagesBefore[]", file.url);
+      }
     });
 
     // set categories
@@ -41,11 +49,19 @@ function PreviewProduk() {
     });
 
     try {
-      await requestAPI().post("/products/", formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      });
+      if (product.id) {
+        await requestAPI().put(`/products/${product.id}`, formData, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        });
+      } else {
+        await requestAPI().post("/products/", formData, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        });
+      }
       navigate("/daftar-jual");
     } catch (error) {
       console.log(error.response.data.message);
@@ -92,7 +108,7 @@ function PreviewProduk() {
                 {product.images.map((img, idx) => (
                   <div className={`carousel-item ${idx === 0 ? "active" : ""}`}>
                     <img
-                      src={window.URL.createObjectURL(img)}
+                      src={img.url}
                       className={` img-fluid w-100 ${
                         isMobile ? "" : "rounded-4"
                       }`}
@@ -165,7 +181,7 @@ function PreviewProduk() {
                 >
                   Terbitkan
                 </button>
-                <Link to="/form-produk">
+                <Link to={`/form-produk/${product.slug ? product.slug : ""}`}>
                   <button type="submit" className={`${style["btn_edit"]}`}>
                     Edit{" "}
                   </button>{" "}

@@ -54,6 +54,7 @@ const App = () => {
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="/" element={<VerifiedRoute />}>
               <Route path="form-produk" element={<FormProduk />} />
+              <Route path="form-produk/:slug" element={<FormProduk />} />
               <Route path="daftar-jual" element={<DaftarJual />} />
               <Route
                 path="preview-produk"

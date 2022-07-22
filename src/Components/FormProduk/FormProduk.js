@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import style from "./FormProduk.module.css";
 import Select from "react-select";
@@ -16,29 +16,68 @@ const InfoProduk = (props) => {
   const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const product = useSelector((state) => state.product.data);
+  const [product, setProduct] = useState(
+    useSelector((state) => state.product.data)
+  );
   const token = useSelector((state) => state.user.data.token);
+  const params = useParams();
 
-  console.log(product);
+  const getProduct = async () => {
+    const res = await requestAPI().get(`/products/${params.slug}`);
+
+    res.data.data.categories = res.data.data.categories.map((item) => {
+      return {
+        value: item,
+        label: item,
+      };
+    });
+
+    // dispatch(productSlice.actions.addProduct(res.data.data));
+    setProduct(res.data.data);
+  };
 
   useEffect(() => {
+    if (product && params.slug && params.slug !== product.slug) {
+      console.log("need hapus");
+      setProduct(null);
+      dispatch(productSlice.actions.removeProduct(product));
+    }
+
+    if (!product && params.slug) {
+      getProduct();
+    }
+
+    console.log(product?.images);
+
     if (product) {
       inputName.current.value = product.name;
       inputPrice.current.value = product.price;
       inputDescription.current.value = product.description;
       setCategories(product.categories);
-      setFiles(() =>
-        product.images.map((img) => {
-          return {
-            file: img,
-            url: window.URL.createObjectURL(img),
-          };
-        })
-      );
+      if (product.images[0].type) {
+        setFiles(product.images);
+      } else {
+        setFiles(() =>
+          product.images.map((img) => {
+            return {
+              type: "imageOld",
+              // file: img,
+              url: img,
+            };
+          })
+        );
+      }
     }
-  }, []);
 
-  console.log(categories);
+    if (!product) {
+      inputName.current.value = null;
+      inputPrice.current.value = null;
+      inputDescription.current.value = null;
+      setCategories([]);
+      setFiles([]);
+    }
+  }, [product]);
+
   const successToast = () => {
     toast.success("Produk berhasil di terbitkan!", {
       position: "top-center",
@@ -58,7 +97,7 @@ const InfoProduk = (props) => {
     { value: "Kendaraan", label: "Kendaraan" },
     { value: "Baju", label: "Baju" },
     { value: "Elektronik", label: "Elektronik" },
-    { value: "Kesehaan", label: "Kesehaan" },
+    { value: "Kesehatan", label: "Kesehatan" },
   ];
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -70,6 +109,7 @@ const InfoProduk = (props) => {
       setFiles([
         ...files,
         {
+          type: "imageNew",
           file: acceptedFiles[0],
           url: window.URL.createObjectURL(acceptedFiles[0]),
         },
@@ -101,7 +141,11 @@ const InfoProduk = (props) => {
 
     // set image
     files.forEach((file) => {
-      formData.append("images", file.file, file.file.name);
+      if (file.type === "imageNew") {
+        formData.append("images", file.file, file.file.name);
+      } else {
+        formData.append("imagesBefore[]", file.url);
+      }
     });
 
     // set categories
@@ -129,12 +173,47 @@ const InfoProduk = (props) => {
               theme: "colored",
               icon: false,
             });
-
-            console.log(response.data.message);
           });
         navigate("/daftar-jual");
       } catch (error) {
         toast.error("Produk gagal diterbitkan!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          icon: false,
+        });
+      }
+    } else if (action === "update") {
+      try {
+        const res = await requestAPI()
+          .put(`/products/${product.id}`, formData, {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            toast.success("Produk berhasil diperbarui!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              icon: false,
+            });
+          });
+
+        dispatch(productSlice.actions.addProduct(res.data.data));
+        navigate("/daftar-jual");
+      } catch (error) {
+        toast.error("Produk gagal diperbarui!", {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -152,7 +231,9 @@ const InfoProduk = (props) => {
         price: formData.get("price"),
         description: formData.get("description"),
         categories: categories,
-        images: formData.getAll("images"),
+        images: files,
+        slug: params.slug ? params.slug : null,
+        id: params.slug ? product.id : null,
       };
 
       dispatch(productSlice.actions.addProduct(data));
@@ -166,11 +247,14 @@ const InfoProduk = (props) => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="row justify-content-center">
-              <div className={`${style["back-button"]} col-lg-1`} onClick={() => navigate(-1)}>
-                  <FontAwesomeIcon
-                    icon="fa-arrow-left"
-                    className={`${style["fa-arrow-left"]}`}
-                  />
+              <div
+                className={`${style["back-button"]} col-lg-1`}
+                onClick={() => navigate(-1)}
+              >
+                <FontAwesomeIcon
+                  icon="fa-arrow-left"
+                  className={`${style["fa-arrow-left"]}`}
+                />
               </div>
               <div className="col-lg-9">
                 <form
@@ -216,10 +300,10 @@ const InfoProduk = (props) => {
                           marginBottom: "12px",
                         }),
                       }}
-                      defaultValue={
-                        product
+                      value={
+                        categories
                           ? options.filter((option) => {
-                              return product.categories
+                              return categories
                                 .map((el) => el.value)
                                 .includes(option.value);
                             })
@@ -240,7 +324,7 @@ const InfoProduk = (props) => {
                       style={{ opacity: 0, height: "2px" }}
                       name=""
                       required
-                      defaultValue={categories}
+                      value={categories}
                     />
                   </div>
 
@@ -332,13 +416,23 @@ const InfoProduk = (props) => {
                     >
                       Preview
                     </button>
-                    <input
-                      type="submit"
-                      className={`${style["btn_terbitkan"]}`}
-                      formAction={"publish"}
-                      name="publish"
-                      value="Terbitkan"
-                    />
+                    {!params.slug ? (
+                      <input
+                        type="submit"
+                        className={`${style["btn_terbitkan"]}`}
+                        formAction={"publish"}
+                        name="publish"
+                        value="Terbitkan"
+                      />
+                    ) : (
+                      <input
+                        type="submit"
+                        className={`${style["btn_terbitkan"]}`}
+                        formAction={"update"}
+                        name="update"
+                        value="Update"
+                      />
+                    )}
 
                     {/* <Link to='/detail-produk'><button type='submit' className={`${style['btn_preview']}`}>Preview</button></Link>
                     <button type='submit' onClick={successToast} className={`${style['btn_terbitkan']}`}>Terbitkan</button> */}

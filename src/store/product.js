@@ -10,6 +10,9 @@ const productSlice = createSlice({
       // action.payload: userData
       state.data = { ...action.payload };
     },
+    removeProduct: (state, action) => {
+      state.data = null;
+    },
   },
 });
 

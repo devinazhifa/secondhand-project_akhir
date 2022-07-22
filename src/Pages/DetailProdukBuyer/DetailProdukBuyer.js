@@ -187,7 +187,7 @@ const DetailProdukBuyer = () => {
                   </p>
                   { user?.verified && product?.seller.id === user?.id ? 
                   (<>
-                  <Link to="/form-produk">
+                  <Link to={`/form-produk/${params.slug}`}>
                     <button type="submit" className={`${style["btn_edit"]} mt-1`}>
                       Edit{" "}
                     </button>{" "}
