@@ -9,6 +9,7 @@ import fontawesome from "@fortawesome/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
 import style from "./Login.module.css";
+import notificationSlice from "../../store/notification";
 
 fontawesome.library.add(faArrowLeft);
 
@@ -29,17 +30,15 @@ const Login = () => {
       password: data.user_password,
     };
     requestAPI()
-      .post(
-       ("/auth/login"),
-        postData
-      )
+      .post("/auth/login", postData)
       .then((res) => {
         if (typeof res.data.data.token !== "undefined") {
           // menyimpan token di local storage
           // localStorage.setItem('secondHandToken', res.data.data.token);
           // console.log(res);
           dispatch(userSlice.actions.addUser(res.data.data));
-          navigate('/')
+          dispatch(notificationSlice.actions.removeNotification(res.data.data));
+          navigate("/");
         }
       })
       .catch((err) => {

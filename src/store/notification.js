@@ -9,6 +9,9 @@ const notificationSlice = createSlice({
     updateNotification: (state, action) => {
       state.data = action.payload;
     },
+    removeNotification: (state) => {
+      state.data = null;
+    },
   },
 });
 

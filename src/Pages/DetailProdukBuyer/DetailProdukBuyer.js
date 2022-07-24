@@ -265,38 +265,43 @@ const DetailProdukBuyer = () => {
           )}
         </div>
       )}
-      {user?.verified && product?.seller.id === user?.id ? (
-        <>
-          <Link to="/form-produk">
-            <button type="submit" className={`${style["btn_edit_static"]}`}>
-              Edit{" "}
-            </button>{" "}
-          </Link>
-        </>
+
+      {isMobile ? (
+        user?.verified && product?.seller.id === user?.id ? (
+          <>
+            <Link to={`/form-produk/${params.slug}`}>
+              <button type="submit" className={`${style["btn_edit_static"]}`}>
+                Edit{" "}
+              </button>{" "}
+            </Link>
+          </>
+        ) : (
+          <>
+            <button
+              type="submit"
+              className={`${
+                product?.bidded
+                  ? "btn_primary_static_disabled"
+                  : "btn_primary_static"
+              } `}
+              data-bs-toggle={user && user?.verified ? "modal" : ""}
+              data-bs-target="#modalTawar"
+              onClick={() => {
+                if (!user) {
+                  navigate("/login");
+                } else if (!user?.verified) {
+                  navigate("/info-akun");
+                }
+              }}
+            >
+              {product?.bidded
+                ? "Menunggu Respon Penjual"
+                : "Saya Tertarik dan Ingin Nego"}
+            </button>
+          </>
+        )
       ) : (
-        <>
-          <button
-            type="submit"
-            className={`${
-              product?.bidded
-                ? "btn_primary_static_disabled"
-                : "btn_primary_static"
-            } `}
-            data-bs-toggle={user && user?.verified ? "modal" : ""}
-            data-bs-target="#modalTawar"
-            onClick={() => {
-              if (!user) {
-                navigate("/login");
-              } else if (!user?.verified) {
-                navigate("/info-akun");
-              }
-            }}
-          >
-            {product?.bidded
-              ? "Menunggu Respon Penjual"
-              : "Saya Tertarik dan Ingin Nego"}
-          </button>
-        </>
+        ""
       )}
     </div>
   );
