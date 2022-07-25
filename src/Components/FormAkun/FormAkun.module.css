@@ -2,10 +2,6 @@
     font-family: 'Poppins';
 }
 
-.title{
-    text-align: center;
-    font-size: 16px;
-}
 .fa-arrow-left {
     font-size: 16px;
     color: black;
@@ -21,6 +17,18 @@
     font-size: 14px;
     height: 48px;
     margin-top: 25px;
+}
+.btn_primary_disabled{
+    width: 100%;
+    background-color: #c184f9;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    margin-top: 25px;
+    cursor: not-allowed !important;
+    pointer-events: none;
 }
 
 .form_akun {
@@ -47,3 +55,15 @@ option[value=""][disabled] {
     font-size: 14px;
     margin-bottom: 12px;
 }
+
+@media (max-width: 575.98px) { 
+    .back-button {
+        display: none;
+    }
+ }
+
+ @media (max-width: 991.98px) { 
+    .back-button {
+        display: none;
+    }
+ }

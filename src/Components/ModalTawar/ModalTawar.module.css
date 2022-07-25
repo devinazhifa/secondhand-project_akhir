@@ -1,22 +1,35 @@
-.text_modal {
-    font-size: 14px;
-}
-
-.card_tawar{
+.card_profile {
     display: grid;
     grid-template-columns: min-content 1fr;
-    background: #EEEEEE;
-    border-radius: 16px;
-    font-size: 12px;
-    line-height: 10px;
-    border: #EEEEEE;
+}
+.title{
+    text-align: center;
+    font-size: 16px;
 }
 
-.btn_kirim {
+.description {
+    font-size: 11px;
+    color: #8A8A8A;
+}
+
+.btn_kontak {
     background-color: #7126B5;
     border: none;
     border-radius: 14px;
     color: white;
     font-size: 14px;
     height: 48px;
+    transition-duration: .25s;
+
 }
+
+/* .btn_kontak:hover {
+    color: white;
+    opacity: 0.5;
+    background-color:#7126B5;
+} */
+
+.btn_kontak:focus {
+    color: white !important;
+}
+
