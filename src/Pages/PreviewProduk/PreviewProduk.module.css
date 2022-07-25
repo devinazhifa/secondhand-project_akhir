@@ -1,3 +1,36 @@
+@media (max-width: 576px) {
+    .navbar-prev {
+        visibility: hidden;
+        display: none;
+    }
+
+    .product-info {
+        position: relative;
+        top: -100px;
+    }
+}
+
+
+@media (min-width: 576px) { 
+    .detail-produk {
+        margin-top: 40px;
+    }
+
+
+}
+
+@media (min-width: 1024px) { 
+    .detail-produk {
+        margin-top: 90px;
+    }
+
+}
+
+.image-swiper {
+    object-fit:cover;
+    height: 436px;
+}
+
 .text_detail {
     font-size: 14px;
     color: #8A8A8A;

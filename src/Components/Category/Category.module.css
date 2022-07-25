@@ -1,5 +1,5 @@
 .btn_categories {
-    width: 148px;
+    width: auto;
     height: 48px;
     padding: 14px 24px;
     background-color: #E2D4F0;
@@ -12,10 +12,35 @@
 
 .btn_categories:hover, .btn_categories:focus{
     background-color: #7126B5;
-    color: white;
+    color: white !important;
 }
 
 .fa-search {
     font-size: 16px;
     padding-right: 2px;
 }
+
+@media (min-width: 320px) { 
+    .btn_categories {
+        width: auto;
+        height: 40px;
+        font-size: 12px;
+        margin-right: 8px;
+        padding: 8px 18px;
+    }
+}
+
+@media (min-width: 768px) { 
+    .btn_categories {
+        width: auto;
+        height: 48px;
+        padding: 8px 20px;
+        background-color: #E2D4F0;
+        border: none;
+        border-radius: 14px;
+        color: black;
+        font-size: 14px;
+        margin-right: 12px;
+    }
+}
+

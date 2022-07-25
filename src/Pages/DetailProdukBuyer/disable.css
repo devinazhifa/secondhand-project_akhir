@@ -1,0 +1,142 @@
+.btn_primary {
+    width: 100%;
+    background-color: #7126B5;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    margin-top: 25px;
+    transition: 0.5ms;
+}
+
+.btn_primary:focus {
+    background-color: #7126B5;
+    color: white !important;
+}
+
+.btn_primary_disabled{
+    width: 100%;
+    background-color: #E2D4F0;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    margin-top: 25px;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+.btn_primary_static {
+    width: 100%;
+    background-color: #7126B5;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    position: sticky;
+    z-index: 300;
+    bottom: 0px !important;
+    display: none;
+}
+.btn_edit {
+    width: 100%;
+    border: 1px solid #7126B5;
+    border-radius: 14px;
+    font-size: 14px;
+    height: 48px;
+    margin-right: 20px;
+}
+
+.btn_primary_static:focus {
+    background-color: #7126B5;
+    color: white !important;
+}
+
+.btn_primary_static_disabled {
+    width: 100%;
+    background-color: #E2D4F0;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    position: sticky;
+    z-index: 300;
+    bottom: 0px !important;
+    display: none;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+.btn_edit_disabled {
+    width: 100%;
+    background-color: #E2D4F0;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    height: 48px;
+    position: sticky;
+    z-index: 300;
+    bottom: 0px !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+@media only screen and (max-width: 990px){
+    .btn_primary_static {
+        width: 90vw;
+        background-color: #7126B5;
+        border: none;
+        border-radius: 14px;
+        color: white;
+        font-size: 14px;
+        height: 48px;
+        position: sticky;
+        z-index: 300;
+        bottom: 0px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        top: 90vh !important;
+    }
+    .btn_edit_static {
+        width: 72vw;
+        border: 1px solid #7126B5;
+        border-radius: 14px;
+        font-size: 14px;
+        height: 48px;
+        position: sticky;
+        z-index: 300;
+        bottom: 0px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        top: 90vh !important;
+    }
+
+    .btn_primary_static_disabled {
+        width: 90vw;
+        background-color: #E2D4F0;
+        border: none;
+        border-radius: 14px;
+        color: white;
+        font-size: 14px;
+        height: 48px;
+        position: sticky;
+        z-index: 300;
+        bottom: 0px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        top: 90vh !important;
+        cursor: not-allowed !important;
+        pointer-events: none;
+    }
+
+    .btn_primary, .btn_primary_disabled{
+        display: none;
+    }
+}

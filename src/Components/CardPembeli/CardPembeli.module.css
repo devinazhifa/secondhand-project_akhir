@@ -1,0 +1,4 @@
+.card_profile {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+}

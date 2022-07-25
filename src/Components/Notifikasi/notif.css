@@ -1,0 +1,37 @@
+.card_profile {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    width: 376px;
+    height: 229px;
+}
+.notif-badge{
+    padding: 3px;
+    margin-top: 7px;
+}
+
+.header {
+    min-width:200px;
+}
+
+.img-notif{
+    border-radius: 10px;
+    align-items: center;
+    width: 50px;
+    height: 50px !important;
+    object-fit: cover;
+}
+.notif-card-desc{
+    padding-left: 10px;
+    word-wrap: break-word !important;
+}
+.text-muted {
+    font-size: 10px !important;
+    /* mrgin-botton: 5px; */
+}
+
+.desc-notifdrop{
+    max-width: 300px;
+    font-size: 12px !important;
+    /* font-weight: bold; */
+}
+/* .text-muted small-notifdrop */
